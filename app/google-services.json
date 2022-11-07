@@ -1,0 +1,39 @@
+{
+  "project_info": {
+    "project_number": "70778311177",
+    "project_id": "skymeet-65edd",
+    "storage_bucket": "skymeet-65edd.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:70778311177:android:0e2de9ed1c55733738ded8",
+        "android_client_info": {
+          "package_name": "com.skymeet.videoConference"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "70778311177-rs4qco3elu8tc84sv0kq2vsi38a0f8b7.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyBr59F0WElLdOCltwyStIwsWW6lxmFq3vI"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "70778311177-rs4qco3elu8tc84sv0kq2vsi38a0f8b7.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
