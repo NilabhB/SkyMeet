@@ -6,6 +6,7 @@ import android.app.ProgressDialog;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
+import android.text.TextUtils;
 import android.view.View;
 import android.view.animation.AlphaAnimation;
 import android.widget.Button;
@@ -21,12 +22,13 @@ import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.AuthResult;
 import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.auth.FirebaseUser;
 
 import java.util.Objects;
 
 public class SignInActivity extends AppCompatActivity {
     EditText emailBox, passwordBox;
-    Button signInBtn, buttonCheck;
+    Button signInBtn;
     TextView createAcTextView;
     FirebaseAuth auth;
     ProgressDialog dialog;
@@ -61,28 +63,55 @@ public class SignInActivity extends AppCompatActivity {
         signInBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                dialog.show();
                 view.startAnimation(buttonClick);
                 String email, password;
                 email = emailBox.getText().toString();
                 password = passwordBox.getText().toString();
-                auth.signInWithEmailAndPassword(email, password).addOnCompleteListener(new OnCompleteListener<AuthResult>() {
-                    @Override
-                    public void onComplete(@NonNull Task<AuthResult> task) {
-                        dialog.dismiss();
-                        if(task.isSuccessful()) {
-                            startActivity(new Intent(SignInActivity.this, MainActivity.class));
-                            Toast.makeText(SignInActivity.this, "logged in!", Toast.LENGTH_SHORT).show();
-                        } else {
-                            Toast.makeText(SignInActivity.this, Objects.requireNonNull(task.getException()).getLocalizedMessage(), Toast.LENGTH_SHORT).show();
+                if (TextUtils.isEmpty(email)) {
+                    emailBox.setError("Email cannot be empty");
+                    emailBox.requestFocus();
+                } else if (TextUtils.isEmpty(password)) {
+                    passwordBox.setError("Password cannot be empty");
+                    passwordBox.requestFocus();
+                } else {
+                    dialog.show();
+                    auth.signInWithEmailAndPassword(email, password).addOnCompleteListener(new OnCompleteListener<AuthResult>() {
+                        @Override
+                        public void onComplete(@NonNull Task<AuthResult> task) {
+                            dialog.dismiss();
+                            if(task.isSuccessful()) {
+                                // Log.d(TAG, "signInWithEmail:success");
+                                // FirebaseUser user = auth.getCurrentUser();
+                                // updateUI(user);
+                                startActivity(new Intent(SignInActivity.this, MainActivity.class));
+                                Toast.makeText(SignInActivity.this, "logged in!", Toast.LENGTH_SHORT).show();
+                            } else {
+                                Toast.makeText(SignInActivity.this, Objects.requireNonNull(task.getException()).getLocalizedMessage(), Toast.LENGTH_SHORT).show();
+                            }
                         }
-                    }
-                });
+                    });
+                }
+
             }
         });
 
     }
-    private AlphaAnimation buttonClick = new AlphaAnimation(1F, 0.5F);
+    @Override
+    public void onStart() {
+        super.onStart();
+        // Check if user is signed in (non-null) and update UI accordingly.
+        FirebaseUser currentUser = auth.getCurrentUser();
+        if (currentUser != null) {
+            reload();
+        }
+    }
+    private void reload() {
+        startActivity(new Intent(SignInActivity.this, MainActivity.class));
+    }
+
+
+
+    private final AlphaAnimation buttonClick = new AlphaAnimation(1F, 0.5F);
 
     @Override
     public void onBackPressed() {

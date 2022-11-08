@@ -5,6 +5,7 @@ import static android.content.pm.ActivityInfo.SCREEN_ORIENTATION_PORTRAIT;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
+import android.text.TextUtils;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
@@ -59,11 +60,19 @@ public class GuestActivity extends AppCompatActivity {
             @Override
             public void onClick(View v) {
 
-                JitsiMeetConferenceOptions options
-                        = new JitsiMeetConferenceOptions.Builder()
-                        .setRoom(codeBox.getText().toString()).setFeatureFlag("welcomepage.enabled", false)
-                        .build();
-                JitsiMeetActivity.launch(GuestActivity.this, options);
+                if (TextUtils.isEmpty(codeBox.getText().toString())) {
+                    codeBox.setError("Meeting Code cannot be empty");
+                    codeBox.requestFocus();
+                } else {
+                    JitsiMeetConferenceOptions options
+                            = new JitsiMeetConferenceOptions.Builder()
+                            .setRoom(codeBox.getText().toString())
+                            .setFeatureFlag("welcomepage.enabled", false)
+                            .setFeatureFlag("invite.enabled",false)
+                            .setFeatureFlag("fullscreen.enabled", true)
+                            .build();
+                    JitsiMeetActivity.launch(GuestActivity.this, options);
+                }
             }
         });
 
@@ -93,4 +102,5 @@ public class GuestActivity extends AppCompatActivity {
                 }).show();
 
     }
+
 }

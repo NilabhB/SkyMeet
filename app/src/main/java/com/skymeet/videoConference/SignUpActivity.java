@@ -6,6 +6,7 @@ import android.app.ProgressDialog;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
+import android.text.TextUtils;
 import android.view.View;
 import android.view.animation.AlphaAnimation;
 import android.widget.Button;
@@ -65,7 +66,6 @@ public class SignUpActivity extends AppCompatActivity {
         signUpBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                dialog.show();
                 view.startAnimation(buttonClick);
                 String email, password, name;
                 email = emailBox.getText().toString();
@@ -77,23 +77,39 @@ public class SignUpActivity extends AppCompatActivity {
                 user.setPassword(password);
                 user.setName(name);
 
-                auth.createUserWithEmailAndPassword(email, password).addOnCompleteListener(new OnCompleteListener<AuthResult>() {
-                    @Override
-                    public void onComplete(@NonNull Task<AuthResult> task) {
-                        dialog.dismiss();
-                        if(task.isSuccessful()) {
-                            database.collection("Users").document().set(user).addOnSuccessListener(new OnSuccessListener<Void>() {
-                                @Override
-                                public void onSuccess(Void unused) {
-                                    startActivity(new Intent(SignUpActivity.this, SignInActivity.class));
-                                }
-                            });
-                            Toast.makeText(SignUpActivity.this, "Congratulations! Account is created.", Toast.LENGTH_SHORT).show();
-                        } else {
-                            Toast.makeText(SignUpActivity.this, Objects.requireNonNull(task.getException()).getLocalizedMessage(), Toast.LENGTH_SHORT).show();
+
+                if (TextUtils.isEmpty(name)) {
+                    userName.setError("Please enter your name");
+                    userName.requestFocus();
+                } else if (TextUtils.isEmpty(email)) {
+                    emailBox.setError("Email cannot be empty");
+                    emailBox.requestFocus();
+                } else if (TextUtils.isEmpty(password)) {
+                    passwordBox.setError("Password cannot be empty");
+                    passwordBox.requestFocus();
+                } else {
+                    dialog.show();
+                    auth.createUserWithEmailAndPassword(email, password).addOnCompleteListener(new OnCompleteListener<AuthResult>() {
+                        @Override
+                        public void onComplete(@NonNull Task<AuthResult> task) {
+                            dialog.dismiss();
+                            if(task.isSuccessful()) {
+                                database.collection("Users").document().set(user).addOnSuccessListener(new OnSuccessListener<Void>() {
+                                    @Override
+                                    public void onSuccess(Void unused) {
+                                        FirebaseAuth.getInstance().signOut();
+                                        startActivity(new Intent(SignUpActivity.this, SignInActivity.class));
+                                    }
+                                });
+                                Toast.makeText(SignUpActivity.this, "Congratulations! Account is created.", Toast.LENGTH_SHORT).show();
+                            } else {
+                                Toast.makeText(SignUpActivity.this, Objects.requireNonNull(task.getException()).getLocalizedMessage(), Toast.LENGTH_SHORT).show();
+                            }
                         }
-                    }
-                });
+                    });
+                }
+
+
             }
         });
 

@@ -5,6 +5,7 @@ import static android.content.pm.ActivityInfo.SCREEN_ORIENTATION_PORTRAIT;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
+import android.text.TextUtils;
 import android.view.Menu;
 import android.view.View;
 import android.widget.Button;
@@ -67,11 +68,18 @@ public class MainActivity extends AppCompatActivity {
             @Override
             public void onClick(View v) {
 
-                JitsiMeetConferenceOptions options
-                        = new JitsiMeetConferenceOptions.Builder()
-                        .setRoom(codeBox.getText().toString()).setFeatureFlag("welcomepage.enabled", false)
-                        .build();
-                JitsiMeetActivity.launch(MainActivity.this, options);
+                if (TextUtils.isEmpty(codeBox.getText().toString())) {
+                    codeBox.setError("Meeting Code cannot be empty");
+                    codeBox.requestFocus();
+                } else {
+                    JitsiMeetConferenceOptions options
+                            = new JitsiMeetConferenceOptions.Builder()
+                            .setRoom(codeBox.getText().toString())
+                            .setFeatureFlag("welcomepage.enabled", false)
+                            .setFeatureFlag("invite.enabled",false)
+                            .build();
+                    JitsiMeetActivity.launch(MainActivity.this, options);
+                }
             }
         });
 
