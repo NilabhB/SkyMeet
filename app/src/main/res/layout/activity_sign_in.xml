@@ -31,7 +31,7 @@
         android:background="@drawable/textbox"
         android:drawableLeft="@drawable/mail"
         android:drawablePadding="7dp"
-        android:ems="17"
+        android:ems="16"
         android:hint="Email ID"
         android:inputType="textEmailAddress"
         android:minHeight="48dp"
@@ -51,7 +51,7 @@
         android:background="@drawable/textbox"
         android:drawableLeft="@drawable/password"
         android:drawablePadding="7dp"
-        android:ems="17"
+        android:ems="16"
         android:hint="Password"
         android:inputType="textPassword"
         android:minHeight="48dp"
@@ -67,14 +67,16 @@
         android:id="@+id/forgotPassword"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:layout_marginTop="7dp"
         android:gravity="right"
         android:text="Forgot Password?"
+        android:textSize="15sp"
         app:layout_constraintBottom_toTopOf="@+id/SignInBtn"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.906"
+        app:layout_constraintHorizontal_bias="0.869"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/passwordBox"
-        app:layout_constraintVertical_bias="0.25" />
+        app:layout_constraintVertical_bias="0.0" />
 
     <Button
         android:id="@+id/SignInBtn"
@@ -88,7 +90,7 @@
         app:layout_constraintHorizontal_bias="0.498"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/passwordBox"
-        app:layout_constraintVertical_bias="0.504" />
+        app:layout_constraintVertical_bias="0.584" />
 
     <TextView
         android:id="@+id/createAcTextView"

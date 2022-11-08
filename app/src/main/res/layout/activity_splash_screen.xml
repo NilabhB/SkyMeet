@@ -48,7 +48,7 @@
         android:id="@+id/textView3"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="Jitsi Open-Sourced Multiplatform"
+        android:text="Jitsi Open Source Multi-platform"
         android:textSize="12sp"
         app:layout_constraintBottom_toTopOf="@+id/textView4"
         app:layout_constraintEnd_toEndOf="parent"
