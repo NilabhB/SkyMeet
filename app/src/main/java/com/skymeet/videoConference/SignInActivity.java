@@ -7,6 +7,7 @@ import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
 import android.text.TextUtils;
+import android.util.Patterns;
 import android.view.View;
 import android.view.animation.AlphaAnimation;
 import android.widget.Button;
@@ -29,7 +30,7 @@ import java.util.Objects;
 public class SignInActivity extends AppCompatActivity {
     EditText emailBox, passwordBox;
     Button signInBtn;
-    TextView createAcTextView;
+    TextView createAcTextView, forgotPassword;
     FirebaseAuth auth;
     ProgressDialog dialog;
 
@@ -49,13 +50,23 @@ public class SignInActivity extends AppCompatActivity {
         passwordBox = findViewById(R.id.passwordBox);
         signInBtn = findViewById(R.id.SignInBtn);
         createAcTextView = findViewById(R.id.createAcTextView);
+        forgotPassword = findViewById(R.id.forgotPasswordTextView);
 
 
 
         createAcTextView.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
+                view.startAnimation(buttonClick);
                 startActivity(new Intent(SignInActivity.this, SignUpActivity.class));
+            }
+        });
+
+        forgotPassword.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                view.startAnimation(buttonClick);
+                startActivity(new Intent(SignInActivity.this, ForgotPasswordActivity.class));
             }
         });
 
@@ -64,14 +75,22 @@ public class SignInActivity extends AppCompatActivity {
             @Override
             public void onClick(View view) {
                 view.startAnimation(buttonClick);
+
                 String email, password;
-                email = emailBox.getText().toString();
-                password = passwordBox.getText().toString();
+                email = emailBox.getText().toString().trim();
+                password = passwordBox.getText().toString().trim();
+
                 if (TextUtils.isEmpty(email)) {
                     emailBox.setError("Email cannot be empty");
                     emailBox.requestFocus();
+                } else if (!Patterns.EMAIL_ADDRESS.matcher(email).matches()) {
+                    emailBox.setError("Please provide a valid email!");
+                    emailBox.requestFocus();
                 } else if (TextUtils.isEmpty(password)) {
-                    passwordBox.setError("Password cannot be empty");
+                    passwordBox.setError("Password cannot be empty!");
+                    passwordBox.requestFocus();
+                } else if (password.length() < 6) {
+                    passwordBox.setError("Min password length should be 6 characters!");
                     passwordBox.requestFocus();
                 } else {
                     dialog.show();
@@ -94,6 +113,8 @@ public class SignInActivity extends AppCompatActivity {
 
             }
         });
+
+
 
     }
     @Override
@@ -118,13 +139,13 @@ public class SignInActivity extends AppCompatActivity {
         new AlertDialog.Builder(this)
                 .setTitle("Enter Guest Mode")
                 .setMessage("Do you want enter as a Guest?")
-                .setNegativeButton("Yes", new DialogInterface.OnClickListener() {
+                .setPositiveButton("Yes", new DialogInterface.OnClickListener() {
                     @Override
                     public void onClick(DialogInterface dialog, int which) {
                         startActivity(new Intent(SignInActivity.this, GuestActivity.class));
                     }
                 })
-                .setPositiveButton("Exit", new DialogInterface.OnClickListener() {
+                .setNegativeButton("Exit App", new DialogInterface.OnClickListener() {
                     @Override
                     public void onClick(DialogInterface dialog, int which) {
                         finishAffinity();
@@ -132,5 +153,5 @@ public class SignInActivity extends AppCompatActivity {
                     }
                 }).show();
 
-        }
     }
+}

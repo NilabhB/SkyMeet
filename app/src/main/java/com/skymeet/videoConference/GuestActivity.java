@@ -7,6 +7,7 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.text.TextUtils;
 import android.view.View;
+import android.view.animation.AlphaAnimation;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.TextView;
@@ -31,7 +32,7 @@ public class GuestActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_guest);
-        getSupportActionBar().setTitle("SkyMeet - Guest Entry");
+        getSupportActionBar().setTitle("Guest Mode");
         setRequestedOrientation(SCREEN_ORIENTATION_PORTRAIT);
 
         codeBox = findViewById(R.id.codeBox);
@@ -49,6 +50,7 @@ public class GuestActivity extends AppCompatActivity {
                 = new JitsiMeetConferenceOptions.Builder()
                 .setServerURL(serverURL)
                 .setFeatureFlag("welcomepage.enabled", false)
+                .setFeatureFlag("invite.enabled",false)
                 .build();
 
         JitsiMeet.setDefaultConferenceOptions(defaultOptions);
@@ -58,7 +60,8 @@ public class GuestActivity extends AppCompatActivity {
 
         joinBtn.setOnClickListener(new View.OnClickListener() {
             @Override
-            public void onClick(View v) {
+            public void onClick(View view) {
+                view.startAnimation(buttonClick);
 
                 if (TextUtils.isEmpty(codeBox.getText().toString())) {
                     codeBox.setError("Meeting Code cannot be empty");
@@ -78,24 +81,28 @@ public class GuestActivity extends AppCompatActivity {
 
         backToSignIn.setOnClickListener(new View.OnClickListener() {
             @Override
-            public void onClick(View v) {
+            public void onClick(View view) {
+                view.startAnimation(buttonClick);
                 startActivity(new Intent(GuestActivity.this, SignInActivity.class));
             }
         });
     }
+
+    private final AlphaAnimation buttonClick = new AlphaAnimation(1F, 0.5F);
+
     @Override
     public void onBackPressed() {
         new AlertDialog.Builder(this)
                 .setTitle("Exit App")
                 .setMessage("Do you want to exit?")
-                .setNegativeButton("Yes", new DialogInterface.OnClickListener() {
+                .setPositiveButton("Yes", new DialogInterface.OnClickListener() {
                     @Override
                     public void onClick(DialogInterface dialog, int which) {
                         finishAffinity();
                         finish();
                     }
                 })
-                .setPositiveButton("No", new DialogInterface.OnClickListener() {
+                .setNegativeButton("No", new DialogInterface.OnClickListener() {
                     @Override
                     public void onClick(DialogInterface dialog, int which) {
                     }

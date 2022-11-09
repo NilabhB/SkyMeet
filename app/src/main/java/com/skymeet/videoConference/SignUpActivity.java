@@ -7,6 +7,7 @@ import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
 import android.text.TextUtils;
+import android.util.Patterns;
 import android.view.View;
 import android.view.animation.AlphaAnimation;
 import android.widget.Button;
@@ -59,6 +60,7 @@ public class SignUpActivity extends AppCompatActivity {
         signInAcTextView.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
+                view.startAnimation(buttonClick);
                 startActivity(new Intent(SignUpActivity.this, SignInActivity.class));
             }
         });
@@ -79,13 +81,19 @@ public class SignUpActivity extends AppCompatActivity {
 
 
                 if (TextUtils.isEmpty(name)) {
-                    userName.setError("Please enter your name");
+                    userName.setError("Please enter your name!");
                     userName.requestFocus();
                 } else if (TextUtils.isEmpty(email)) {
-                    emailBox.setError("Email cannot be empty");
+                    emailBox.setError("Email cannot be empty!");
+                    emailBox.requestFocus();
+                } else if (!Patterns.EMAIL_ADDRESS.matcher(email).matches()) {
+                    emailBox.setError("Please provide a valid email!");
                     emailBox.requestFocus();
                 } else if (TextUtils.isEmpty(password)) {
-                    passwordBox.setError("Password cannot be empty");
+                    passwordBox.setError("Password cannot be empty!");
+                    passwordBox.requestFocus();
+                } else if (password.length() < 6) {
+                    passwordBox.setError("Min password length should be 6 characters!");
                     passwordBox.requestFocus();
                 } else {
                     dialog.show();
@@ -121,13 +129,13 @@ public class SignUpActivity extends AppCompatActivity {
         new AlertDialog.Builder(this)
                 .setTitle("Enter Guest Mode")
                 .setMessage("Do you want enter as a Guest?")
-                .setNegativeButton("Yes", new DialogInterface.OnClickListener() {
+                .setPositiveButton("Yes", new DialogInterface.OnClickListener() {
                     @Override
                     public void onClick(DialogInterface dialog, int which) {
                         startActivity(new Intent(SignUpActivity.this, GuestActivity.class));
                     }
                 })
-                .setPositiveButton("Exit", new DialogInterface.OnClickListener() {
+                .setNegativeButton("Exit App", new DialogInterface.OnClickListener() {
                     @Override
                     public void onClick(DialogInterface dialog, int which) {
                         finishAffinity();

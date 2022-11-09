@@ -8,6 +8,7 @@ import android.os.Bundle;
 import android.text.TextUtils;
 import android.view.Menu;
 import android.view.View;
+import android.view.animation.AlphaAnimation;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.TextView;
@@ -57,6 +58,7 @@ public class MainActivity extends AppCompatActivity {
                 = new JitsiMeetConferenceOptions.Builder()
                 .setServerURL(serverURL)
                 .setFeatureFlag("welcomepage.enabled", false)
+                .setFeatureFlag("invite.enabled",false)
                 .build();
 
         JitsiMeet.setDefaultConferenceOptions(defaultOptions);
@@ -85,25 +87,27 @@ public class MainActivity extends AppCompatActivity {
 
         logoutText.setOnClickListener(new View.OnClickListener() {
             @Override
-            public void onClick(View v) {
+            public void onClick(View view) {
+                view.startAnimation(buttonClick);
                 FirebaseAuth.getInstance().signOut();
                 startActivity(new Intent(MainActivity.this, SignInActivity.class));
             }
         });
     }
+    private final AlphaAnimation buttonClick = new AlphaAnimation(1F, 0.5F);
     @Override
     public void onBackPressed() {
         new AlertDialog.Builder(this)
                 .setTitle("Exit App")
                 .setMessage("Do you want to exit?")
-                .setNegativeButton("Yes", new DialogInterface.OnClickListener() {
+                .setPositiveButton("Yes", new DialogInterface.OnClickListener() {
                     @Override
                     public void onClick(DialogInterface dialog, int which) {
                         finishAffinity();
                         finish();
                     }
                 })
-                .setPositiveButton("No", new DialogInterface.OnClickListener() {
+                .setNegativeButton("No", new DialogInterface.OnClickListener() {
                     @Override
                     public void onClick(DialogInterface dialog, int which) {
                     }
