@@ -99,12 +99,13 @@ public class SignInActivity extends AppCompatActivity {
                         public void onComplete(@NonNull Task<AuthResult> task) {
                             dialog.dismiss();
                             if(task.isSuccessful()) {
-                                FirebaseUser firebaseUser = FirebaseAuth.getInstance().getCurrentUser();
+                                FirebaseUser firebaseUser = auth.getCurrentUser();
                                 if (!firebaseUser.isEmailVerified()) {
                                     firebaseUser.sendEmailVerification();
+                                    Toast.makeText(SignInActivity.this, "Log In Prohibited", Toast.LENGTH_SHORT).show();
                                     new android.app.AlertDialog.Builder(SignInActivity.this)
-                                            .setTitle("Email Verification 2")
-                                            .setMessage("Email Verification Link re-send. Please verify before logging in")
+                                            .setTitle("Email Verification Needed!")
+                                            .setMessage("A link was send to your email previously. If not found please check your spam folder")
                                             .setPositiveButton("Okay", new DialogInterface.OnClickListener() {
                                                 @Override
                                                 public void onClick(DialogInterface dialog, int which) {
@@ -116,7 +117,7 @@ public class SignInActivity extends AppCompatActivity {
                                     Toast.makeText(SignInActivity.this, "logged in!", Toast.LENGTH_SHORT).show();
                                 }
                             } else {
-                                Toast.makeText(SignInActivity.this, Objects.requireNonNull(task.getException()).getLocalizedMessage(), Toast.LENGTH_SHORT).show();
+                                Toast.makeText(SignInActivity.this, Objects.requireNonNull(task.getException()).getLocalizedMessage(), Toast.LENGTH_LONG).show();
                             }
                         }
                     });
@@ -134,13 +135,9 @@ public class SignInActivity extends AppCompatActivity {
         // Check if user is signed in (non-null) and update UI accordingly.
         FirebaseUser currentUser = auth.getCurrentUser();
         if (currentUser != null) {
-            reload();
+            startActivity(new Intent(SignInActivity.this, MainActivity.class));
         }
     }
-    private void reload() {
-        startActivity(new Intent(SignInActivity.this, MainActivity.class));
-    }
-
 
 
     private final AlphaAnimation buttonClick = new AlphaAnimation(1F, 0.5F);

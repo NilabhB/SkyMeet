@@ -62,6 +62,7 @@ public class SignUpActivity extends AppCompatActivity {
             @Override
             public void onClick(View view) {
                 view.startAnimation(buttonClick);
+                FirebaseAuth.getInstance().signOut();
                 startActivity(new Intent(SignUpActivity.this, SignInActivity.class));
             }
         });
@@ -77,7 +78,7 @@ public class SignUpActivity extends AppCompatActivity {
 
                 User user = new User();
                 user.setEmail(email);
-                user.setPassword(password);
+//                user.setPassword(password);
                 user.setName(name);
 
 
@@ -103,7 +104,7 @@ public class SignUpActivity extends AppCompatActivity {
                         public void onComplete(@NonNull Task<AuthResult> task) {
                             dialog.dismiss();
                             if(task.isSuccessful()) {
-                                FirebaseUser firebaseUser = FirebaseAuth.getInstance().getCurrentUser();
+                               final FirebaseUser firebaseUser = auth.getCurrentUser();
                                 firebaseUser.sendEmailVerification();
                                 Toast.makeText(SignUpActivity.this, "Email Verification Link Send", Toast.LENGTH_SHORT).show();
                                 database.collection("Users").document().set(user)
@@ -111,11 +112,12 @@ public class SignUpActivity extends AppCompatActivity {
                                     @Override
                                     public void onSuccess(Void unused) {
                                         new android.app.AlertDialog.Builder(SignUpActivity.this)
-                                                .setTitle("Email Verification")
-                                                .setMessage("Email Verification Link send. Please verify before logging in")
+                                                .setTitle("Verify your Email")
+                                                .setMessage("A link has been send to your email. Please check & verify before logging in")
                                                 .setPositiveButton("Okay", new DialogInterface.OnClickListener() {
                                                     @Override
                                                     public void onClick(DialogInterface dialog, int which) {
+                                                        FirebaseAuth.getInstance().signOut();
                                                         startActivity(new Intent(SignUpActivity.this, SignInActivity.class));
                                                     }
                                                 }).show();
@@ -125,7 +127,7 @@ public class SignUpActivity extends AppCompatActivity {
                                         Toast.LENGTH_SHORT).show();
                             } else {
                                 Toast.makeText(SignUpActivity.this,
-                                        Objects.requireNonNull(task.getException()).getLocalizedMessage(), Toast.LENGTH_SHORT).show();
+                                        Objects.requireNonNull(task.getException()).getLocalizedMessage(), Toast.LENGTH_LONG).show();
                             }
                         }
                     });
