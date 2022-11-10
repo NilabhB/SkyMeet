@@ -137,7 +137,7 @@ public class SignInActivity extends AppCompatActivity {
     @Override
     public void onBackPressed() {
         new AlertDialog.Builder(this)
-                .setTitle("Enter Guest Mode")
+                .setTitle("Guest Mode")
                 .setMessage("Do you want enter as a Guest?")
                 .setPositiveButton("Yes", new DialogInterface.OnClickListener() {
                     @Override
@@ -145,13 +145,20 @@ public class SignInActivity extends AppCompatActivity {
                         startActivity(new Intent(SignInActivity.this, GuestActivity.class));
                     }
                 })
-                .setNegativeButton("Exit App", new DialogInterface.OnClickListener() {
+                .setNeutralButton("Exit App", new DialogInterface.OnClickListener() {
                     @Override
                     public void onClick(DialogInterface dialog, int which) {
                         finishAffinity();
                         finish();
                     }
-                }).show();
+                })
+                .setNegativeButton("No", new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialog, int which) {
+                        dialog.dismiss();
+                    }
+                })
+                .show();
 
     }
 }

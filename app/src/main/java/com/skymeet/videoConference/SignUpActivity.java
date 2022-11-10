@@ -102,7 +102,8 @@ public class SignUpActivity extends AppCompatActivity {
                         public void onComplete(@NonNull Task<AuthResult> task) {
                             dialog.dismiss();
                             if(task.isSuccessful()) {
-                                database.collection("Users").document().set(user).addOnSuccessListener(new OnSuccessListener<Void>() {
+                                database.collection("Users").document().set(user)
+                                        .addOnSuccessListener(new OnSuccessListener<Void>() {
                                     @Override
                                     public void onSuccess(Void unused) {
                                         FirebaseAuth.getInstance().signOut();
@@ -122,12 +123,12 @@ public class SignUpActivity extends AppCompatActivity {
         });
 
     }
-    private AlphaAnimation buttonClick = new AlphaAnimation(1F, 0.5F);
+    private final AlphaAnimation buttonClick = new AlphaAnimation(1F, 0.5F);
 
     @Override
     public void onBackPressed() {
         new AlertDialog.Builder(this)
-                .setTitle("Enter Guest Mode")
+                .setTitle("Guest Mode")
                 .setMessage("Do you want enter as a Guest?")
                 .setPositiveButton("Yes", new DialogInterface.OnClickListener() {
                     @Override
@@ -135,13 +136,20 @@ public class SignUpActivity extends AppCompatActivity {
                         startActivity(new Intent(SignUpActivity.this, GuestActivity.class));
                     }
                 })
-                .setNegativeButton("Exit App", new DialogInterface.OnClickListener() {
+                .setNeutralButton("Exit App", new DialogInterface.OnClickListener() {
                     @Override
                     public void onClick(DialogInterface dialog, int which) {
                         finishAffinity();
                         finish();
                     }
-                }).show();
+                })
+                .setNegativeButton("No", new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialog, int which) {
+                        dialog.dismiss();
+                    }
+                })
+                .show();
 
     }
 }
