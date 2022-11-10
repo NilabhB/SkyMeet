@@ -99,11 +99,22 @@ public class SignInActivity extends AppCompatActivity {
                         public void onComplete(@NonNull Task<AuthResult> task) {
                             dialog.dismiss();
                             if(task.isSuccessful()) {
-                                // Log.d(TAG, "signInWithEmail:success");
-                                // FirebaseUser user = auth.getCurrentUser();
-                                // updateUI(user);
-                                startActivity(new Intent(SignInActivity.this, MainActivity.class));
-                                Toast.makeText(SignInActivity.this, "logged in!", Toast.LENGTH_SHORT).show();
+                                FirebaseUser firebaseUser = FirebaseAuth.getInstance().getCurrentUser();
+                                if (!firebaseUser.isEmailVerified()) {
+                                    firebaseUser.sendEmailVerification();
+                                    new android.app.AlertDialog.Builder(SignInActivity.this)
+                                            .setTitle("Email Verification 2")
+                                            .setMessage("Email Verification Link re-send. Please verify before logging in")
+                                            .setPositiveButton("Okay", new DialogInterface.OnClickListener() {
+                                                @Override
+                                                public void onClick(DialogInterface dialog, int which) {
+                                                    dialog.dismiss();
+                                                }
+                                            }).show();
+                                } else {
+                                    startActivity(new Intent(SignInActivity.this, MainActivity.class));
+                                    Toast.makeText(SignInActivity.this, "logged in!", Toast.LENGTH_SHORT).show();
+                                }
                             } else {
                                 Toast.makeText(SignInActivity.this, Objects.requireNonNull(task.getException()).getLocalizedMessage(), Toast.LENGTH_SHORT).show();
                             }

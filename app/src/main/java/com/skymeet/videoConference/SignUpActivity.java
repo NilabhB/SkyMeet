@@ -24,6 +24,7 @@ import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.AuthResult;
 import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.firestore.FirebaseFirestore;
 
 import java.util.Objects;
@@ -102,17 +103,29 @@ public class SignUpActivity extends AppCompatActivity {
                         public void onComplete(@NonNull Task<AuthResult> task) {
                             dialog.dismiss();
                             if(task.isSuccessful()) {
+                                FirebaseUser firebaseUser = FirebaseAuth.getInstance().getCurrentUser();
+                                firebaseUser.sendEmailVerification();
+                                Toast.makeText(SignUpActivity.this, "Email Verification Link Send", Toast.LENGTH_SHORT).show();
                                 database.collection("Users").document().set(user)
                                         .addOnSuccessListener(new OnSuccessListener<Void>() {
                                     @Override
                                     public void onSuccess(Void unused) {
-                                        FirebaseAuth.getInstance().signOut();
-                                        startActivity(new Intent(SignUpActivity.this, SignInActivity.class));
+                                        new android.app.AlertDialog.Builder(SignUpActivity.this)
+                                                .setTitle("Email Verification")
+                                                .setMessage("Email Verification Link send. Please verify before logging in")
+                                                .setPositiveButton("Okay", new DialogInterface.OnClickListener() {
+                                                    @Override
+                                                    public void onClick(DialogInterface dialog, int which) {
+                                                        startActivity(new Intent(SignUpActivity.this, SignInActivity.class));
+                                                    }
+                                                }).show();
                                     }
                                 });
-                                Toast.makeText(SignUpActivity.this, "Congratulations! Account is created.", Toast.LENGTH_SHORT).show();
+                                Toast.makeText(SignUpActivity.this, "Credentials stored in Database.",
+                                        Toast.LENGTH_SHORT).show();
                             } else {
-                                Toast.makeText(SignUpActivity.this, Objects.requireNonNull(task.getException()).getLocalizedMessage(), Toast.LENGTH_SHORT).show();
+                                Toast.makeText(SignUpActivity.this,
+                                        Objects.requireNonNull(task.getException()).getLocalizedMessage(), Toast.LENGTH_SHORT).show();
                             }
                         }
                     });
