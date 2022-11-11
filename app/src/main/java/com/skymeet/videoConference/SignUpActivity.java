@@ -62,7 +62,6 @@ public class SignUpActivity extends AppCompatActivity {
             @Override
             public void onClick(View view) {
                 view.startAnimation(buttonClick);
-                FirebaseAuth.getInstance().signOut();
                 startActivity(new Intent(SignUpActivity.this, SignInActivity.class));
             }
         });
@@ -78,7 +77,6 @@ public class SignUpActivity extends AppCompatActivity {
 
                 User user = new User();
                 user.setEmail(email);
-//                user.setPassword(password);
                 user.setName(name);
 
 
@@ -113,17 +111,28 @@ public class SignUpActivity extends AppCompatActivity {
                                     public void onSuccess(Void unused) {
                                         new android.app.AlertDialog.Builder(SignUpActivity.this)
                                                 .setTitle("Verify your Email")
-                                                .setMessage("A link has been send to your email. Please check & verify before logging in")
-                                                .setPositiveButton("Okay", new DialogInterface.OnClickListener() {
+                                                .setMessage("A link has been send to your email. Please verify now before logging in")
+                                                .setNeutralButton("Later", new DialogInterface.OnClickListener() {
                                                     @Override
                                                     public void onClick(DialogInterface dialog, int which) {
-                                                        FirebaseAuth.getInstance().signOut();
                                                         startActivity(new Intent(SignUpActivity.this, SignInActivity.class));
                                                     }
-                                                }).show();
+                                                })
+                                                .setPositiveButton("Verify Now", new DialogInterface.OnClickListener() {
+                                                    @Override
+                                                    public void onClick(DialogInterface dialog, int which) {
+                                                       // FirebaseAuth.getInstance().signOut();
+                                                        Intent intent = getPackageManager().
+                                                                getLaunchIntentForPackage("com.google.android.gm");
+                                                        startActivity(intent);
+                                                        Toast.makeText(SignUpActivity.this,
+                                                                "Check in Spam Folder if not found", Toast.LENGTH_SHORT).show();
+                                                    }
+                                                })
+                                                .show();
                                     }
                                 });
-                                Toast.makeText(SignUpActivity.this, "Credentials stored in Database.",
+                                Toast.makeText(SignUpActivity.this, "Account Created.",
                                         Toast.LENGTH_SHORT).show();
                             } else {
                                 Toast.makeText(SignUpActivity.this,

@@ -67,4 +67,8 @@
             android:resource="@array/preloaded_fonts" />
     </application>
 
+    <queries>
+        <package android:name="com.google.android.gm" />
+    </queries>
+
 </manifest>

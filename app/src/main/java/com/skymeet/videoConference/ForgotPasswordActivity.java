@@ -68,10 +68,15 @@ public class ForgotPasswordActivity extends AppCompatActivity {
                             .setTitle("Check your Email")
                             .setMessage("A Link has been send to your email for resetting the password." +
                                     " Kindly reset it & revert back to Sign-In Screen.")
-                            .setPositiveButton("Okay", new DialogInterface.OnClickListener() {
+                            .setPositiveButton("Reset Now", new DialogInterface.OnClickListener() {
                                 @Override
                                 public void onClick(DialogInterface dialog, int which) {
-                                    startActivity(new Intent(ForgotPasswordActivity.this, SignInActivity.class));
+                                    // FirebaseAuth.getInstance().signOut();
+                                    Intent intent = getPackageManager().
+                                            getLaunchIntentForPackage("com.google.android.gm");
+                                    startActivity(intent);
+                                    Toast.makeText(ForgotPasswordActivity.this,
+                                            "Check in Spam Folder if not found", Toast.LENGTH_SHORT).show();
                                 }
                             }).show();
                     Toast.makeText(ForgotPasswordActivity.this, "Check your email to reset your password", Toast.LENGTH_LONG).show();
