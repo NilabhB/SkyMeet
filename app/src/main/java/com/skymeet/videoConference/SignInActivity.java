@@ -145,6 +145,7 @@ public class SignInActivity extends AppCompatActivity {
 
     private void reload() {
         FirebaseUser user = auth.getCurrentUser();
+        assert user != null;
         if(user.isEmailVerified()) {
         startActivity(new Intent(SignInActivity.this, MainActivity.class));
         }

@@ -12,11 +12,19 @@ import android.view.animation.AlphaAnimation;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.TextView;
+import android.widget.Toast;
 
+import androidx.annotation.NonNull;
 import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
 
+import com.google.android.gms.tasks.OnFailureListener;
+import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.auth.FirebaseUser;
+import com.google.firebase.firestore.DocumentReference;
+import com.google.firebase.firestore.DocumentSnapshot;
+import com.google.firebase.firestore.FirebaseFirestore;
 
 import org.jitsi.meet.sdk.JitsiMeet;
 import org.jitsi.meet.sdk.JitsiMeetActivity;
@@ -24,6 +32,7 @@ import org.jitsi.meet.sdk.JitsiMeetConferenceOptions;
 
 import java.net.MalformedURLException;
 import java.net.URL;
+import java.util.Objects;
 
 public class MainActivity extends AppCompatActivity {
 
@@ -31,13 +40,38 @@ public class MainActivity extends AppCompatActivity {
     Button joinBtn, shareBtn;
     TextView welcomeUser, logoutText;
     Menu menu;
+    FirebaseFirestore database;
+    DocumentReference reference;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
-        //Objects.requireNonNull(getSupportActionBar()).hide();
+        Objects.requireNonNull(getSupportActionBar()).hide();
         setRequestedOrientation(SCREEN_ORIENTATION_PORTRAIT);
+
+
+        FirebaseUser firebaseUser = FirebaseAuth.getInstance().getCurrentUser();
+
+        database = FirebaseFirestore.getInstance();
+        assert firebaseUser != null;
+        reference = database.collection("Users").document(firebaseUser.getUid());
+        reference.get()
+                .addOnSuccessListener(new OnSuccessListener<DocumentSnapshot>() {
+                    @Override
+                    public void onSuccess(DocumentSnapshot documentSnapshot) {
+                        if (documentSnapshot.exists()) {
+                            welcomeUser.setText(documentSnapshot.getString("name"));
+                        } else {
+                            Toast.makeText(MainActivity.this, "Data not found", Toast.LENGTH_SHORT).show();
+                        }
+                    }
+                }).addOnFailureListener(new OnFailureListener() {
+                    @Override
+                    public void onFailure(@NonNull Exception e) {
+                        Toast.makeText(MainActivity.this, "Failed to fetch data", Toast.LENGTH_SHORT).show();
+                    }
+                });
 
         codeBox = findViewById(R.id.codeBox);
         joinBtn = findViewById(R.id.joinBtn);
@@ -45,7 +79,7 @@ public class MainActivity extends AppCompatActivity {
         welcomeUser = findViewById(R.id.welcomeUser); // not implemented yet
         logoutText = findViewById(R.id.logoutText);
 
-       // welcomeUser.getText()
+
 
         URL serverURL = null;
         try {
@@ -94,6 +128,8 @@ public class MainActivity extends AppCompatActivity {
             }
         });
     }
+
+    
     private final AlphaAnimation buttonClick = new AlphaAnimation(1F, 0.5F);
     @Override
     public void onBackPressed() {

@@ -25,6 +25,7 @@ import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.AuthResult;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
+import com.google.firebase.firestore.DocumentReference;
 import com.google.firebase.firestore.FirebaseFirestore;
 
 import java.util.Objects;
@@ -33,6 +34,7 @@ public class SignUpActivity extends AppCompatActivity {
 
     FirebaseAuth auth;
     FirebaseFirestore database;
+    DocumentReference reference;
 
     TextView signInAcTextView;
     EditText emailBox, passwordBox, userName;
@@ -71,9 +73,9 @@ public class SignUpActivity extends AppCompatActivity {
             public void onClick(View view) {
                 view.startAnimation(buttonClick);
                 String email, password, name;
-                email = emailBox.getText().toString();
-                password = passwordBox.getText().toString();
-                name = userName.getText().toString();
+                email = emailBox.getText().toString().trim();
+                password = passwordBox.getText().toString().trim();
+                name = userName.getText().toString().trim();
 
                 User user = new User();
                 user.setEmail(email);
@@ -105,7 +107,8 @@ public class SignUpActivity extends AppCompatActivity {
                                final FirebaseUser firebaseUser = auth.getCurrentUser();
                                 firebaseUser.sendEmailVerification();
                                 Toast.makeText(SignUpActivity.this, "Email Verification Link Send", Toast.LENGTH_SHORT).show();
-                                database.collection("Users").document().set(user)
+                                String uid = Objects.requireNonNull(FirebaseAuth.getInstance().getCurrentUser()).getUid();
+                                database.collection("Users").document(uid).set(user)
                                         .addOnSuccessListener(new OnSuccessListener<Void>() {
                                     @Override
                                     public void onSuccess(Void unused) {
