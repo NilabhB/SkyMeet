@@ -108,6 +108,7 @@ public class SignUpActivity extends AppCompatActivity {
                                 firebaseUser.sendEmailVerification();
                                 Toast.makeText(SignUpActivity.this, "Email Verification Link Send", Toast.LENGTH_SHORT).show();
                                 String uid = Objects.requireNonNull(FirebaseAuth.getInstance().getCurrentUser()).getUid();
+                                user.setUid(uid);
                                 database.collection("Users").document(uid).set(user)
                                         .addOnSuccessListener(new OnSuccessListener<Void>() {
                                     @Override
