@@ -4,15 +4,15 @@
     <item
         android:checkable="false"
         android:checked="true"
-        android:icon="@drawable/home"
+        android:icon="@drawable/homeicon"
         android:title="Home" />
     <item
-        android:icon="@drawable/clock"
+        android:icon="@drawable/history"
         android:title="History" />
     <item
         android:icon="@drawable/settings"
         android:title="Settings" />
     <item
-        android:icon="@drawable/logout"
-        android:title="Log out" />
+        android:icon="@drawable/userprofile"
+        android:title="Profile" />
 </menu>

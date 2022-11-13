@@ -16,7 +16,7 @@
         android:padding="10dp"
         android:text="SkyMeet Conference"
         android:textAlignment="center"
-        android:textColor="#05B7A5"
+        android:textColor="#009688"
         android:textSize="20sp"
         app:layout_constraintBottom_toTopOf="@+id/userName"
         app:layout_constraintEnd_toEndOf="parent"
