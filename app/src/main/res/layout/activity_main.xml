@@ -4,36 +4,34 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:paddingLeft="4dp"
     tools:context=".MainActivity">
 
     <ImageView
         android:id="@+id/imageView3"
         android:layout_width="130dp"
         android:layout_height="130dp"
-
+        android:layout_marginTop="30dp"
         app:layout_constraintBottom_toTopOf="@+id/textView2"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.498"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.872"
+        app:layout_constraintVertical_bias="0.827"
         app:srcCompat="@drawable/skymeet_logo" />
 
     <TextView
         android:id="@+id/textView2"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
+        android:layout_width="301dp"
+        android:layout_height="61dp"
         android:layout_margin="10dp"
-        android:layout_marginBottom="36dp"
         android:gravity="center"
         android:text="Create an unique random code to generate conference room and share the code to initiate meeting."
-        android:textColor="#00838F"
         app:layout_constraintBottom_toTopOf="@+id/codeBox"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="1.0"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.951" />
+        app:layout_constraintVertical_bias="0.846" />
 
     <EditText
         android:id="@+id/codeBox"
@@ -50,9 +48,10 @@
         android:textColorHint="#757575"
         app:layout_constraintBottom_toTopOf="@+id/bottomNavigationView"
         app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.522"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.609" />
+        app:layout_constraintVertical_bias="0.567" />
 
     <Button
         android:id="@+id/joinBtn"
@@ -60,17 +59,16 @@
         android:layout_height="wrap_content"
         android:layout_margin="10dp"
         android:layout_weight="1"
-        android:background="@drawable/buttonbox2"
-        android:drawableRight="@drawable/join"
-        android:padding="10dp"
+        android:drawableLeft="@drawable/join"
+        android:padding="15dp"
         android:stateListAnimator="@android:animator/fade_in"
         android:text="Create/Join"
         app:layout_constraintBottom_toTopOf="@+id/bottomNavigationView"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.14"
+        app:layout_constraintHorizontal_bias="0.497"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/codeBox"
-        app:layout_constraintVertical_bias="0.098" />
+        app:layout_constraintVertical_bias="0.149" />
 
     <com.google.android.material.bottomnavigation.BottomNavigationView
         android:id="@+id/bottomNavigationView"
@@ -89,6 +87,7 @@
         android:id="@+id/welcomeUser"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:layout_marginBottom="20dp"
         android:padding="5sp"
         android:textColor="#00838F"
         android:textSize="25sp"
@@ -97,7 +96,7 @@
         app:layout_constraintHorizontal_bias="0.498"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.657" />
+        app:layout_constraintVertical_bias="1.0" />
 
     <TextView
         android:id="@+id/logoutText"
@@ -125,19 +124,63 @@
         app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintVertical_bias="1.0" />
 
-    <Button
-        android:id="@+id/button"
+    <TextView
+        android:id="@+id/shareCode"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:background="@drawable/buttonbox2"
-        android:drawableLeft="@drawable/forward"
-        android:padding="10dp"
+        android:drawableLeft="@drawable/share"
+        android:drawablePadding="3dp"
+        android:paddingStart="2dp"
+        android:paddingEnd="2dp"
         android:text="Share Code"
+        android:textColor="#05B7A5"
+        android:textSize="15sp"
+        app:layout_constraintBottom_toTopOf="@+id/joinBtn"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.857"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/codeBox"
+        app:layout_constraintVertical_bias="0.321" />
+
+    <TextView
+        android:id="@+id/followtv"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Follow "
+        android:textSize="15sp"
         app:layout_constraintBottom_toTopOf="@+id/bottomNavigationView"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.307"
-        app:layout_constraintStart_toEndOf="@+id/joinBtn"
-        app:layout_constraintTop_toBottomOf="@+id/codeBox"
-        app:layout_constraintVertical_bias="0.135" />
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/logoutText"
+        app:layout_constraintVertical_bias="0.271" />
+
+    <LinearLayout
+        android:layout_width="130dp"
+        android:layout_height="21dp"
+        android:orientation="horizontal"
+        app:layout_constraintBottom_toTopOf="@+id/bottomNavigationView"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.498"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/followtv">
+
+        <ImageView
+            android:id="@+id/facebook"
+            android:layout_width="20dp"
+            android:layout_height="20dp"
+            app:srcCompat="@drawable/facebook_logo" />
+
+        <ImageView
+            android:id="@+id/imageView7"
+            android:layout_width="90dp"
+            android:layout_height="20dp"
+            app:srcCompat="@drawable/linkedin_logo" />
+
+        <ImageView
+            android:id="@+id/imageView8"
+            android:layout_width="20dp"
+            android:layout_height="20dp"
+            app:srcCompat="@drawable/instagram_logo" />
+    </LinearLayout>
 
 </androidx.constraintlayout.widget.ConstraintLayout>
