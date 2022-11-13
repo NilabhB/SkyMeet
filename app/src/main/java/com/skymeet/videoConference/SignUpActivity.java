@@ -125,7 +125,6 @@ public class SignUpActivity extends AppCompatActivity {
                                                 .setPositiveButton("Verify Now", new DialogInterface.OnClickListener() {
                                                     @Override
                                                     public void onClick(DialogInterface dialog, int which) {
-                                                       // FirebaseAuth.getInstance().signOut();
                                                         Intent intent = getPackageManager().
                                                                 getLaunchIntentForPackage("com.google.android.gm");
                                                         startActivity(intent);
