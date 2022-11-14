@@ -4,6 +4,7 @@ import static android.content.pm.ActivityInfo.SCREEN_ORIENTATION_PORTRAIT;
 
 import android.content.DialogInterface;
 import android.content.Intent;
+import android.net.Uri;
 import android.os.Bundle;
 import android.text.TextUtils;
 import android.view.Menu;
@@ -11,6 +12,7 @@ import android.view.View;
 import android.view.animation.AlphaAnimation;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -37,11 +39,12 @@ import java.util.Objects;
 public class MainActivity extends AppCompatActivity {
 
     EditText codeBox;
-    Button joinBtn, shareBtn;
-    TextView welcomeUser, logoutText;
+    Button joinBtn;
+    TextView welcomeUser, logoutText, shareCode;
     Menu menu;
     FirebaseFirestore database;
     DocumentReference reference;
+    ImageView facebook, linkedin, instagram;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -75,9 +78,12 @@ public class MainActivity extends AppCompatActivity {
 
         codeBox = findViewById(R.id.codeBox);
         joinBtn = findViewById(R.id.joinBtn);
-        //shareBtn = findViewById(R.id.shareBtn);
-        welcomeUser = findViewById(R.id.welcomeUser); // not implemented yet
+        shareCode = findViewById(R.id.shareCode);
+        welcomeUser = findViewById(R.id.welcomeUser);
         logoutText = findViewById(R.id.logoutText);
+        facebook = findViewById(R.id.facebook);
+        linkedin = findViewById(R.id.linkedin);
+        instagram = findViewById(R.id.instagram);
 
 
 
@@ -110,12 +116,64 @@ public class MainActivity extends AppCompatActivity {
                 } else {
                     JitsiMeetConferenceOptions options
                             = new JitsiMeetConferenceOptions.Builder()
-                            .setRoom(codeBox.getText().toString())
+                            .setRoom(codeBox.getText().toString().trim())
                             .setFeatureFlag("welcomepage.enabled", false)
                             .setFeatureFlag("invite.enabled",false)
                             .build();
                     JitsiMeetActivity.launch(MainActivity.this, options);
                 }
+            }
+        });
+
+        shareCode.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                view.startAnimation(buttonClick);
+                if (TextUtils.isEmpty(codeBox.getText().toString())) {
+                    codeBox.setError("Enter Meeting Code before sharing!");
+                    codeBox.requestFocus();
+                } else {
+                    Intent sharingIntent = new Intent(android.content.Intent.ACTION_SEND);
+                    sharingIntent.setType("text/plain");
+                    String shareBody = "To join the meeting on SkyMeet Conference, please use\n"
+                            + "Code: " + codeBox.getText().toString().trim();
+                    sharingIntent.putExtra(android.content.Intent.EXTRA_SUBJECT, "Subject Here");
+                    sharingIntent.putExtra(android.content.Intent.EXTRA_TEXT, shareBody);
+                    startActivity(Intent.createChooser(sharingIntent, "Share Code via"));
+                }
+
+            }
+        });
+
+        facebook.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+//                Profile/Page opens up on chrome, not on the app
+                String YourPageURL = "https://www.facebook.com/skymeet.conference/";
+                Intent browserIntent = new Intent(Intent.ACTION_VIEW, Uri.parse(YourPageURL));
+                startActivity(browserIntent);
+
+
+            }
+        });
+
+        linkedin.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                String YourPageURL = "https://www.linkedin.com/company/skymeet.conference/";
+                Intent browserIntent = new Intent(Intent.ACTION_VIEW, Uri.parse(YourPageURL));
+                startActivity(browserIntent);
+
+            }
+        });
+
+        instagram.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                String YourPageURL = "https://www.instagram.com/skymeet.conference/";
+                Intent browserIntent = new Intent(Intent.ACTION_VIEW, Uri.parse(YourPageURL));
+                startActivity(browserIntent);
+
             }
         });
 

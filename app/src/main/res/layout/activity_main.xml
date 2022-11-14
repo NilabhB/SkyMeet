@@ -31,7 +31,7 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.846" />
+        app:layout_constraintVertical_bias="1.0" />
 
     <EditText
         android:id="@+id/codeBox"
@@ -68,7 +68,7 @@
         app:layout_constraintHorizontal_bias="0.497"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/codeBox"
-        app:layout_constraintVertical_bias="0.149" />
+        app:layout_constraintVertical_bias="0.302" />
 
     <com.google.android.material.bottomnavigation.BottomNavigationView
         android:id="@+id/bottomNavigationView"
@@ -114,6 +114,7 @@
         android:id="@+id/tvHello"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:layout_marginBottom="10dp"
         android:text="Hello!"
         android:textColor="#00838F"
         android:textSize="25sp"
@@ -137,32 +138,34 @@
         android:textSize="15sp"
         app:layout_constraintBottom_toTopOf="@+id/joinBtn"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.857"
+        app:layout_constraintHorizontal_bias="0.871"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/codeBox"
-        app:layout_constraintVertical_bias="0.321" />
+        app:layout_constraintVertical_bias="0.191" />
 
     <TextView
         android:id="@+id/followtv"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="Follow "
+        android:text=" Follow "
         android:textSize="15sp"
         app:layout_constraintBottom_toTopOf="@+id/bottomNavigationView"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/logoutText"
-        app:layout_constraintVertical_bias="0.271" />
+        app:layout_constraintVertical_bias="0.315" />
 
     <LinearLayout
-        android:layout_width="130dp"
-        android:layout_height="21dp"
+        android:layout_width="119dp"
+        android:layout_height="22dp"
+        android:layout_marginBottom="15dp"
         android:orientation="horizontal"
         app:layout_constraintBottom_toTopOf="@+id/bottomNavigationView"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.498"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/followtv">
+        app:layout_constraintTop_toBottomOf="@+id/followtv"
+        app:layout_constraintVertical_bias="0.5">
 
         <ImageView
             android:id="@+id/facebook"
@@ -171,13 +174,13 @@
             app:srcCompat="@drawable/facebook_logo" />
 
         <ImageView
-            android:id="@+id/imageView7"
-            android:layout_width="90dp"
+            android:id="@+id/linkedin"
+            android:layout_width="78dp"
             android:layout_height="20dp"
             app:srcCompat="@drawable/linkedin_logo" />
 
         <ImageView
-            android:id="@+id/imageView8"
+            android:id="@+id/instagram"
             android:layout_width="20dp"
             android:layout_height="20dp"
             app:srcCompat="@drawable/instagram_logo" />

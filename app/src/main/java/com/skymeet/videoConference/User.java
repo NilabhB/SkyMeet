@@ -3,7 +3,7 @@ package com.skymeet.videoConference;
 public class User {
     private String name;
     private String email;
-    private String uid;
+    private String userId;
 
 
 
@@ -29,11 +29,11 @@ public class User {
         this.email = email;
     }
 
-    public String getUid() {
-        return uid;
+    public String getUserId() {
+        return userId;
     }
 
-    public void setUid(String uid) {
-        this.uid = uid;
+    public void setUserId(String userId) {
+        this.userId = userId;
     }
 }
