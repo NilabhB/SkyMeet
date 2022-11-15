@@ -18,7 +18,7 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintVertical_bias="0.827"
-        app:srcCompat="@drawable/skymeet_logo" />
+        app:srcCompat="@drawable/video_call" />
 
     <TextView
         android:id="@+id/textView2"
@@ -104,6 +104,7 @@
         android:layout_height="wrap_content"
         android:text="Log Out?"
         android:textColor="#E90808"
+        android:visibility="visible"
         app:layout_constraintBottom_toTopOf="@+id/bottomNavigationView"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
@@ -111,13 +112,13 @@
         app:layout_constraintVertical_bias="0.211" />
 
     <TextView
-        android:id="@+id/tvHello"
+        android:id="@+id/guestModeBigView"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginBottom="10dp"
+        android:layout_marginBottom="7dp"
         android:text="Hello!"
         android:textColor="#00838F"
-        android:textSize="25sp"
+        android:textSize="30sp"
         app:layout_constraintBottom_toTopOf="@+id/welcomeUser"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.498"

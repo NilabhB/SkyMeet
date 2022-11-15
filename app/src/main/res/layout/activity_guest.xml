@@ -7,20 +7,45 @@
     tools:context=".GuestActivity">
 
     <TextView
-        android:id="@+id/textView2"
-        android:layout_width="match_parent"
+        android:id="@+id/guestModeBigView"
+        android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:layout_marginTop="36dp"
+        android:text="Guest Mode"
+        android:textColor="#CD69DF"
+        android:textSize="30sp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <ImageView
+        android:id="@+id/imageView3"
+        android:layout_width="130dp"
+        android:layout_height="130dp"
+        android:layout_marginTop="30dp"
+        app:layout_constraintBottom_toTopOf="@+id/textView2"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.498"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.671"
+        app:srcCompat="@drawable/video_call2" />
+
+    <TextView
+        android:id="@+id/textView2"
+        android:layout_width="324dp"
+        android:layout_height="55dp"
         android:layout_margin="10dp"
         android:layout_marginBottom="36dp"
         android:gravity="center"
         android:text="Create an unique random code to generate conference room and share the code to initiate meeting."
-        android:textColor="#05B7A5"
+        android:textColor="#CD69DF"
         app:layout_constraintBottom_toTopOf="@+id/codeBox"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.473"
+        app:layout_constraintHorizontal_bias="0.482"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.91" />
+        app:layout_constraintVertical_bias="1.0" />
 
     <EditText
         android:id="@+id/codeBox"
@@ -34,40 +59,108 @@
         android:inputType="textPersonName"
         android:minHeight="48dp"
         android:padding="10dp"
+        android:textColorHint="#757575"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.434" />
+        app:layout_constraintVertical_bias="0.477" />
 
     <Button
         android:id="@+id/joinBtn"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:layout_margin="10dp"
+        android:layout_marginTop="44dp"
+        android:layout_weight="1"
+        android:backgroundTint="#CD69DF"
+        android:drawableLeft="@drawable/join"
         android:padding="15dp"
-        android:text="Join Meeting"
+        android:stateListAnimator="@android:animator/fade_in"
+        android:text="Create/Join"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.498"
+        app:layout_constraintHorizontal_bias="0.497"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/codeBox"
-        app:layout_constraintVertical_bias="0.148" />
+        app:layout_constraintVertical_bias="0.21" />
+
+    <TextView
+        android:id="@+id/shareCode"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:drawableLeft="@drawable/share_guest_icon"
+        android:drawablePadding="3dp"
+        android:paddingStart="2dp"
+        android:paddingEnd="2dp"
+        android:text="Share Code"
+        android:textColor="#CD69DF"
+        android:textSize="15sp"
+        app:layout_constraintBottom_toTopOf="@+id/joinBtn"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.855"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/codeBox"
+        app:layout_constraintVertical_bias="0.169" />
 
     <TextView
         android:id="@+id/backToSignIn"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="60dp"
-        android:padding="10dp"
         android:text="Back to Sign In?"
         android:textAlignment="center"
-        android:textColor="#0F86E4"
+        android:textColor="#009688"
+        android:textSize="15sp"
+
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.852"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/shareCode"
+        app:layout_constraintVertical_bias="0.916" />
+
+    <TextView
+        android:id="@+id/followtv"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text=" Follow "
         android:textSize="15sp"
 
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/joinBtn"
-        app:layout_constraintVertical_bias="0.104" />
+        app:layout_constraintVertical_bias="0.431" />
+
+    <LinearLayout
+        android:id="@+id/linearLayout"
+        android:layout_width="119dp"
+        android:layout_height="37dp"
+        android:orientation="horizontal"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.498"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/followtv"
+        app:layout_constraintVertical_bias="0.193">
+
+        <ImageView
+            android:id="@+id/facebook"
+            android:layout_width="20dp"
+            android:layout_height="20dp"
+            app:srcCompat="@drawable/facebook_logo" />
+
+        <ImageView
+            android:id="@+id/linkedin"
+            android:layout_width="78dp"
+            android:layout_height="20dp"
+            app:srcCompat="@drawable/linkedin_logo" />
+
+        <ImageView
+            android:id="@+id/instagram"
+            android:layout_width="20dp"
+            android:layout_height="20dp"
+            app:srcCompat="@drawable/instagram_logo" />
+    </LinearLayout>
 
 </androidx.constraintlayout.widget.ConstraintLayout>

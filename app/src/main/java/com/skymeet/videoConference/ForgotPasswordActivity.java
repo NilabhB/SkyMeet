@@ -51,39 +51,39 @@ public class ForgotPasswordActivity extends AppCompatActivity {
     private void resetPassword() {
         String email = emailBox.getText().toString().trim();
 
-        if(email.isEmpty()){
+        if (email.isEmpty()){
             emailBox.setError("Email is required");
             emailBox.requestFocus();
-        }
-        if(!Patterns.EMAIL_ADDRESS.matcher(email).matches()) {
+        } else if (!Patterns.EMAIL_ADDRESS.matcher(email).matches()) {
             emailBox.setError("Please provide a valid email!");
             emailBox.requestFocus();
+        } else {
+            auth.sendPasswordResetEmail(email).addOnCompleteListener(new OnCompleteListener<Void>() {
+                @Override
+                public void onComplete(@NonNull Task<Void> task) {
+                    if(task.isSuccessful()) {
+                        new AlertDialog.Builder(ForgotPasswordActivity.this)
+                                .setTitle("Check your Email")
+                                .setMessage("A Link has been send to your email for resetting the password." +
+                                        " Kindly reset it & revert back to Sign-In Screen.")
+                                .setPositiveButton("Reset Now", new DialogInterface.OnClickListener() {
+                                    @Override
+                                    public void onClick(DialogInterface dialog, int which) {
+                                        Intent intent = getPackageManager().
+                                                getLaunchIntentForPackage("com.google.android.gm");
+                                        startActivity(intent);
+                                        Toast.makeText(ForgotPasswordActivity.this,
+                                                "Check in Spam Folder if not found", Toast.LENGTH_SHORT).show();
+                                    }
+                                }).show();
+                        Toast.makeText(ForgotPasswordActivity.this, "Check your email to reset your password", Toast.LENGTH_LONG).show();
+                    } else {
+                        Toast.makeText(ForgotPasswordActivity.this, "Try again", Toast.LENGTH_SHORT).show();
+                    }
+                }
+            });
         }
 
-        auth.sendPasswordResetEmail(email).addOnCompleteListener(new OnCompleteListener<Void>() {
-            @Override
-            public void onComplete(@NonNull Task<Void> task) {
-                if(task.isSuccessful()) {
-                    new AlertDialog.Builder(ForgotPasswordActivity.this)
-                            .setTitle("Check your Email")
-                            .setMessage("A Link has been send to your email for resetting the password." +
-                                    " Kindly reset it & revert back to Sign-In Screen.")
-                            .setPositiveButton("Reset Now", new DialogInterface.OnClickListener() {
-                                @Override
-                                public void onClick(DialogInterface dialog, int which) {
-                                    // FirebaseAuth.getInstance().signOut();
-                                    Intent intent = getPackageManager().
-                                            getLaunchIntentForPackage("com.google.android.gm");
-                                    startActivity(intent);
-                                    Toast.makeText(ForgotPasswordActivity.this,
-                                            "Check in Spam Folder if not found", Toast.LENGTH_SHORT).show();
-                                }
-                            }).show();
-                    Toast.makeText(ForgotPasswordActivity.this, "Check your email to reset your password", Toast.LENGTH_LONG).show();
-                } else {
-                    Toast.makeText(ForgotPasswordActivity.this, "Try again", Toast.LENGTH_SHORT).show();
-                }
-            }
-        });
+
     }
 }

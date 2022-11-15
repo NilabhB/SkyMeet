@@ -22,7 +22,7 @@ public class SplashScreenActivity extends AppCompatActivity {
         Thread thread = new Thread() {
             public void run() {
                 try {
-                    sleep(2500);
+                    sleep(700);
                 } catch (Exception e) {
                     e.printStackTrace();
                 } finally {

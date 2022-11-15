@@ -4,12 +4,14 @@ import static android.content.pm.ActivityInfo.SCREEN_ORIENTATION_PORTRAIT;
 
 import android.content.DialogInterface;
 import android.content.Intent;
+import android.net.Uri;
 import android.os.Bundle;
 import android.text.TextUtils;
 import android.view.View;
 import android.view.animation.AlphaAnimation;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.ImageView;
 import android.widget.TextView;
 
 import androidx.appcompat.app.AlertDialog;
@@ -21,23 +23,30 @@ import org.jitsi.meet.sdk.JitsiMeetConferenceOptions;
 
 import java.net.MalformedURLException;
 import java.net.URL;
+import java.util.Objects;
 
 public class GuestActivity extends AppCompatActivity {
 
     EditText codeBox;
     Button joinBtn;
-    TextView backToSignIn;
+    TextView backToSignIn, shareCode;
+    ImageView facebook, linkedin, instagram;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_guest);
         getSupportActionBar().setTitle("Guest Mode");
+        Objects.requireNonNull(getSupportActionBar()).hide();
         setRequestedOrientation(SCREEN_ORIENTATION_PORTRAIT);
 
         codeBox = findViewById(R.id.codeBox);
         joinBtn = findViewById(R.id.joinBtn);
         backToSignIn = findViewById(R.id.backToSignIn);
+        shareCode = findViewById(R.id.shareCode);
+        facebook = findViewById(R.id.facebook);
+        linkedin = findViewById(R.id.linkedin);
+        instagram = findViewById(R.id.instagram);
 
         URL serverURL = null;
         try {
@@ -84,6 +93,56 @@ public class GuestActivity extends AppCompatActivity {
             public void onClick(View view) {
                 view.startAnimation(buttonClick);
                 startActivity(new Intent(GuestActivity.this, SignInActivity.class));
+            }
+        });
+
+        shareCode.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                view.startAnimation(buttonClick);
+                if (TextUtils.isEmpty(codeBox.getText().toString())) {
+                    codeBox.setError("Enter Meeting Code before sharing!");
+                    codeBox.requestFocus();
+                } else {
+                    Intent sharingIntent = new Intent(android.content.Intent.ACTION_SEND);
+                    sharingIntent.setType("text/plain");
+                    String shareBody = "To join the meeting on SkyMeet Conference, please use\n"
+                            + "Code: " + codeBox.getText().toString().trim();
+                    sharingIntent.putExtra(android.content.Intent.EXTRA_SUBJECT, "Subject Here");
+                    sharingIntent.putExtra(android.content.Intent.EXTRA_TEXT, shareBody);
+                    startActivity(Intent.createChooser(sharingIntent, "Share Code via"));
+                }
+
+            }
+        });
+
+        facebook.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+//                Profile/Page opens up on chrome, not on the app
+                String YourPageURL = "https://www.facebook.com/skymeet.conference/";
+                Intent browserIntent = new Intent(Intent.ACTION_VIEW, Uri.parse(YourPageURL));
+                startActivity(browserIntent);
+            }
+        });
+
+        linkedin.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                String YourPageURL = "https://www.linkedin.com/company/skymeet.conference/";
+                Intent browserIntent = new Intent(Intent.ACTION_VIEW, Uri.parse(YourPageURL));
+                startActivity(browserIntent);
+
+            }
+        });
+
+        instagram.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                String YourPageURL = "https://www.instagram.com/skymeet.conference/";
+                Intent browserIntent = new Intent(Intent.ACTION_VIEW, Uri.parse(YourPageURL));
+                startActivity(browserIntent);
+
             }
         });
     }

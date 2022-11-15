@@ -30,7 +30,7 @@ import java.util.Objects;
 public class SignInActivity extends AppCompatActivity {
     EditText emailBox, passwordBox;
     Button signInBtn;
-    TextView createAcTextView, forgotPassword;
+    TextView createAcTextView, forgotPassword, guestMode;
     FirebaseAuth auth;
     ProgressDialog dialog;
 
@@ -51,7 +51,7 @@ public class SignInActivity extends AppCompatActivity {
         signInBtn = findViewById(R.id.SignInBtn);
         createAcTextView = findViewById(R.id.createAcTextView);
         forgotPassword = findViewById(R.id.forgotPasswordTextView);
-
+        guestMode = findViewById(R.id.guestModetv);
 
 
         createAcTextView.setOnClickListener(new View.OnClickListener() {
@@ -67,6 +67,14 @@ public class SignInActivity extends AppCompatActivity {
             public void onClick(View view) {
                 view.startAnimation(buttonClick);
                 startActivity(new Intent(SignInActivity.this, ForgotPasswordActivity.class));
+            }
+        });
+
+        guestMode.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                view.startAnimation(buttonClick);
+                startActivity(new Intent(SignInActivity.this, GuestActivity.class));
             }
         });
 

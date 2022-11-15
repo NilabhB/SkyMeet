@@ -120,5 +120,19 @@
         app:layout_constraintVertical_bias="1.0"
         app:srcCompat="@drawable/skymeet_logo" />
 
+    <TextView
+        android:id="@+id/guestModetv"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Guest Mode"
+        android:textColor="#C322E0"
+        android:textSize="15sp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.883"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/forgotPasswordTextView"
+        app:layout_constraintVertical_bias="0.849" />
+
 
 </androidx.constraintlayout.widget.ConstraintLayout>

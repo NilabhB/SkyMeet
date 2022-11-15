@@ -152,8 +152,6 @@ public class MainActivity extends AppCompatActivity {
                 String YourPageURL = "https://www.facebook.com/skymeet.conference/";
                 Intent browserIntent = new Intent(Intent.ACTION_VIEW, Uri.parse(YourPageURL));
                 startActivity(browserIntent);
-
-
             }
         });
 
