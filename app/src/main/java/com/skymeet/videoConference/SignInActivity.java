@@ -33,10 +33,10 @@ import java.util.Objects;
 public class SignInActivity extends AppCompatActivity {
     EditText emailBox, passwordBox;
     Button signInBtn;
-    TextView createAcTextView, forgotPassword, guestMode;
+    TextView createAcTextView, forgotPassword;
     FirebaseAuth auth;
     ProgressDialog dialog;
-    ImageView passwordEye;
+    ImageView guestMode;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -55,7 +55,7 @@ public class SignInActivity extends AppCompatActivity {
         signInBtn = findViewById(R.id.SignInBtn);
         createAcTextView = findViewById(R.id.createAcTextView);
         forgotPassword = findViewById(R.id.forgotPasswordTextView);
-        guestMode = findViewById(R.id.guestModetv);
+        guestMode = findViewById(R.id.guestMode);
         //passwordEye = findViewById(R.id.passwordEye);
 
 
@@ -117,6 +117,7 @@ public class SignInActivity extends AppCompatActivity {
                                 if (!firebaseUser.isEmailVerified()) {
                                     firebaseUser.sendEmailVerification();
                                     new android.app.AlertDialog.Builder(SignInActivity.this)
+                                            .setIcon(R.drawable.ic_baseline_email_24)
                                             .setTitle("Email Verification Needed")
                                             .setMessage("A link was send to your email previously. Please verify to log in.")
                                             .setPositiveButton("Verify Now", new DialogInterface.OnClickListener() {
@@ -181,6 +182,7 @@ public class SignInActivity extends AppCompatActivity {
     @Override
     public void onBackPressed() {
         new AlertDialog.Builder(this)
+                .setIcon(R.drawable.ic_baseline_guest_30)
                 .setTitle("Guest Mode")
                 .setMessage("Do you want enter as a Guest?")
                 .setPositiveButton("Yes", new DialogInterface.OnClickListener() {

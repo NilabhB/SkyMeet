@@ -14,7 +14,7 @@
         android:layout_marginBottom="36dp"
         android:fontFamily="@font/alegreya_sc_bold"
         android:padding="10dp"
-        android:text="SkyMeet Conference"
+        android:text="@string/skymeet_conference"
         android:textAlignment="center"
         android:textColor="#009688"
         android:textSize="20sp"
@@ -33,7 +33,7 @@
         android:drawableLeft="@drawable/ic_baseline_email_24"
         android:drawablePadding="7dp"
         android:ems="16"
-        android:hint="Email ID"
+        android:hint="@string/email_id"
         android:inputType="textEmailAddress"
         android:minHeight="48dp"
         android:padding="10dp"
@@ -53,7 +53,7 @@
         android:drawableLeft="@drawable/ic_baseline_lock_24"
         android:drawablePadding="7dp"
         android:ems="16"
-        android:hint="Password"
+        android:hint="@string/password"
         android:inputType="textPassword"
         android:minHeight="48dp"
         android:padding="10dp"
@@ -70,7 +70,7 @@
         android:layout_height="wrap_content"
         android:layout_marginTop="7dp"
         android:gravity="right"
-        android:text="Forgot Password?"
+        android:text="@string/forgot_password"
         android:textSize="15sp"
         app:layout_constraintBottom_toTopOf="@+id/SignInBtn"
         app:layout_constraintEnd_toEndOf="parent"
@@ -86,7 +86,7 @@
         android:layout_gravity="center"
         android:background="@drawable/buttonbox"
         android:stateListAnimator="@anim/rns_default_enter_in"
-        android:text="Sign In"
+        android:text="@string/sign_in"
         app:layout_constraintBottom_toTopOf="@+id/createAcTextView"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.498"
@@ -99,7 +99,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:padding="10dp"
-        android:text="Don't have an Account?"
+        android:text="@string/don_t_have_an_account"
         android:textAlignment="center"
         android:textColor="#C60B4B"
         android:textSize="15sp"
@@ -120,19 +120,6 @@
         app:layout_constraintVertical_bias="1.0"
         app:srcCompat="@drawable/skymeet_logo" />
 
-    <TextView
-        android:id="@+id/guestModetv"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="Guest Mode"
-        android:textColor="#C322E0"
-        android:textSize="15sp"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.883"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/forgotPasswordTextView"
-        app:layout_constraintVertical_bias="0.849" />
 
     <ImageView
         android:id="@+id/passwordEye"
@@ -146,6 +133,18 @@
         app:layout_constraintStart_toStartOf="@+id/passwordBox"
         app:layout_constraintTop_toTopOf="@+id/passwordBox"
         app:srcCompat="@drawable/ic_baseline_visibility_24" />
+
+    <ImageView
+        android:id="@+id/guestMode"
+        android:layout_width="50dp"
+        android:layout_height="50dp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.5"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/createAcTextView"
+        app:layout_constraintVertical_bias="0.5"
+        app:srcCompat="@drawable/ic_baseline_guest_30" />
 
 
 </androidx.constraintlayout.widget.ConstraintLayout>

@@ -1,3 +1,25 @@
 <resources>
     <string name="app_name">SkyMeet</string>
+    <string name="skymeet">SkyMeet</string>
+    <string name="share_code">Share Code</string>
+    <string name="follow">Follow</string>
+    <string name="create_an_unique_random_code_to_generate_conference_room_and_share_the_code_to_initiate_meeting">Create an unique random code to generate conference room and share the code to initiate meeting.</string>
+    <string name="enter_code">Enter Code</string>
+    <string name="create_join">Create/Join</string>
+    <string name="hello">Hello!</string>
+    <string name="guest_mode">Guest Mode</string>
+    <string name="back_to">Back to</string>
+    <string name="jitsi_open_source_multi_platform">Jitsi Open Source Multi-platform</string>
+    <string name="powered_by">Powered by</string>
+    <string name="developed_by">Developed by</string>
+    <string name="nilabh_nayan_borthakur">Nilabh Nayan Borthakur</string>
+    <string name="don_t_have_an_account">Don\'t have an Account?</string>
+    <string name="sign_in">Sign In</string>
+    <string name="forgot_password">Forgot Password?</string>
+    <string name="password">Password</string>
+    <string name="email_id">Email ID</string>
+    <string name="skymeet_conference">SkyMeet Conference</string>
+    <string name="full_name">Full Name</string>
+    <string name="sign_in_question">Sign In?</string>
+    <string name="sign_up">Sign Up</string>
 </resources>

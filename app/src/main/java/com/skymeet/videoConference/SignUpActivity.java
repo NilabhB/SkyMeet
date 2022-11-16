@@ -43,6 +43,7 @@ public class SignUpActivity extends AppCompatActivity {
     EditText emailBox, passwordBox, userName;
     Button signUpBtn;
     ProgressDialog dialog;
+    ImageView guestMode;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -62,6 +63,16 @@ public class SignUpActivity extends AppCompatActivity {
         passwordBox = findViewById(R.id.passwordBox);
         userName = findViewById(R.id.userName);
         signUpBtn = findViewById(R.id.SignUpBtn);
+        guestMode = findViewById(R.id.guestMode);
+
+
+        guestMode.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                view.startAnimation(buttonClick);
+                startActivity(new Intent(SignUpActivity.this, GuestActivity.class));
+            }
+        });
 
         signInAcTextView.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -117,6 +128,7 @@ public class SignUpActivity extends AppCompatActivity {
                                     @Override
                                     public void onSuccess(Void unused) {
                                         new android.app.AlertDialog.Builder(SignUpActivity.this)
+                                                .setIcon(R.drawable.ic_baseline_email_24)
                                                 .setTitle("Verify your Email")
                                                 .setMessage("A link has been send to your email. Please verify now before logging in")
                                                 .setNeutralButton("Later", new DialogInterface.OnClickListener() {
@@ -169,6 +181,7 @@ public class SignUpActivity extends AppCompatActivity {
     @Override
     public void onBackPressed() {
         new AlertDialog.Builder(this)
+                .setIcon(R.drawable.ic_baseline_guest_30)
                 .setTitle("Guest Mode")
                 .setMessage("Do you want enter as a Guest?")
                 .setPositiveButton("Yes", new DialogInterface.OnClickListener() {
