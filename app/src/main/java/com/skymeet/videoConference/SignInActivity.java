@@ -7,11 +7,14 @@ import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
 import android.text.TextUtils;
+import android.text.method.HideReturnsTransformationMethod;
+import android.text.method.PasswordTransformationMethod;
 import android.util.Patterns;
 import android.view.View;
 import android.view.animation.AlphaAnimation;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -33,6 +36,7 @@ public class SignInActivity extends AppCompatActivity {
     TextView createAcTextView, forgotPassword, guestMode;
     FirebaseAuth auth;
     ProgressDialog dialog;
+    ImageView passwordEye;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -52,6 +56,8 @@ public class SignInActivity extends AppCompatActivity {
         createAcTextView = findViewById(R.id.createAcTextView);
         forgotPassword = findViewById(R.id.forgotPasswordTextView);
         guestMode = findViewById(R.id.guestModetv);
+        //passwordEye = findViewById(R.id.passwordEye);
+
 
 
         createAcTextView.setOnClickListener(new View.OnClickListener() {
@@ -156,6 +162,16 @@ public class SignInActivity extends AppCompatActivity {
         assert user != null;
         if(user.isEmailVerified()) {
         startActivity(new Intent(SignInActivity.this, MainActivity.class));
+        }
+    }
+
+    public void ShowHidePass(View view) {
+        if(passwordBox.getTransformationMethod().equals(PasswordTransformationMethod.getInstance())) {
+            ((ImageView)(view)).setImageResource(R.drawable.ic_baseline_visibility_off_24);
+            passwordBox.setTransformationMethod(HideReturnsTransformationMethod.getInstance());
+        } else {
+            ((ImageView)(view)).setImageResource(R.drawable.ic_baseline_visibility_24);
+            passwordBox.setTransformationMethod(PasswordTransformationMethod.getInstance());
         }
     }
 
