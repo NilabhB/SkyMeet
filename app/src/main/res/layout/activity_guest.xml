@@ -10,7 +10,7 @@
         android:id="@+id/guestModeBigView"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="36dp"
+        android:layout_marginTop="56dp"
         android:text="Guest Mode"
         android:textColor="#CD69DF"
         android:textSize="30sp"
@@ -28,7 +28,7 @@
         app:layout_constraintHorizontal_bias="0.498"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.671"
+        app:layout_constraintVertical_bias="0.75"
         app:srcCompat="@drawable/video_call2" />
 
     <TextView
@@ -39,7 +39,6 @@
         android:layout_marginBottom="36dp"
         android:gravity="center"
         android:text="Create an unique random code to generate conference room and share the code to initiate meeting."
-        android:textColor="#CD69DF"
         app:layout_constraintBottom_toTopOf="@+id/codeBox"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.482"
@@ -62,9 +61,10 @@
         android:textColorHint="#757575"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.511"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.477" />
+        app:layout_constraintVertical_bias="0.535" />
 
     <Button
         android:id="@+id/joinBtn"

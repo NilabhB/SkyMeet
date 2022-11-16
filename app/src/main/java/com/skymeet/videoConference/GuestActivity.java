@@ -118,7 +118,8 @@ public class GuestActivity extends AppCompatActivity {
 
         facebook.setOnClickListener(new View.OnClickListener() {
             @Override
-            public void onClick(View v) {
+            public void onClick(View view) {
+                view.startAnimation(buttonClick);
 //                Profile/Page opens up on chrome, not on the app
                 String YourPageURL = "https://www.facebook.com/skymeet.conference/";
                 Intent browserIntent = new Intent(Intent.ACTION_VIEW, Uri.parse(YourPageURL));
@@ -128,7 +129,8 @@ public class GuestActivity extends AppCompatActivity {
 
         linkedin.setOnClickListener(new View.OnClickListener() {
             @Override
-            public void onClick(View v) {
+            public void onClick(View view) {
+                view.startAnimation(buttonClick);
                 String YourPageURL = "https://www.linkedin.com/company/skymeet.conference/";
                 Intent browserIntent = new Intent(Intent.ACTION_VIEW, Uri.parse(YourPageURL));
                 startActivity(browserIntent);
@@ -138,7 +140,8 @@ public class GuestActivity extends AppCompatActivity {
 
         instagram.setOnClickListener(new View.OnClickListener() {
             @Override
-            public void onClick(View v) {
+            public void onClick(View view) {
+                view.startAnimation(buttonClick);
                 String YourPageURL = "https://www.instagram.com/skymeet.conference/";
                 Intent browserIntent = new Intent(Intent.ACTION_VIEW, Uri.parse(YourPageURL));
                 startActivity(browserIntent);
