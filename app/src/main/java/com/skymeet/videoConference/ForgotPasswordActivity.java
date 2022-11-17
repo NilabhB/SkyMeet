@@ -63,6 +63,7 @@ public class ForgotPasswordActivity extends AppCompatActivity {
                 public void onComplete(@NonNull Task<Void> task) {
                     if(task.isSuccessful()) {
                         new AlertDialog.Builder(ForgotPasswordActivity.this)
+                                .setIcon(R.drawable.ic_baseline_email_24)
                                 .setTitle("Check your Email")
                                 .setMessage("A Link has been send to your email for resetting the password." +
                                         " Kindly reset it & revert back to Sign-In Screen.")

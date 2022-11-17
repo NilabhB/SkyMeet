@@ -97,8 +97,6 @@ public class MainActivity extends AppCompatActivity {
         JitsiMeetConferenceOptions defaultOptions
                 = new JitsiMeetConferenceOptions.Builder()
                 .setServerURL(serverURL)
-                .setFeatureFlag("welcomepage.enabled", false)
-                .setFeatureFlag("invite.enabled",false)
                 .build();
 
         JitsiMeet.setDefaultConferenceOptions(defaultOptions);
@@ -118,7 +116,9 @@ public class MainActivity extends AppCompatActivity {
                             = new JitsiMeetConferenceOptions.Builder()
                             .setRoom(codeBox.getText().toString().trim())
                             .setFeatureFlag("welcomepage.enabled", false)
+                            .setFeatureFlag("live-streaming.enabled",false)
                             .setFeatureFlag("invite.enabled",false)
+                            .setFeatureFlag("fullscreen.enabled", true)
                             .build();
                     JitsiMeetActivity.launch(MainActivity.this, options);
                 }
