@@ -10,13 +10,14 @@
         android:id="@+id/guestModeBigView"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="56dp"
         android:text="@string/guest_mode"
         android:textColor="#CD69DF"
         android:textSize="30sp"
+        app:layout_constraintBottom_toTopOf="@+id/imageView3"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.315" />
 
     <ImageView
         android:id="@+id/imageView3"
@@ -83,7 +84,7 @@
         app:layout_constraintHorizontal_bias="0.497"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/codeBox"
-        app:layout_constraintVertical_bias="0.21" />
+        app:layout_constraintVertical_bias="0.196" />
 
     <TextView
         android:id="@+id/shareCode"
@@ -98,10 +99,10 @@
         android:textSize="16sp"
         app:layout_constraintBottom_toTopOf="@+id/joinBtn"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.855"
+        app:layout_constraintHorizontal_bias="0.852"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/codeBox"
-        app:layout_constraintVertical_bias="0.169" />
+        app:layout_constraintVertical_bias="0.25" />
 
     <TextView
         android:id="@+id/backToSignIn"
@@ -162,5 +163,17 @@
             android:layout_height="20dp"
             app:srcCompat="@drawable/instagram_logo" />
     </LinearLayout>
+
+    <ImageView
+        android:id="@+id/imageView5"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        app:layout_constraintBottom_toTopOf="@+id/textView2"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.84"
+        app:layout_constraintStart_toEndOf="@+id/guestModeBigView"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.057"
+        app:srcCompat="@drawable/ic_baseline_info_guest_24" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

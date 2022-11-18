@@ -44,7 +44,7 @@ public class MainActivity extends AppCompatActivity {
     Menu menu;
     FirebaseFirestore database;
     DocumentReference reference;
-    ImageView facebook, linkedin, instagram;
+    ImageView facebook, linkedin, instagram, profileInfo;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -55,6 +55,16 @@ public class MainActivity extends AppCompatActivity {
 
 
         FirebaseUser firebaseUser = FirebaseAuth.getInstance().getCurrentUser();
+
+        codeBox = findViewById(R.id.codeBox);
+        joinBtn = findViewById(R.id.joinBtn);
+        shareCode = findViewById(R.id.shareCode);
+        welcomeUser = findViewById(R.id.welcomeUser);
+        logoutText = findViewById(R.id.logoutText);
+        facebook = findViewById(R.id.facebook);
+        linkedin = findViewById(R.id.linkedin);
+        instagram = findViewById(R.id.instagram);
+        profileInfo = findViewById(R.id.profileInfo);
 
         database = FirebaseFirestore.getInstance();
         assert firebaseUser != null;
@@ -76,14 +86,7 @@ public class MainActivity extends AppCompatActivity {
                     }
                 });
 
-        codeBox = findViewById(R.id.codeBox);
-        joinBtn = findViewById(R.id.joinBtn);
-        shareCode = findViewById(R.id.shareCode);
-        welcomeUser = findViewById(R.id.welcomeUser);
-        logoutText = findViewById(R.id.logoutText);
-        facebook = findViewById(R.id.facebook);
-        linkedin = findViewById(R.id.linkedin);
-        instagram = findViewById(R.id.instagram);
+
 
 
 
@@ -122,6 +125,14 @@ public class MainActivity extends AppCompatActivity {
                             .build();
                     JitsiMeetActivity.launch(MainActivity.this, options);
                 }
+            }
+        });
+
+        profileInfo.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                view.startAnimation(buttonClick);
+                startActivity(new Intent(MainActivity.this, ProfileInfoActivity.class));
             }
         });
 

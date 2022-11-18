@@ -46,12 +46,25 @@
         android:minHeight="48dp"
         android:padding="10dp"
         android:textColorHint="#757575"
-        app:layout_constraintBottom_toTopOf="@+id/bottomNavigationView"
+        app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.522"
+        app:layout_constraintHorizontal_bias="0.511"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.567" />
+        app:layout_constraintVertical_bias="0.535" />
+
+    <!--    <com.google.android.material.bottomnavigation.BottomNavigationView-->
+    <!--        android:id="@+id/bottomNavigationView"-->
+    <!--        android:layout_width="match_parent"-->
+    <!--        android:layout_height="wrap_content"-->
+    <!--        app:labelVisibilityMode="labeled"-->
+    <!--        app:layout_constraintBottom_toBottomOf="parent"-->
+    <!--        app:layout_constraintEnd_toEndOf="parent"-->
+    <!--        app:layout_constraintHorizontal_bias="0.0"-->
+    <!--        app:layout_constraintStart_toStartOf="parent"-->
+    <!--        app:layout_constraintTop_toTopOf="parent"-->
+    <!--        app:layout_constraintVertical_bias="1.0"-->
+    <!--        app:menu="@menu/menu" />-->
 
     <Button
         android:id="@+id/joinBtn"
@@ -63,25 +76,12 @@
         android:padding="15dp"
         android:stateListAnimator="@android:animator/fade_in"
         android:text="@string/create_join"
-        app:layout_constraintBottom_toTopOf="@+id/bottomNavigationView"
+        app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.497"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/codeBox"
-        app:layout_constraintVertical_bias="0.302" />
-
-    <com.google.android.material.bottomnavigation.BottomNavigationView
-        android:id="@+id/bottomNavigationView"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        app:labelVisibilityMode="labeled"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.0"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="1.0"
-        app:menu="@menu/menu" />
+        app:layout_constraintVertical_bias="0.181" />
 
     <TextView
         android:id="@+id/welcomeUser"
@@ -102,14 +102,17 @@
         android:id="@+id/logoutText"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="Log Out?"
+        android:drawableLeft="@drawable/ic_baseline_logout_24"
+        android:drawablePadding="3dp"
+        android:text="Log Out"
         android:textColor="#E90808"
+        android:textSize="16sp"
         android:visibility="visible"
-        app:layout_constraintBottom_toTopOf="@+id/bottomNavigationView"
+        app:layout_constraintBottom_toTopOf="@+id/followtv"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/joinBtn"
-        app:layout_constraintVertical_bias="0.211" />
+        app:layout_constraintVertical_bias="0.425" />
 
     <TextView
         android:id="@+id/guestModeBigView"
@@ -121,10 +124,9 @@
         android:textSize="30sp"
         app:layout_constraintBottom_toTopOf="@+id/welcomeUser"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.498"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="1.0" />
+        app:layout_constraintVertical_bias="0.966" />
 
     <TextView
         android:id="@+id/shareCode"
@@ -139,10 +141,10 @@
         android:textSize="16sp"
         app:layout_constraintBottom_toTopOf="@+id/joinBtn"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.871"
+        app:layout_constraintHorizontal_bias="0.859"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/codeBox"
-        app:layout_constraintVertical_bias="0.191" />
+        app:layout_constraintVertical_bias="0.285" />
 
     <TextView
         android:id="@+id/followtv"
@@ -150,23 +152,22 @@
         android:layout_height="wrap_content"
         android:text="@string/follow"
         android:textSize="15sp"
-        app:layout_constraintBottom_toTopOf="@+id/bottomNavigationView"
+        app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/logoutText"
-        app:layout_constraintVertical_bias="0.315" />
+        app:layout_constraintTop_toBottomOf="@+id/joinBtn"
+        app:layout_constraintVertical_bias="0.597" />
 
     <LinearLayout
+        android:id="@+id/linearLayout"
         android:layout_width="119dp"
-        android:layout_height="22dp"
-        android:layout_marginBottom="15dp"
+        android:layout_height="37dp"
         android:orientation="horizontal"
-        app:layout_constraintBottom_toTopOf="@+id/bottomNavigationView"
+        app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.498"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/followtv"
-        app:layout_constraintVertical_bias="0.5">
+        app:layout_constraintVertical_bias="0.315">
 
         <ImageView
             android:id="@+id/facebook"
@@ -186,5 +187,18 @@
             android:layout_height="20dp"
             app:srcCompat="@drawable/instagram_logo" />
     </LinearLayout>
+
+    <ImageView
+        android:id="@+id/profileInfo"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        app:layout_constraintBottom_toTopOf="@+id/textView2"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.885"
+        app:layout_constraintStart_toEndOf="@+id/guestModeBigView"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.059"
+        app:srcCompat="@drawable/ic_baseline_info_24" />
+
 
 </androidx.constraintlayout.widget.ConstraintLayout>

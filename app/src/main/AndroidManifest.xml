@@ -2,6 +2,10 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools">
 
+    <queries>
+        <package android:name="com.google.android.gm" />
+    </queries>
+
     <application
         android:allowBackup="true"
         android:dataExtractionRules="@xml/data_extraction_rules"
@@ -12,6 +16,13 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.SkyMeet"
         tools:targetApi="31">
+        <activity
+            android:name=".ProfileInfoActivity"
+            android:exported="false">
+            <meta-data
+                android:name="android.app.lib_name"
+                android:value="" />
+        </activity>
         <activity
             android:name=".ForgotPasswordActivity"
             android:exported="false">
@@ -66,9 +77,5 @@
             android:name="preloaded_fonts"
             android:resource="@array/preloaded_fonts" />
     </application>
-
-    <queries>
-        <package android:name="com.google.android.gm" />
-    </queries>
 
 </manifest>

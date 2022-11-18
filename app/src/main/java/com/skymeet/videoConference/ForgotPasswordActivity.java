@@ -19,6 +19,8 @@ import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.FirebaseAuth;
 
+import java.util.Objects;
+
 public class ForgotPasswordActivity extends AppCompatActivity {
 
     Button resetPasswordBtn;
@@ -30,7 +32,7 @@ public class ForgotPasswordActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_forgot_password);
-        getSupportActionBar().setTitle("Password Recovery");
+        Objects.requireNonNull(getSupportActionBar()).setTitle("Password Recovery");
         setRequestedOrientation(SCREEN_ORIENTATION_PORTRAIT);
 
         resetPasswordBtn = findViewById(R.id.resetPasswordBtn);
