@@ -7,7 +7,6 @@ import android.content.Intent;
 import android.net.Uri;
 import android.os.Bundle;
 import android.text.TextUtils;
-import android.view.Menu;
 import android.view.View;
 import android.view.animation.AlphaAnimation;
 import android.widget.Button;
@@ -41,7 +40,6 @@ public class MainActivity extends AppCompatActivity {
     EditText codeBox;
     Button joinBtn;
     TextView welcomeUser, logoutText, shareCode;
-    Menu menu;
     FirebaseFirestore database;
     DocumentReference reference;
     ImageView facebook, linkedin, instagram, profileInfo;

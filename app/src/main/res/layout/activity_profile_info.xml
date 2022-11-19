@@ -7,30 +7,17 @@
     tools:context=".ProfileInfoActivity">
 
     <TextView
-        android:id="@+id/textView6"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:fontFamily="@font/akaya_telivigala"
-        android:text="Hi"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.087"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.07" />
-
-    <TextView
         android:id="@+id/welcomeUserInfo"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginLeft="4dp"
         android:fontFamily="@font/akaya_telivigala"
+        android:textSize="16sp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.0"
-        app:layout_constraintStart_toEndOf="@+id/textView6"
+        app:layout_constraintHorizontal_bias="0.498"
+        app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.07" />
+        app:layout_constraintVertical_bias="0.098" />
 
     <TextView
         android:id="@+id/textView7"
@@ -38,25 +25,195 @@
         android:layout_height="wrap_content"
         android:fontFamily="@font/akaya_telivigala"
         android:text="Welcome to SkyMeet!!!"
+        android:textSize="15sp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.124"
+        app:layout_constraintHorizontal_bias="0.498"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.117" />
+        app:layout_constraintVertical_bias="0.136" />
+
+    <TextView
+        android:id="@+id/shareApp"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:drawableLeft="@drawable/ic_baseline_share_24"
+        android:drawablePadding="3dp"
+        android:paddingStart="2dp"
+        android:paddingEnd="2dp"
+        android:text="@string/share_app"
+        android:textColor="#05B7A5"
+        android:textSize="16sp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.945"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/linearLayout"
+        app:layout_constraintVertical_bias="0.589" />
+
+    <TextView
+        android:id="@+id/rateNow"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:drawableRight="@drawable/ic_baseline_rate_star_24"
+        android:drawablePadding="3dp"
+        android:paddingStart="2dp"
+        android:paddingEnd="2dp"
+        android:text="RATE NOW"
+        android:textColor="#05B7A5"
+        android:textSize="16sp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toStartOf="@+id/shareApp"
+        app:layout_constraintHorizontal_bias="0.094"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/linearLayout"
+        app:layout_constraintVertical_bias="0.589" />
+
+    <TextView
+        android:id="@+id/skymeetInfotv"
+        android:layout_width="357dp"
+        android:layout_height="320dp"
+        android:fontFamily="@font/akaya_telivigala"
+        android:gravity="center"
+        android:text="@string/skymeet_info"
+        android:textSize="15sp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/textView7"
+        app:layout_constraintVertical_bias="0.035" />
 
     <TextView
         android:id="@+id/textView8"
-        android:layout_width="348dp"
-        android:layout_height="268dp"
+        android:layout_width="355dp"
+        android:layout_height="38dp"
         android:fontFamily="@font/akaya_telivigala"
-        android:gravity="start|fill|end"
-        android:text="SkyMeet is a free Open Source Android Application solely developed by Er. Nilabh Nayan Borthakur. SkyMeet uses Google Firebase for User-ID authentication and Firestore as a Database for storing User's data(Name and Email currently) without compromising security protocols and the integration of video conferencing room is based upon the Open Source Jitsi Multiplatform developed by Emil Ivov, Ph.D., in the year 2003. SkyMeet will easily handle 30 to 35 participants without any glitch, however it's maximum participants in one room is 100(not tested yet). SkyMeet offers multiple features like chat and poll section, screen sharing, attending meeting in low bandwidth, stream video and many more. Meeting Room is full encrypted and completely secure along with customizable security features. We are planning to bring more features in the coming days."
+        android:gravity="center"
+        android:text="If you liked or amazed by what we have created, you can fetch me a cup of coffee"
+        android:textSize="15sp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.555"
+        app:layout_constraintHorizontal_bias="0.517"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/textView7"
-        app:layout_constraintVertical_bias="0.031" />
+        app:layout_constraintTop_toBottomOf="@+id/skymeetInfotv"
+        app:layout_constraintVertical_bias="0.07" />
+
+    <TextView
+        android:id="@+id/textView9"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:fontFamily="@font/akaya_telivigala"
+        android:text="at"
+        android:textSize="15sp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/textView8"
+        app:layout_constraintVertical_bias="0.051" />
+
+    <TextView
+        android:id="@+id/upiID"
+        android:layout_width="wrap_content"
+        android:layout_height="23dp"
+        android:fontFamily="@font/akaya_telivigala"
+        android:text="borthakur.nilabh@oksbi"
+        android:textSize="16sp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/textView9"
+        app:layout_constraintVertical_bias="0.005" />
+
+    <ImageView
+        android:id="@+id/gpay"
+        android:layout_width="25dp"
+        android:layout_height="25dp"
+        android:layout_marginRight="3dp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toStartOf="@+id/upiID"
+        app:layout_constraintHorizontal_bias="1.0"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/textView9"
+        app:layout_constraintVertical_bias="0.0"
+        app:srcCompat="@drawable/g_pay" />
+
+    <ImageView
+        android:id="@+id/imageView7"
+        android:layout_width="18dp"
+        android:layout_height="18dp"
+        android:layout_marginBottom="3dp"
+        app:layout_constraintBottom_toBottomOf="@+id/textView8"
+        app:layout_constraintEnd_toEndOf="@+id/textView8"
+        app:layout_constraintHorizontal_bias="0.747"
+        app:layout_constraintStart_toStartOf="@+id/textView8"
+        app:layout_constraintTop_toBottomOf="@+id/skymeetInfotv"
+        app:layout_constraintVertical_bias="1.0"
+        app:srcCompat="@drawable/coffee_cup" />
+
+    <ImageView
+        android:id="@+id/copytxt"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:onClick="onCopyClick"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.027"
+        app:layout_constraintStart_toEndOf="@+id/upiID"
+        app:layout_constraintTop_toBottomOf="@+id/textView9"
+        app:layout_constraintVertical_bias="0.004"
+        app:srcCompat="@drawable/ic_baseline_content_copy_24" />
+
+    <TextView
+        android:id="@+id/textView6"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:fontFamily="@font/akaya_telivigala"
+        android:text="Connect with the developer:"
+        android:textSize="15sp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/upiID"
+        app:layout_constraintVertical_bias="0.254" />
+
+    <LinearLayout
+        android:id="@+id/linearLayout"
+        android:layout_width="171dp"
+        android:layout_height="38dp"
+        android:orientation="horizontal"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.498"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/textView6"
+        app:layout_constraintVertical_bias="0.0">
+
+        <ImageView
+            android:id="@+id/facebook"
+            android:layout_width="20dp"
+            android:layout_height="20dp"
+            app:srcCompat="@drawable/facebook_logo" />
+
+        <ImageView
+            android:id="@+id/linkedin"
+            android:layout_width="20dp"
+            android:layout_height="20dp"
+            android:layout_marginLeft="30dp"
+            app:srcCompat="@drawable/linkedin_logo" />
+
+        <ImageView
+            android:id="@+id/instagram"
+            android:layout_width="20dp"
+            android:layout_height="20dp"
+            android:layout_marginLeft="30dp"
+            app:srcCompat="@drawable/instagram_logo" />
+
+        <ImageView
+            android:id="@+id/github"
+            android:layout_width="20dp"
+            android:layout_height="20dp"
+            android:layout_marginLeft="30dp"
+            app:srcCompat="@drawable/github_logo" />
+    </LinearLayout>
 
 </androidx.constraintlayout.widget.ConstraintLayout>

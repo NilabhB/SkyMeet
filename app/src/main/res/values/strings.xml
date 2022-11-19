@@ -22,4 +22,6 @@
     <string name="full_name">Full Name</string>
     <string name="sign_in_question">Sign In?</string>
     <string name="sign_up">Sign Up</string>
+    <string name="skymeet_info">SkyMeet is a free Open Source Android Application solely developed by Er. Nilabh Nayan Borthakur and few friends from college for testing as an experimental project. SkyMeet uses Google Firebase for User-ID authentication and Firestore as a Database for storing User\'s data(Name and Email currently) without compromising security protocols and the integration of video conferencing room is based upon the Open Source Jitsi Multiplatform developed by Emil Ivov, Ph.D., in the year 2003. SkyMeet will easily handle 30 to 35 participants without any glitch, however it\'s maximum participants in one room is 100(not tested yet). SkyMeet offers multiple features like chat and poll section, screen sharing, attending meeting in low bandwidth, stream video and many more. Meeting Room is fully encrypted and completely secure along with other customizable security features. We are planning to bring more features in the coming days.</string>
+    <string name="share_app">SHARE APP</string>
 </resources>
