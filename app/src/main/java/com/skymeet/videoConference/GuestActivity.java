@@ -30,13 +30,12 @@ public class GuestActivity extends AppCompatActivity {
     EditText codeBox;
     Button joinBtn;
     TextView backToSignIn, shareCode;
-    ImageView facebook, linkedin, instagram;
+    ImageView facebook, linkedin, instagram, guestprofileAppInfo;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_guest);
-        getSupportActionBar().setTitle("Guest Mode");
         Objects.requireNonNull(getSupportActionBar()).hide();
         setRequestedOrientation(SCREEN_ORIENTATION_PORTRAIT);
 
@@ -47,6 +46,7 @@ public class GuestActivity extends AppCompatActivity {
         facebook = findViewById(R.id.facebook);
         linkedin = findViewById(R.id.linkedin);
         instagram = findViewById(R.id.instagram);
+        guestprofileAppInfo = findViewById(R.id.guestprofileAppInfo);
 
         URL serverURL = null;
         try {
@@ -84,6 +84,14 @@ public class GuestActivity extends AppCompatActivity {
                             .build();
                     JitsiMeetActivity.launch(GuestActivity.this, options);
                 }
+            }
+        });
+
+        guestprofileAppInfo.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                view.startAnimation(buttonClick);
+                startActivity(new Intent(GuestActivity.this, GuestInfoActivity.class));
             }
         });
 

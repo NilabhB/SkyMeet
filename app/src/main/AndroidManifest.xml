@@ -18,6 +18,13 @@
         android:theme="@style/Theme.SkyMeet"
         tools:targetApi="31">
         <activity
+            android:name=".GuestInfoActivity"
+            android:exported="false">
+            <meta-data
+                android:name="android.app.lib_name"
+                android:value="" />
+        </activity>
+        <activity
             android:name=".ProfileInfoActivity"
             android:exported="false">
             <meta-data
