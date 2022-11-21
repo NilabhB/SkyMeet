@@ -29,7 +29,7 @@ import java.util.Objects;
 
 public class ProfileInfoActivity extends AppCompatActivity {
 
-    TextView welcomeUser, upiId, shareApp;
+    TextView welcomeUser, upiId, shareApp, rateApp;
     FirebaseFirestore database;
     DocumentReference reference;
     ImageView facebook, instagram,linkedin, github, gpay, copytxt;
@@ -51,6 +51,7 @@ public class ProfileInfoActivity extends AppCompatActivity {
         github = findViewById(R.id.github);
         upiId = findViewById(R.id.upiID);
         shareApp = findViewById(R.id.shareApp);
+        rateApp = findViewById(R.id.rateNow);
 
         FirebaseUser firebaseUser = FirebaseAuth.getInstance().getCurrentUser();
 
@@ -141,6 +142,16 @@ public class ProfileInfoActivity extends AppCompatActivity {
                     startActivity(Intent.createChooser(sharingIntent, "Share Code via"));
 
 
+            }
+        });
+
+        rateApp.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                view.startAnimation(buttonClick);
+                String YourPageURL = "https://play.google.com/store/apps/details?id=com.skymeet.videoConference";
+                Intent browserIntent = new Intent(Intent.ACTION_VIEW, Uri.parse(YourPageURL));
+                startActivity(browserIntent);
             }
         });
     }

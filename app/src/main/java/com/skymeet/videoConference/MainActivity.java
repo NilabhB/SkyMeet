@@ -145,7 +145,9 @@ public class MainActivity extends AppCompatActivity {
                     Intent sharingIntent = new Intent(android.content.Intent.ACTION_SEND);
                     sharingIntent.setType("text/plain");
                     String shareBody = "To join the meeting on SkyMeet Conference, please use\n"
-                            + "Code: " + codeBox.getText().toString().trim();
+                            + "Code: " + codeBox.getText().toString().trim() + "\n\nDownload SkyMeet:\n\n"
+                            + "Android: https://play.google.com/store/apps/details?id=com.skymeet.videoConference\n\n"
+                            + "iOS: An apple a day keeps a doctor away but visiting a lady doctor everyday could be your spouse someday.";
                     sharingIntent.putExtra(android.content.Intent.EXTRA_SUBJECT, "Subject Here");
                     sharingIntent.putExtra(android.content.Intent.EXTRA_TEXT, shareBody);
                     startActivity(Intent.createChooser(sharingIntent, "Share Code via"));

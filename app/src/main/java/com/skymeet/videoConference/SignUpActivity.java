@@ -130,7 +130,7 @@ public class SignUpActivity extends AppCompatActivity {
                                         new android.app.AlertDialog.Builder(SignUpActivity.this)
                                                 .setIcon(R.drawable.ic_baseline_email_24)
                                                 .setTitle("Verify your Email")
-                                                .setMessage("A link has been send to your email. Please verify now before logging in")
+                                                .setMessage("A link has been sent to your email. Please verify now before logging in")
                                                 .setNeutralButton("Later", new DialogInterface.OnClickListener() {
                                                     @Override
                                                     public void onClick(DialogInterface dialog, int which) {
