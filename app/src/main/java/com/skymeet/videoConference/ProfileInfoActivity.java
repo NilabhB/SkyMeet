@@ -139,7 +139,7 @@ public class ProfileInfoActivity extends AppCompatActivity {
                             + "iOS: An apple a day keeps a doctor away but visiting a lady doctor everyday could be your spouse someday.";
                     sharingIntent.putExtra(android.content.Intent.EXTRA_SUBJECT, "Subject Here");
                     sharingIntent.putExtra(android.content.Intent.EXTRA_TEXT, shareBody);
-                    startActivity(Intent.createChooser(sharingIntent, "Share Code via"));
+                    startActivity(Intent.createChooser(sharingIntent, "Share App via"));
 
 
             }

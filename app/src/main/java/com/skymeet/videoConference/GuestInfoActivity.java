@@ -1,5 +1,7 @@
 package com.skymeet.videoConference;
 
+import static android.content.pm.ActivityInfo.SCREEN_ORIENTATION_PORTRAIT;
+
 import android.content.ClipData;
 import android.content.ClipboardManager;
 import android.content.Context;
@@ -19,7 +21,7 @@ import java.util.Objects;
 public class GuestInfoActivity extends AppCompatActivity {
 
 
-    TextView welcomeUser, upiId, shareApp;
+    TextView welcomeUser, upiId, shareApp, rateApp;
     ImageView facebook, instagram,linkedin, github, gpay, copytxt;
 
     @Override
@@ -27,6 +29,7 @@ public class GuestInfoActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_guest_info);
         Objects.requireNonNull(getSupportActionBar()).hide();
+        setRequestedOrientation(SCREEN_ORIENTATION_PORTRAIT);
 
         welcomeUser = findViewById(R.id.hiUser);
         facebook = findViewById(R.id.facebook);
@@ -37,6 +40,7 @@ public class GuestInfoActivity extends AppCompatActivity {
         github = findViewById(R.id.github);
         upiId = findViewById(R.id.upiID);
         shareApp = findViewById(R.id.shareApp);
+        rateApp = findViewById(R.id.rateNow);
 
         facebook.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -102,9 +106,19 @@ public class GuestInfoActivity extends AppCompatActivity {
                         + "iOS: An apple a day keeps a doctor away but visiting a lady doctor everyday could be your spouse someday.";
                 sharingIntent.putExtra(android.content.Intent.EXTRA_SUBJECT, "Subject Here");
                 sharingIntent.putExtra(android.content.Intent.EXTRA_TEXT, shareBody);
-                startActivity(Intent.createChooser(sharingIntent, "Share Code via"));
+                startActivity(Intent.createChooser(sharingIntent, "Share App via"));
 
 
+            }
+        });
+
+        rateApp.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                view.startAnimation(buttonClick);
+                String YourPageURL = "https://play.google.com/store/apps/details?id=com.skymeet.videoConference";
+                Intent browserIntent = new Intent(Intent.ACTION_VIEW, Uri.parse(YourPageURL));
+                startActivity(browserIntent);
             }
         });
     }
