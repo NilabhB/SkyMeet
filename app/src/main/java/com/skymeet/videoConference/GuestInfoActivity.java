@@ -16,13 +16,16 @@ import android.widget.Toast;
 
 import androidx.appcompat.app.AppCompatActivity;
 
+import com.daimajia.androidanimations.library.Techniques;
+import com.daimajia.androidanimations.library.YoYo;
+
 import java.util.Objects;
 
 public class GuestInfoActivity extends AppCompatActivity {
 
 
     TextView welcomeUser, upiId, shareApp, rateApp;
-    ImageView facebook, instagram,linkedin, github, gpay, copytxt;
+    ImageView facebook, instagram,linkedin, github, gpay, copytxt, cup;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -41,6 +44,15 @@ public class GuestInfoActivity extends AppCompatActivity {
         upiId = findViewById(R.id.upiID);
         shareApp = findViewById(R.id.shareApp);
         rateApp = findViewById(R.id.rateNow);
+        cup = findViewById(R.id.coffeCup);
+
+
+        YoYo.with(Techniques.FlipInX).duration(1500).repeat(0).playOn(upiId);
+        YoYo.with(Techniques.FlipInX).duration(1200).repeat(3).playOn(facebook);
+        YoYo.with(Techniques.FlipInX).duration(1200).repeat(3).playOn(linkedin);
+        YoYo.with(Techniques.FlipInX).duration(1200).repeat(3).playOn(instagram);
+        YoYo.with(Techniques.FlipInX).duration(1200).repeat(3).playOn(github);
+        YoYo.with(Techniques.Pulse).duration(1200).repeat(3).playOn(cup);
 
         facebook.setOnClickListener(new View.OnClickListener() {
             @Override

@@ -9,12 +9,16 @@ import android.util.Patterns;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.ImageView;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
 
+import com.daimajia.androidanimations.library.Techniques;
+import com.daimajia.androidanimations.library.YoYo;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.FirebaseAuth;
@@ -26,14 +30,23 @@ public class ForgotPasswordActivity extends AppCompatActivity {
     Button resetPasswordBtn;
     EditText emailBox;
     FirebaseAuth auth;
+    TextView idSkyMeet;
+    ImageView skymeetLogo;
 
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_forgot_password);
-        Objects.requireNonNull(getSupportActionBar()).setTitle("Password Recovery");
+        Objects.requireNonNull(getSupportActionBar()).hide();
         setRequestedOrientation(SCREEN_ORIENTATION_PORTRAIT);
+
+
+        skymeetLogo = findViewById(R.id.skymeetLogo);
+        idSkyMeet = findViewById(R.id.idSkyMeet);
+
+        YoYo.with(Techniques.Swing).duration(1200).repeat(0).playOn(skymeetLogo);
+        YoYo.with(Techniques.Hinge).duration(2000).repeat(0).playOn(idSkyMeet);
 
         resetPasswordBtn = findViewById(R.id.resetPasswordBtn);
         emailBox = findViewById(R.id.emailBox);

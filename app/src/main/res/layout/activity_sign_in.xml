@@ -110,7 +110,7 @@
         app:layout_constraintTop_toBottomOf="@+id/passwordBox" />
 
     <ImageView
-        android:id="@+id/imageView"
+        android:id="@+id/skymeetLogo"
         android:layout_width="85dp"
         android:layout_height="85dp"
         app:layout_constraintBottom_toTopOf="@+id/idSkyMeet"

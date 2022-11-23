@@ -17,6 +17,9 @@ import android.widget.TextView;
 import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
 
+import com.daimajia.androidanimations.library.Techniques;
+import com.daimajia.androidanimations.library.YoYo;
+
 import org.jitsi.meet.sdk.JitsiMeet;
 import org.jitsi.meet.sdk.JitsiMeetActivity;
 import org.jitsi.meet.sdk.JitsiMeetConferenceOptions;
@@ -29,8 +32,8 @@ public class GuestActivity extends AppCompatActivity {
 
     EditText codeBox;
     Button joinBtn;
-    TextView backToSignIn, shareCode;
-    ImageView facebook, linkedin, instagram, guestprofileAppInfo;
+    TextView backToSignIn, shareCode, guestModeBigView, follow;
+    ImageView facebook, linkedin, instagram, guestprofileAppInfo, videoCall;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -47,6 +50,17 @@ public class GuestActivity extends AppCompatActivity {
         linkedin = findViewById(R.id.linkedin);
         instagram = findViewById(R.id.instagram);
         guestprofileAppInfo = findViewById(R.id.guestprofileAppInfo);
+        videoCall = findViewById(R.id.videoCall);
+        guestModeBigView = findViewById(R.id.guestModeBigView);
+        follow = findViewById(R.id.followtv);
+
+        YoYo.with(Techniques.Landing).duration(1200).repeat(0).playOn(videoCall);
+        YoYo.with(Techniques.Landing).duration(1200).repeat(0).playOn(guestModeBigView);
+        YoYo.with(Techniques.FlipInX).duration(1200).repeat(3).playOn(facebook);
+        YoYo.with(Techniques.FlipInX).duration(1200).repeat(3).playOn(linkedin);
+        YoYo.with(Techniques.FlipInX).duration(1200).repeat(3).playOn(instagram);
+        YoYo.with(Techniques.FlipInX).duration(1200).repeat(3).playOn(guestprofileAppInfo);
+        YoYo.with(Techniques.Pulse).duration(1200).repeat(3).playOn(follow);
 
         URL serverURL = null;
         try {

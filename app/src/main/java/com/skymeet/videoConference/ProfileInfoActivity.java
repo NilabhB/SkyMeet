@@ -17,6 +17,8 @@ import android.widget.Toast;
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 
+import com.daimajia.androidanimations.library.Techniques;
+import com.daimajia.androidanimations.library.YoYo;
 import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.firebase.auth.FirebaseAuth;
@@ -32,7 +34,7 @@ public class ProfileInfoActivity extends AppCompatActivity {
     TextView welcomeUser, upiId, shareApp, rateApp;
     FirebaseFirestore database;
     DocumentReference reference;
-    ImageView facebook, instagram,linkedin, github, gpay, copytxt;
+    ImageView facebook, instagram,linkedin, github, gpay, copytxt, cup;
 
 
     @Override
@@ -52,6 +54,14 @@ public class ProfileInfoActivity extends AppCompatActivity {
         upiId = findViewById(R.id.upiID);
         shareApp = findViewById(R.id.shareApp);
         rateApp = findViewById(R.id.rateNow);
+        cup = findViewById(R.id.coffeCup);
+
+        YoYo.with(Techniques.FlipInX).duration(1500).repeat(0).playOn(upiId);
+        YoYo.with(Techniques.FlipInX).duration(1200).repeat(3).playOn(facebook);
+        YoYo.with(Techniques.FlipInX).duration(1200).repeat(3).playOn(linkedin);
+        YoYo.with(Techniques.FlipInX).duration(1200).repeat(3).playOn(instagram);
+        YoYo.with(Techniques.FlipInX).duration(1200).repeat(3).playOn(github);
+        YoYo.with(Techniques.Pulse).duration(1200).repeat(3).playOn(cup);
 
         FirebaseUser firebaseUser = FirebaseAuth.getInstance().getCurrentUser();
 
@@ -64,6 +74,7 @@ public class ProfileInfoActivity extends AppCompatActivity {
                     public void onSuccess(DocumentSnapshot documentSnapshot) {
                         if (documentSnapshot.exists()) {
                             welcomeUser.setText("Hi "+ documentSnapshot.getString("name") + ",");
+                            YoYo.with(Techniques.FlipInX).duration(1000).repeat(0).playOn(welcomeUser);
                         } else {
                             Toast.makeText(ProfileInfoActivity.this, "Data not found", Toast.LENGTH_SHORT).show();
                         }

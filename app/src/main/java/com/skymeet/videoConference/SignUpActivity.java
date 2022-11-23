@@ -22,13 +22,14 @@ import androidx.annotation.NonNull;
 import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
 
+import com.daimajia.androidanimations.library.Techniques;
+import com.daimajia.androidanimations.library.YoYo;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.AuthResult;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
-import com.google.firebase.firestore.DocumentReference;
 import com.google.firebase.firestore.FirebaseFirestore;
 
 import java.util.Objects;
@@ -37,13 +38,12 @@ public class SignUpActivity extends AppCompatActivity {
 
     FirebaseAuth auth;
     FirebaseFirestore database;
-    DocumentReference reference;
 
-    TextView signInAcTextView;
+    TextView signInAcTextView, idSkyMeet;
     EditText emailBox, passwordBox, userName;
     Button signUpBtn;
     ProgressDialog dialog;
-    ImageView guestMode;
+    ImageView guestMode, passwordEye, skymeetLogo;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -64,6 +64,15 @@ public class SignUpActivity extends AppCompatActivity {
         userName = findViewById(R.id.userName);
         signUpBtn = findViewById(R.id.SignUpBtn);
         guestMode = findViewById(R.id.guestMode);
+        passwordEye = findViewById(R.id.passwordEye);
+        skymeetLogo = findViewById(R.id.skymeetLogo);
+        idSkyMeet = findViewById(R.id.idSkyMeet);
+
+
+        YoYo.with(Techniques.Shake).duration(1200).repeat(1).playOn(guestMode);
+        YoYo.with(Techniques.StandUp).duration(1200).repeat(3).playOn(passwordEye);
+        YoYo.with(Techniques.Shake).duration(1200).repeat(1).playOn(skymeetLogo);
+        YoYo.with(Techniques.Wobble).duration(2000).repeat(0).playOn(idSkyMeet);
 
 
         guestMode.setOnClickListener(new View.OnClickListener() {

@@ -117,7 +117,7 @@
         app:layout_constraintVertical_bias="0.535" />
 
     <ImageView
-        android:id="@+id/imageView4"
+        android:id="@+id/skymeetLogo"
         android:layout_width="85dp"
         android:layout_height="85dp"
         app:layout_constraintBottom_toTopOf="@+id/idSkyMeet"

@@ -22,6 +22,8 @@ import androidx.annotation.NonNull;
 import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
 
+import com.daimajia.androidanimations.library.Techniques;
+import com.daimajia.androidanimations.library.YoYo;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.AuthResult;
@@ -33,10 +35,10 @@ import java.util.Objects;
 public class SignInActivity extends AppCompatActivity {
     EditText emailBox, passwordBox;
     Button signInBtn;
-    TextView createAcTextView, forgotPassword;
+    TextView createAcTextView, forgotPassword, idSkyMeet;
     FirebaseAuth auth;
     ProgressDialog dialog;
-    ImageView guestMode;
+    ImageView guestMode, passwordEye, skymeetLogo;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -56,7 +58,15 @@ public class SignInActivity extends AppCompatActivity {
         createAcTextView = findViewById(R.id.createAcTextView);
         forgotPassword = findViewById(R.id.forgotPasswordTextView);
         guestMode = findViewById(R.id.guestMode);
-        //passwordEye = findViewById(R.id.passwordEye);
+        passwordEye = findViewById(R.id.passwordEye);
+        skymeetLogo = findViewById(R.id.skymeetLogo);
+        idSkyMeet = findViewById(R.id.idSkyMeet);
+
+
+        YoYo.with(Techniques.Shake).duration(1200).repeat(1).playOn(guestMode);
+        YoYo.with(Techniques.FlipInY).duration(1200).repeat(3).playOn(passwordEye);
+        YoYo.with(Techniques.Shake).duration(1200).repeat(1).playOn(skymeetLogo);
+        YoYo.with(Techniques.Wobble).duration(2000).repeat(0).playOn(idSkyMeet);
 
 
 

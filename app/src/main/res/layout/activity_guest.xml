@@ -13,18 +13,18 @@
         android:text="@string/guest_mode"
         android:textColor="#CD69DF"
         android:textSize="30sp"
-        app:layout_constraintBottom_toTopOf="@+id/imageView3"
+        app:layout_constraintBottom_toTopOf="@+id/videoCall"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintVertical_bias="0.315" />
 
     <ImageView
-        android:id="@+id/imageView3"
+        android:id="@+id/videoCall"
         android:layout_width="130dp"
         android:layout_height="130dp"
         android:layout_marginTop="30dp"
-        app:layout_constraintBottom_toTopOf="@+id/textView2"
+        app:layout_constraintBottom_toTopOf="@+id/codeEnterGuide"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.498"
         app:layout_constraintStart_toStartOf="parent"
@@ -33,7 +33,7 @@
         app:srcCompat="@drawable/video_call2" />
 
     <TextView
-        android:id="@+id/textView2"
+        android:id="@+id/codeEnterGuide"
         android:layout_width="324dp"
         android:layout_height="55dp"
         android:layout_margin="10dp"
@@ -168,7 +168,7 @@
         android:id="@+id/guestprofileAppInfo"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        app:layout_constraintBottom_toTopOf="@+id/textView2"
+        app:layout_constraintBottom_toTopOf="@+id/codeEnterGuide"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.84"
         app:layout_constraintStart_toEndOf="@+id/guestModeBigView"

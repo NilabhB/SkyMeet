@@ -19,6 +19,8 @@ import androidx.annotation.NonNull;
 import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
 
+import com.daimajia.androidanimations.library.Techniques;
+import com.daimajia.androidanimations.library.YoYo;
 import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.firebase.auth.FirebaseAuth;
@@ -39,10 +41,10 @@ public class MainActivity extends AppCompatActivity {
 
     EditText codeBox;
     Button joinBtn;
-    TextView welcomeUser, logoutText, shareCode;
+    TextView welcomeUser, logoutText, shareCode, hellotv, follow;
     FirebaseFirestore database;
     DocumentReference reference;
-    ImageView facebook, linkedin, instagram, profileInfo;
+    ImageView facebook, linkedin, instagram, profileInfo, videoCall;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -62,7 +64,20 @@ public class MainActivity extends AppCompatActivity {
         facebook = findViewById(R.id.facebook);
         linkedin = findViewById(R.id.linkedin);
         instagram = findViewById(R.id.instagram);
+        hellotv = findViewById(R.id.hellotv);
         profileInfo = findViewById(R.id.profileInfo);
+        videoCall = findViewById(R.id.videoCall);
+        follow = findViewById(R.id.followtv);
+
+
+        YoYo.with(Techniques.Landing).duration(1200).repeat(0).playOn(videoCall);
+        YoYo.with(Techniques.FlipInX).duration(1200).repeat(3).playOn(facebook);
+        YoYo.with(Techniques.FlipInX).duration(1200).repeat(3).playOn(linkedin);
+        YoYo.with(Techniques.FlipInX).duration(1200).repeat(3).playOn(instagram);
+        YoYo.with(Techniques.Landing).duration(1200).repeat(0).playOn(hellotv);
+        YoYo.with(Techniques.FlipInX).duration(1200).repeat(3).playOn(profileInfo);
+        YoYo.with(Techniques.Pulse).duration(1200).repeat(3).playOn(follow);
+
 
         database = FirebaseFirestore.getInstance();
         assert firebaseUser != null;
@@ -73,6 +88,7 @@ public class MainActivity extends AppCompatActivity {
                     public void onSuccess(DocumentSnapshot documentSnapshot) {
                         if (documentSnapshot.exists()) {
                             welcomeUser.setText(documentSnapshot.getString("name"));
+                            YoYo.with(Techniques.FadeInLeft).duration(700).repeat(0).playOn(welcomeUser);
                         } else {
                             Toast.makeText(MainActivity.this, "Data not found", Toast.LENGTH_SHORT).show();
                         }
