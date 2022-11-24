@@ -74,7 +74,7 @@
         android:textSize="15sp"
         app:layout_constraintBottom_toTopOf="@+id/SignInBtn"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.869"
+        app:layout_constraintHorizontal_bias="0.866"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/passwordBox"
         app:layout_constraintVertical_bias="0.0" />
@@ -123,8 +123,8 @@
 
     <ImageView
         android:id="@+id/passwordEye"
-        android:layout_width="32dp"
-        android:layout_height="32dp"
+        android:layout_width="33dp"
+        android:layout_height="33dp"
         android:layout_marginRight="7dp"
         android:onClick="ShowHidePass"
         app:layout_constraintBottom_toBottomOf="@+id/passwordBox"

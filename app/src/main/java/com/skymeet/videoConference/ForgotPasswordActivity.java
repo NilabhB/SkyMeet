@@ -46,7 +46,7 @@ public class ForgotPasswordActivity extends AppCompatActivity {
         idSkyMeet = findViewById(R.id.idSkyMeet);
 
         YoYo.with(Techniques.Swing).duration(1200).repeat(0).playOn(skymeetLogo);
-        YoYo.with(Techniques.Hinge).duration(2000).repeat(0).playOn(idSkyMeet);
+        YoYo.with(Techniques.Hinge).duration(3000).repeat(0).playOn(idSkyMeet);
 
         resetPasswordBtn = findViewById(R.id.resetPasswordBtn);
         emailBox = findViewById(R.id.emailBox);
@@ -69,9 +69,11 @@ public class ForgotPasswordActivity extends AppCompatActivity {
         if (email.isEmpty()){
             emailBox.setError("Email is required");
             emailBox.requestFocus();
+            YoYo.with(Techniques.Shake).duration(1200).repeat(0).playOn(resetPasswordBtn);
         } else if (!Patterns.EMAIL_ADDRESS.matcher(email).matches()) {
             emailBox.setError("Please provide a valid email!");
             emailBox.requestFocus();
+            YoYo.with(Techniques.Shake).duration(1200).repeat(0).playOn(resetPasswordBtn);
         } else {
             auth.sendPasswordResetEmail(email).addOnCompleteListener(new OnCompleteListener<Void>() {
                 @Override

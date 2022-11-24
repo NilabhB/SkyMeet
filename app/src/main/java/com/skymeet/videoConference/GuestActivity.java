@@ -61,6 +61,9 @@ public class GuestActivity extends AppCompatActivity {
         YoYo.with(Techniques.FlipInX).duration(1200).repeat(3).playOn(instagram);
         YoYo.with(Techniques.FlipInX).duration(1200).repeat(3).playOn(guestprofileAppInfo);
         YoYo.with(Techniques.Pulse).duration(1200).repeat(3).playOn(follow);
+        YoYo.with(Techniques.Landing).duration(1200).repeat(0).playOn(joinBtn);
+        YoYo.with(Techniques.Wobble).duration(1200).repeat(0).playOn(shareCode);
+        YoYo.with(Techniques.Wobble).duration(1200).repeat(0).playOn(backToSignIn);
 
         URL serverURL = null;
         try {
@@ -87,6 +90,7 @@ public class GuestActivity extends AppCompatActivity {
                 if (TextUtils.isEmpty(codeBox.getText().toString())) {
                     codeBox.setError("Meeting Code cannot be empty");
                     codeBox.requestFocus();
+                    YoYo.with(Techniques.Shake).duration(1200).repeat(0).playOn(joinBtn);
                 } else {
                     JitsiMeetConferenceOptions options
                             = new JitsiMeetConferenceOptions.Builder()
@@ -122,8 +126,9 @@ public class GuestActivity extends AppCompatActivity {
             public void onClick(View view) {
                 view.startAnimation(buttonClick);
                 if (TextUtils.isEmpty(codeBox.getText().toString())) {
-                    codeBox.setError("Enter Meeting Code before sharing!");
-                    codeBox.requestFocus();
+//                    codeBox.setError("Enter Meeting Code before sharing!");
+//                    codeBox.requestFocus();
+                    YoYo.with(Techniques.Wave).duration(1200).repeat(0).playOn(shareCode);
                 } else {
                     Intent sharingIntent = new Intent(android.content.Intent.ACTION_SEND);
                     sharingIntent.setType("text/plain");
@@ -136,6 +141,13 @@ public class GuestActivity extends AppCompatActivity {
                     startActivity(Intent.createChooser(sharingIntent, "Share Code via"));
                 }
 
+            }
+        });
+
+        videoCall.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                YoYo.with(Techniques.Wave).duration(1200).repeat(0).playOn(videoCall);
             }
         });
 

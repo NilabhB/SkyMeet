@@ -63,10 +63,15 @@ public class SignInActivity extends AppCompatActivity {
         idSkyMeet = findViewById(R.id.idSkyMeet);
 
 
-        YoYo.with(Techniques.Shake).duration(1200).repeat(1).playOn(guestMode);
-        YoYo.with(Techniques.FlipInY).duration(1200).repeat(3).playOn(passwordEye);
-        YoYo.with(Techniques.Shake).duration(1200).repeat(1).playOn(skymeetLogo);
-        YoYo.with(Techniques.Wobble).duration(2000).repeat(0).playOn(idSkyMeet);
+        YoYo.with(Techniques.Landing).duration(1200).repeat(0).playOn(guestMode);
+        YoYo.with(Techniques.FlipInY).duration(1500).repeat(3).playOn(passwordEye);
+        YoYo.with(Techniques.Landing).duration(1200).repeat(0).playOn(skymeetLogo);
+        YoYo.with(Techniques.Landing).duration(1200).repeat(0).playOn(idSkyMeet);
+        YoYo.with(Techniques.Landing).duration(1200).repeat(0).playOn(passwordBox);
+        YoYo.with(Techniques.Landing).duration(1200).repeat(0).playOn(emailBox);
+        YoYo.with(Techniques.Landing).duration(1200).repeat(0).playOn(forgotPassword);
+        YoYo.with(Techniques.Landing).duration(1200).repeat(0).playOn(createAcTextView);
+        YoYo.with(Techniques.Landing).duration(1200).repeat(0).playOn(signInBtn);
 
 
 
@@ -107,15 +112,19 @@ public class SignInActivity extends AppCompatActivity {
                 if (TextUtils.isEmpty(email)) {
                     emailBox.setError("Email cannot be empty");
                     emailBox.requestFocus();
+                    YoYo.with(Techniques.Shake).duration(1200).repeat(0).playOn(signInBtn);
                 } else if (!Patterns.EMAIL_ADDRESS.matcher(email).matches()) {
                     emailBox.setError("Please provide a valid email!");
                     emailBox.requestFocus();
+                    YoYo.with(Techniques.Shake).duration(1200).repeat(0).playOn(signInBtn);
                 } else if (TextUtils.isEmpty(password)) {
                     passwordBox.setError("Password cannot be empty!");
                     passwordBox.requestFocus();
+                    YoYo.with(Techniques.Shake).duration(1200).repeat(0).playOn(signInBtn);
                 } else if (password.length() < 6) {
                     passwordBox.setError("Min password length should be 6 characters!");
                     passwordBox.requestFocus();
+                    YoYo.with(Techniques.Shake).duration(1200).repeat(0).playOn(signInBtn);
                 } else {
                     dialog.show();
                     auth.signInWithEmailAndPassword(email, password).addOnCompleteListener(new OnCompleteListener<AuthResult>() {
