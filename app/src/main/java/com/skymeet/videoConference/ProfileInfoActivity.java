@@ -61,7 +61,7 @@ public class ProfileInfoActivity extends AppCompatActivity {
         YoYo.with(Techniques.FlipInX).duration(1200).repeat(3).playOn(linkedin);
         YoYo.with(Techniques.FlipInX).duration(1200).repeat(3).playOn(instagram);
         YoYo.with(Techniques.FlipInX).duration(1200).repeat(3).playOn(github);
-        YoYo.with(Techniques.Pulse).duration(1200).repeat(3).playOn(cup);
+        YoYo.with(Techniques.Pulse).duration(1200).repeat(100).playOn(cup);
 
         FirebaseUser firebaseUser = FirebaseAuth.getInstance().getCurrentUser();
 
