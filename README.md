@@ -40,6 +40,7 @@ First User End Testers
 * Deepankar Acharyya
 * Kirtikesh Maurya
 * Manas Bordoloi
+* Krishanu Borah
 * Supriya Khatoniar
 * Adil Zafar
 <br />
