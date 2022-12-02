@@ -21,6 +21,18 @@ Some more screenshots:
 <img src="./Images/GitHub and External/4.jpg" height="400" width="200" > <img src="./Images/GitHub and External/5.jpg" height="400" width="200" ></p>
 
 
+
+**Creating your own SkyMeet:**
+<br />
+<br />
+I welcome all developers to use the source code & create applications like this one. There are several things I require from **all developers** for the moment.
+* Please **do not** use the name SkyMeet for your app — or make sure your users understand that it is unethical and unofficial.
+* Please **do not** use the standard SkyMeet logo as your app's logo.
+* Please **study** the terms & conditions
+* Please remember to publish **your** code too in order to comply with the licences.
+
+
+
 Follow us for more:
 <br />
 Facebook: https://www.facebook.com/skymeet.conference
