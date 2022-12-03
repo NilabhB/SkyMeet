@@ -3,7 +3,7 @@
 
 <p align="center"><img src="./Images/GitHub and External/skymeet_logo.png" height="250" width="250" ></p>
 
-<p align="center">Download SkyMeet: https://play.google.com/store/apps/details?id=com.skymeet.videoConference</p>
+<p align="center">Download SkyMeet: <a href="https://play.google.com/store/apps/details?id=com.skymeet.videoConference" target="_blank">Google Play Store Link</a></p>
 
 <p align="center"><img src="./Images/SkyMeet PlayStore Images/screen_1.png" height="400" width="200" > <img src="./Images/SkyMeet PlayStore Images/screen_6.png" height="400" width="200" > <img src="./Images/SkyMeet PlayStore Images/screen_3.png" height="400" width="200" > <img src="./Images/SkyMeet PlayStore Images/screen_4.png" height="400" width="200" ></p>
 
