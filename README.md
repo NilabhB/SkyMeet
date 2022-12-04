@@ -1,5 +1,6 @@
 # <p align="center">SkyMeet Conference</p>
 <p align="center">SkyMeet is a free & Open Source Video/Audio Conferencing Application available on Android OS.</p>
+<p align="center">This is the official source code of SkyMeet Application & it's licenced under GPLv3.0 (<a href="https://github.com/NilabhB/SkyMeet/blob/master/LICENSE" target="_blank">View licence</a>)</p>
 
 <p align="center"><img src="./Images/GitHub and External/skymeet_logo.png" height="250" width="250" ></p>
 
