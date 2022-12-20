@@ -139,6 +139,7 @@ public class MainActivity extends AppCompatActivity {
                             .setFeatureFlag("welcomepage.enabled", false)
                             .setFeatureFlag("live-streaming.enabled",false)
                             .setFeatureFlag("invite.enabled",false)
+                            .setFeatureFlag("video-share.enabled", false)
                             .setFeatureFlag("fullscreen.enabled", true)
                             .build();
                     JitsiMeetActivity.launch(MainActivity.this, options);
@@ -247,7 +248,16 @@ public class MainActivity extends AppCompatActivity {
                     public void onClick(DialogInterface dialog, int which) {
                         dialog.dismiss();
                     }
-                }).show();
+                })
+                .setNeutralButton("Rate App", new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialog, int which) {
+                        String YourPageURL = "https://play.google.com/store/apps/details?id=com.skymeet.videoConference";
+                        Intent browserIntent = new Intent(Intent.ACTION_VIEW, Uri.parse(YourPageURL));
+                        startActivity(browserIntent);
+                    }
+                })
+                .show();
 
     }
 }
