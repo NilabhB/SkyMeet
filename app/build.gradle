@@ -11,8 +11,8 @@ android {
         applicationId "com.skymeet.videoConference"
         minSdk 23
         targetSdk 32
-        versionCode 7
-        versionName "1.2.4"
+        versionCode 7   //Serial No. Update
+        versionName "1.2.4" //Public Version No.
 
         testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
     }
