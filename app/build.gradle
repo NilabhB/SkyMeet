@@ -11,8 +11,8 @@ android {
         applicationId "com.skymeet.videoConference"
         minSdk 23
         targetSdk 32
-        versionCode 6
-        versionName "1.2.3"
+        versionCode 7   //Serial No. Update
+        versionName "1.2.4" //Public Version No.
 
         testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
     }
@@ -43,5 +43,5 @@ dependencies {
     androidTestImplementation 'androidx.test.espresso:espresso-core:3.5.0'
     implementation 'com.daimajia.easing:library:2.4@aar'
     implementation 'com.daimajia.androidanimations:library:2.4@aar'
-    implementation ('org.jitsi.react:jitsi-meet-sdk:6.2.2') { transitive = true }
+    implementation ('org.jitsi.react:jitsi-meet-sdk:7.0.1') { transitive = true }
 }
