@@ -5,14 +5,14 @@ plugins {
 
 android {
     namespace 'com.skymeet.videoConference'
-    compileSdk 32
+    compileSdk 33
 
     defaultConfig {
         applicationId "com.skymeet.videoConference"
         minSdk 23
-        targetSdk 32
-        versionCode 7   //Serial No. Update
-        versionName "1.2.4" //Public Version No.
+        targetSdk 33
+        versionCode 8   //Serial No. Update
+        versionName "1.2.5" //Public Version No.
 
         testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
     }
@@ -31,16 +31,16 @@ android {
 
 dependencies {
 
-    implementation 'androidx.appcompat:appcompat:1.5.1'
-    implementation 'com.google.android.material:material:1.7.0'
+    implementation 'androidx.appcompat:appcompat:1.6.1'
+    implementation 'com.google.android.material:material:1.8.0'
     implementation 'androidx.constraintlayout:constraintlayout:2.1.4'
     implementation platform('com.google.firebase:firebase-bom:31.0.0')
-    implementation 'com.google.firebase:firebase-auth:21.1.0'
-    implementation 'com.google.firebase:firebase-firestore:24.4.1'
+    implementation 'com.google.firebase:firebase-auth'
+    implementation 'com.google.firebase:firebase-firestore'
     implementation 'com.google.firebase:firebase-analytics'
     testImplementation 'junit:junit:4.13.2'
-    androidTestImplementation 'androidx.test.ext:junit:1.1.4'
-    androidTestImplementation 'androidx.test.espresso:espresso-core:3.5.0'
+    androidTestImplementation 'androidx.test.ext:junit:1.1.5'
+    androidTestImplementation 'androidx.test.espresso:espresso-core:3.5.1'
     implementation 'com.daimajia.easing:library:2.4@aar'
     implementation 'com.daimajia.androidanimations:library:2.4@aar'
     implementation ('org.jitsi.react:jitsi-meet-sdk:7.0.1') { transitive = true }
