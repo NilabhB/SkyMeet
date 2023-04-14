@@ -222,8 +222,27 @@ public class MainActivity extends AppCompatActivity {
             @Override
             public void onClick(View view) {
                 view.startAnimation(buttonClick);
-                FirebaseAuth.getInstance().signOut();
-                startActivity(new Intent(MainActivity.this, SignInActivity.class));
+                new AlertDialog.Builder(MainActivity.this)
+                        .setIcon(R.drawable.ic_baseline_logout_24)
+                        .setTitle("Log Out")
+                        .setMessage("Do you want to log out?")
+                        .setPositiveButton("Yes", new DialogInterface.OnClickListener() {
+                            @Override
+                            public void onClick(DialogInterface dialog, int which) {
+                                FirebaseAuth.getInstance().signOut();
+                                startActivity(new Intent(MainActivity.this, SignInActivity.class));
+                            }
+                        })
+                        .setNegativeButton("No", new DialogInterface.OnClickListener() {
+                            @Override
+                            public void onClick(DialogInterface dialog, int which) {
+                                dialog.dismiss();
+                            }
+                        })
+                        .show();
+
+//                FirebaseAuth.getInstance().signOut();
+//                startActivity(new Intent(MainActivity.this, SignInActivity.class));
             }
         });
     }

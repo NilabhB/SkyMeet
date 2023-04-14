@@ -84,6 +84,27 @@
         app:layout_constraintTop_toBottomOf="@+id/emailBox"
         app:layout_constraintVertical_bias="0.0" />
 
+
+    <EditText
+        android:id="@+id/passwordBox2"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="10dp"
+        android:background="@drawable/textbox"
+        android:drawableLeft="@drawable/ic_baseline_lock_24"
+        android:drawablePadding="7dp"
+        android:ems="16"
+        android:hint="@string/confirm_password"
+        android:inputType="textPassword"
+        android:minHeight="48dp"
+        android:padding="10dp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/passwordBox"
+        app:layout_constraintVertical_bias="0.0"
+        />
+
     <TextView
         android:id="@+id/signInAcTextView"
         android:layout_width="wrap_content"
@@ -98,9 +119,10 @@
         android:textSize="16sp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.498"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/passwordBox"
-        app:layout_constraintVertical_bias="0.79" />
+        app:layout_constraintTop_toBottomOf="@+id/passwordBox2"
+        app:layout_constraintVertical_bias="0.804" />
 
     <Button
         android:id="@+id/SignUpBtn"
@@ -114,7 +136,7 @@
         app:layout_constraintHorizontal_bias="0.498"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/passwordBox"
-        app:layout_constraintVertical_bias="0.535" />
+        app:layout_constraintVertical_bias="0.73" />
 
     <ImageView
         android:id="@+id/skymeetLogo"
@@ -141,15 +163,28 @@
         app:srcCompat="@drawable/ic_baseline_visibility_24" />
 
     <ImageView
+        android:id="@+id/passwordEye2"
+        android:layout_width="33dp"
+        android:layout_height="33dp"
+        android:layout_marginRight="7dp"
+        android:onClick="ShowHidePass2"
+        app:layout_constraintBottom_toBottomOf="@+id/passwordBox2"
+        app:layout_constraintEnd_toEndOf="@+id/passwordBox2"
+        app:layout_constraintHorizontal_bias="1.0"
+        app:layout_constraintStart_toStartOf="@+id/passwordBox2"
+        app:layout_constraintTop_toTopOf="@+id/passwordBox2"
+        app:srcCompat="@drawable/ic_baseline_visibility_24" />
+
+    <ImageView
         android:id="@+id/guestMode"
         android:layout_width="50dp"
         android:layout_height="50dp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.5"
+        app:layout_constraintHorizontal_bias="0.498"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/signInAcTextView"
-        app:layout_constraintVertical_bias="0.5"
+        app:layout_constraintVertical_bias="0.323"
         app:srcCompat="@drawable/ic_baseline_guest_30" />
 
 

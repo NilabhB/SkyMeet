@@ -40,10 +40,10 @@ public class SignUpActivity extends AppCompatActivity {
     FirebaseFirestore database;
 
     TextView signInAcTextView, idSkyMeet;
-    EditText emailBox, passwordBox, userName;
+    EditText emailBox, passwordBox, passwordBox2, userName;
     Button signUpBtn;
     ProgressDialog dialog;
-    ImageView guestMode, passwordEye, skymeetLogo;
+    ImageView guestMode, passwordEye, passwordEye2, skymeetLogo;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -61,16 +61,19 @@ public class SignUpActivity extends AppCompatActivity {
         signInAcTextView = findViewById(R.id.signInAcTextView);
         emailBox = findViewById(R.id.emailBox);
         passwordBox = findViewById(R.id.passwordBox);
+        passwordBox2 = findViewById(R.id.passwordBox2);
         userName = findViewById(R.id.userName);
         signUpBtn = findViewById(R.id.SignUpBtn);
         guestMode = findViewById(R.id.guestMode);
         passwordEye = findViewById(R.id.passwordEye);
+        passwordEye2 = findViewById(R.id.passwordEye2);
         skymeetLogo = findViewById(R.id.skymeetLogo);
         idSkyMeet = findViewById(R.id.idSkyMeet);
 
 
         YoYo.with(Techniques.Shake).duration(1500).repeat(0).playOn(guestMode);
-        YoYo.with(Techniques.StandUp).duration(1500).repeat(3).playOn(passwordEye);
+        YoYo.with(Techniques.FlipInY).duration(1500).repeat(3).playOn(passwordEye);
+        YoYo.with(Techniques.FlipInX).duration(1500).repeat(3).playOn(passwordEye2);
         YoYo.with(Techniques.RotateInUpLeft).duration(1500).repeat(0).playOn(skymeetLogo);
         YoYo.with(Techniques.Wobble).duration(1500).repeat(0).playOn(idSkyMeet);
 
@@ -95,9 +98,10 @@ public class SignUpActivity extends AppCompatActivity {
             @Override
             public void onClick(View view) {
                 view.startAnimation(buttonClick);
-                String email, password, name;
+                String email, password, passwordVerify, name;
                 email = emailBox.getText().toString().trim();
                 password = passwordBox.getText().toString().trim();
+                passwordVerify = passwordBox2.getText().toString().trim();
                 name = userName.getText().toString().trim();
 
                 User user = new User();
@@ -124,6 +128,13 @@ public class SignUpActivity extends AppCompatActivity {
                 } else if (password.length() < 6) {
                     passwordBox.setError("Min password length should be 6 characters!");
                     passwordBox.requestFocus();
+                    YoYo.with(Techniques.Shake).duration(1200).repeat(0).playOn(signUpBtn);
+                } else if (!password.equals(passwordVerify)) {
+                    YoYo.with(Techniques.Wobble).duration(1000).repeat(0).playOn(passwordEye);
+                    YoYo.with(Techniques.FlipInY).duration(1500).repeat(2).playOn(passwordEye);
+                    YoYo.with(Techniques.Hinge).duration(1000).repeat(0).playOn(passwordEye2);
+                    passwordBox2.setError("Password didn't match!");
+                    passwordBox2.requestFocus();
                     YoYo.with(Techniques.Shake).duration(1200).repeat(0).playOn(signUpBtn);
                 } else {
                     dialog.show();
@@ -180,14 +191,22 @@ public class SignUpActivity extends AppCompatActivity {
 
     }
 
-    public void ShowHidePass(View view) {
-        if(passwordBox.getTransformationMethod().equals(PasswordTransformationMethod.getInstance())) {
-            ((ImageView)(view)).setImageResource(R.drawable.ic_baseline_visibility_off_24);
+    public void togglePasswordVisibility(View view, EditText passwordBox) {
+        if (passwordBox.getTransformationMethod().equals(PasswordTransformationMethod.getInstance())) {
+            ((ImageView) (view)).setImageResource(R.drawable.ic_baseline_visibility_off_24);
             passwordBox.setTransformationMethod(HideReturnsTransformationMethod.getInstance());
         } else {
-            ((ImageView)(view)).setImageResource(R.drawable.ic_baseline_visibility_24);
+            ((ImageView) (view)).setImageResource(R.drawable.ic_baseline_visibility_24);
             passwordBox.setTransformationMethod(PasswordTransformationMethod.getInstance());
         }
+    }
+
+    public void ShowHidePass(View view) {
+        togglePasswordVisibility(view, passwordBox);
+    }
+
+    public void ShowHidePass2(View view) {
+        togglePasswordVisibility(view, passwordBox2);
     }
     
     private final AlphaAnimation buttonClick = new AlphaAnimation(1F, 0.5F);
