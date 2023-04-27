@@ -11,28 +11,24 @@ import androidx.appcompat.app.AppCompatActivity;
 
 import com.daimajia.androidanimations.library.Techniques;
 import com.daimajia.androidanimations.library.YoYo;
+import com.skymeet.videoConference.databinding.ActivitySplashScreenBinding;
 
 import java.util.Objects;
 
 public class SplashScreenActivity extends AppCompatActivity {
 
-    ImageView skyMeetLogo, jitsiLogo;
-    TextView welcomeTextView;
-
+    ActivitySplashScreenBinding binding;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_splash_screen);
+        binding=ActivitySplashScreenBinding.inflate(getLayoutInflater());
+        setContentView(binding.getRoot());
         Objects.requireNonNull(getSupportActionBar()).hide();
         setRequestedOrientation(SCREEN_ORIENTATION_PORTRAIT);
 
-        skyMeetLogo = findViewById(R.id.SkyMeetLogo);
-        welcomeTextView = findViewById(R.id.welcomeTextView);
-        jitsiLogo = findViewById(R.id.jitsiLogo);
-
-        YoYo.with(Techniques.BounceInLeft).duration(600).playOn(skyMeetLogo);
-        YoYo.with(Techniques.Shake).duration(600).playOn(welcomeTextView);
-        YoYo.with(Techniques.Pulse).duration(600).playOn(jitsiLogo);
+        YoYo.with(Techniques.BounceInLeft).duration(600).playOn(binding.SkyMeetLogo);
+        YoYo.with(Techniques.Shake).duration(600).playOn(binding.welcomeTextView);
+        YoYo.with(Techniques.Pulse).duration(600).playOn(binding.jitsiLogo);
 
 
         Thread thread = new Thread() {

@@ -19,6 +19,7 @@ import androidx.appcompat.app.AppCompatActivity;
 
 import com.daimajia.androidanimations.library.Techniques;
 import com.daimajia.androidanimations.library.YoYo;
+import com.skymeet.videoConference.databinding.ActivityGuestBinding;
 
 import org.jitsi.meet.sdk.JitsiMeet;
 import org.jitsi.meet.sdk.JitsiMeetActivity;
@@ -30,40 +31,27 @@ import java.util.Objects;
 
 public class GuestActivity extends AppCompatActivity {
 
-    EditText codeBox;
-    Button joinBtn;
-    TextView backToSignIn, shareCode, guestModeBigView, follow;
-    ImageView facebook, linkedin, instagram, guestprofileAppInfo, videoCall;
 
+ ActivityGuestBinding binding;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_guest);
+        binding=ActivityGuestBinding.inflate(getLayoutInflater());
+        setContentView(binding.getRoot());
         Objects.requireNonNull(getSupportActionBar()).hide();
         setRequestedOrientation(SCREEN_ORIENTATION_PORTRAIT);
 
-        codeBox = findViewById(R.id.codeBox);
-        joinBtn = findViewById(R.id.joinBtn);
-        backToSignIn = findViewById(R.id.backToSignIn);
-        shareCode = findViewById(R.id.shareCode);
-        facebook = findViewById(R.id.facebook);
-        linkedin = findViewById(R.id.linkedin);
-        instagram = findViewById(R.id.instagram);
-        guestprofileAppInfo = findViewById(R.id.guestprofileAppInfo);
-        videoCall = findViewById(R.id.videoCall);
-        guestModeBigView = findViewById(R.id.guestModeBigView);
-        follow = findViewById(R.id.followtv);
 
-        YoYo.with(Techniques.Landing).duration(1200).repeat(0).playOn(videoCall);
-        YoYo.with(Techniques.Landing).duration(1200).repeat(0).playOn(guestModeBigView);
-        YoYo.with(Techniques.FlipInX).duration(1200).repeat(3).playOn(facebook);
-        YoYo.with(Techniques.FlipInX).duration(1200).repeat(3).playOn(linkedin);
-        YoYo.with(Techniques.FlipInX).duration(1200).repeat(3).playOn(instagram);
-        YoYo.with(Techniques.FlipInX).duration(1200).repeat(3).playOn(guestprofileAppInfo);
-        YoYo.with(Techniques.Pulse).duration(1200).repeat(3).playOn(follow);
-        YoYo.with(Techniques.Landing).duration(1200).repeat(0).playOn(joinBtn);
-        YoYo.with(Techniques.Wobble).duration(1200).repeat(0).playOn(shareCode);
-        YoYo.with(Techniques.Wobble).duration(1200).repeat(0).playOn(backToSignIn);
+        YoYo.with(Techniques.Landing).duration(1200).repeat(0).playOn( binding.videoCall);
+        YoYo.with(Techniques.Landing).duration(1200).repeat(0).playOn( binding.guestModeBigView);
+        YoYo.with(Techniques.FlipInX).duration(1200).repeat(3).playOn( binding.facebook);
+        YoYo.with(Techniques.FlipInX).duration(1200).repeat(3).playOn( binding.linkedin);
+        YoYo.with(Techniques.FlipInX).duration(1200).repeat(3).playOn( binding.instagram);
+        YoYo.with(Techniques.FlipInX).duration(1200).repeat(3).playOn( binding.guestprofileAppInfo);
+        YoYo.with(Techniques.Pulse).duration(1200).repeat(3).playOn( binding.followtv);
+        YoYo.with(Techniques.Landing).duration(1200).repeat(0).playOn( binding.joinBtn);
+        YoYo.with(Techniques.Wobble).duration(1200).repeat(0).playOn( binding.shareCode);
+        YoYo.with(Techniques.Wobble).duration(1200).repeat(0).playOn( binding.backToSignIn);
 
         URL serverURL = null;
         try {
@@ -82,19 +70,19 @@ public class GuestActivity extends AppCompatActivity {
 
 
 
-        joinBtn.setOnClickListener(new View.OnClickListener() {
+        binding.joinBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 view.startAnimation(buttonClick);
 
-                if (TextUtils.isEmpty(codeBox.getText().toString())) {
-                    codeBox.setError("Meeting Code cannot be empty");
-                    codeBox.requestFocus();
-                    YoYo.with(Techniques.Shake).duration(1200).repeat(0).playOn(joinBtn);
+                if (TextUtils.isEmpty( binding.codeBox.getText().toString())) {
+                    binding.codeBox.setError("Meeting Code cannot be empty");
+                    binding.codeBox.requestFocus();
+                    YoYo.with(Techniques.Shake).duration(1200).repeat(0).playOn( binding.joinBtn);
                 } else {
                     JitsiMeetConferenceOptions options
                             = new JitsiMeetConferenceOptions.Builder()
-                            .setRoom(codeBox.getText().toString().trim())
+                            .setRoom( binding.codeBox.getText().toString().trim())
                             .setFeatureFlag("welcomepage.enabled", false)
                             .setFeatureFlag("live-streaming.enabled",false)
                             .setFeatureFlag("invite.enabled",false)
@@ -107,7 +95,7 @@ public class GuestActivity extends AppCompatActivity {
             }
         });
 
-        guestprofileAppInfo.setOnClickListener(new View.OnClickListener() {
+        binding.guestprofileAppInfo.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 view.startAnimation(buttonClick);
@@ -115,7 +103,7 @@ public class GuestActivity extends AppCompatActivity {
             }
         });
 
-        backToSignIn.setOnClickListener(new View.OnClickListener() {
+        binding.backToSignIn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 view.startAnimation(buttonClick);
@@ -123,19 +111,19 @@ public class GuestActivity extends AppCompatActivity {
             }
         });
 
-        shareCode.setOnClickListener(new View.OnClickListener() {
+        binding.shareCode.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 view.startAnimation(buttonClick);
-                if (TextUtils.isEmpty(codeBox.getText().toString())) {
+                if (TextUtils.isEmpty( binding.codeBox.getText().toString())) {
 //                    codeBox.setError("Enter Meeting Code before sharing!");
 //                    codeBox.requestFocus();
-                    YoYo.with(Techniques.Wave).duration(1200).repeat(0).playOn(shareCode);
+                    YoYo.with(Techniques.Wave).duration(1200).repeat(0).playOn( binding.shareCode);
                 } else {
                     Intent sharingIntent = new Intent(android.content.Intent.ACTION_SEND);
                     sharingIntent.setType("text/plain");
                     String shareBody = "To join the meeting on SkyMeet Conference, please use\n\n"
-                            + "Code: " + codeBox.getText().toString().trim() + "\n\nDownload SkyMeet:\n\n"
+                            + "Code: " +  binding.codeBox.getText().toString().trim() + "\n\nDownload SkyMeet:\n\n"
                             + "Android: https://play.google.com/store/apps/details?id=com.skymeet.videoConference\n\n"
                             + "iOS: An apple a day keeps a doctor away but visiting a lady doctor everyday could be your spouse someday.";
                     sharingIntent.putExtra(android.content.Intent.EXTRA_SUBJECT, "Subject Here");
@@ -146,14 +134,14 @@ public class GuestActivity extends AppCompatActivity {
             }
         });
 
-        videoCall.setOnClickListener(new View.OnClickListener() {
+        binding.videoCall.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                YoYo.with(Techniques.Wave).duration(1200).repeat(0).playOn(videoCall);
+                YoYo.with(Techniques.Wave).duration(1200).repeat(0).playOn( binding.videoCall);
             }
         });
 
-        facebook.setOnClickListener(new View.OnClickListener() {
+        binding.facebook.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 view.startAnimation(buttonClick);
@@ -164,7 +152,7 @@ public class GuestActivity extends AppCompatActivity {
             }
         });
 
-        linkedin.setOnClickListener(new View.OnClickListener() {
+        binding.linkedin.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 view.startAnimation(buttonClick);
@@ -175,7 +163,7 @@ public class GuestActivity extends AppCompatActivity {
             }
         });
 
-        instagram.setOnClickListener(new View.OnClickListener() {
+        binding.instagram.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 view.startAnimation(buttonClick);

@@ -29,21 +29,21 @@ import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.AuthResult;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
+import com.skymeet.videoConference.databinding.ActivitySignInBinding;
 
 import java.util.Objects;
 
 public class SignInActivity extends AppCompatActivity {
-    EditText emailBox, passwordBox;
-    Button signInBtn;
-    TextView createAcTextView, forgotPassword, idSkyMeet;
+
     FirebaseAuth auth;
     ProgressDialog dialog;
-    ImageView guestMode, passwordEye, skymeetLogo;
+   ActivitySignInBinding binding;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_sign_in);
+        binding=ActivitySignInBinding.inflate(getLayoutInflater());
+        setContentView(binding.getRoot());
         Objects.requireNonNull(getSupportActionBar()).hide();
         setRequestedOrientation(SCREEN_ORIENTATION_PORTRAIT);
 
@@ -51,31 +51,19 @@ public class SignInActivity extends AppCompatActivity {
         dialog.setMessage("Please wait...");
 
         auth = FirebaseAuth.getInstance();
-
-        emailBox = findViewById(R.id.emailBox);
-        passwordBox = findViewById(R.id.passwordBox);
-        signInBtn = findViewById(R.id.SignInBtn);
-        createAcTextView = findViewById(R.id.createAcTextView);
-        forgotPassword = findViewById(R.id.forgotPasswordTextView);
-        guestMode = findViewById(R.id.guestMode);
-        passwordEye = findViewById(R.id.passwordEye);
-        skymeetLogo = findViewById(R.id.skymeetLogo);
-        idSkyMeet = findViewById(R.id.idSkyMeet);
-
-
-        YoYo.with(Techniques.Landing).duration(1200).repeat(0).playOn(guestMode);
-        YoYo.with(Techniques.FlipInY).duration(1500).repeat(3).playOn(passwordEye);
-        YoYo.with(Techniques.Landing).duration(1200).repeat(0).playOn(skymeetLogo);
-        YoYo.with(Techniques.Landing).duration(1200).repeat(0).playOn(idSkyMeet);
-        YoYo.with(Techniques.Landing).duration(1200).repeat(0).playOn(passwordBox);
-        YoYo.with(Techniques.Landing).duration(1200).repeat(0).playOn(emailBox);
-        YoYo.with(Techniques.Landing).duration(1200).repeat(0).playOn(forgotPassword);
-        YoYo.with(Techniques.Landing).duration(1200).repeat(0).playOn(createAcTextView);
-        YoYo.with(Techniques.Landing).duration(1200).repeat(0).playOn(signInBtn);
+        YoYo.with(Techniques.Landing).duration(1200).repeat(0).playOn( binding.guestMode);
+        YoYo.with(Techniques.FlipInY).duration(1500).repeat(3).playOn( binding.passwordEye);
+        YoYo.with(Techniques.Landing).duration(1200).repeat(0).playOn( binding.skymeetLogo);
+        YoYo.with(Techniques.Landing).duration(1200).repeat(0).playOn( binding.idSkyMeet);
+        YoYo.with(Techniques.Landing).duration(1200).repeat(0).playOn( binding.passwordBox);
+        YoYo.with(Techniques.Landing).duration(1200).repeat(0).playOn( binding.emailBox);
+        YoYo.with(Techniques.Landing).duration(1200).repeat(0).playOn( binding.forgotPasswordTextView);
+        YoYo.with(Techniques.Landing).duration(1200).repeat(0).playOn( binding.createAcTextView);
+        YoYo.with(Techniques.Landing).duration(1200).repeat(0).playOn( binding.SignInBtn);
 
 
 
-        createAcTextView.setOnClickListener(new View.OnClickListener() {
+        binding.createAcTextView.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 view.startAnimation(buttonClick);
@@ -83,7 +71,7 @@ public class SignInActivity extends AppCompatActivity {
             }
         });
 
-        forgotPassword.setOnClickListener(new View.OnClickListener() {
+        binding.forgotPasswordTextView.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 view.startAnimation(buttonClick);
@@ -91,7 +79,7 @@ public class SignInActivity extends AppCompatActivity {
             }
         });
 
-        guestMode.setOnClickListener(new View.OnClickListener() {
+        binding.guestMode.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 view.startAnimation(buttonClick);
@@ -100,31 +88,31 @@ public class SignInActivity extends AppCompatActivity {
         });
 
 
-        signInBtn.setOnClickListener(new View.OnClickListener() {
+        binding.SignInBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 view.startAnimation(buttonClick);
 
                 String email, password;
-                email = emailBox.getText().toString().trim();
-                password = passwordBox.getText().toString().trim();
+                email =  binding.emailBox.getText().toString().trim();
+                password =  binding.passwordBox.getText().toString().trim();
 
                 if (TextUtils.isEmpty(email)) {
-                    emailBox.setError("Email cannot be empty");
-                    emailBox.requestFocus();
-                    YoYo.with(Techniques.Shake).duration(1200).repeat(0).playOn(signInBtn);
+                    binding.emailBox.setError("Email cannot be empty");
+                    binding.emailBox.requestFocus();
+                    YoYo.with(Techniques.Shake).duration(1200).repeat(0).playOn( binding.SignInBtn);
                 } else if (!Patterns.EMAIL_ADDRESS.matcher(email).matches()) {
-                    emailBox.setError("Please provide a valid email!");
-                    emailBox.requestFocus();
-                    YoYo.with(Techniques.Shake).duration(1200).repeat(0).playOn(signInBtn);
+                    binding.emailBox.setError("Please provide a valid email!");
+                    binding.emailBox.requestFocus();
+                    YoYo.with(Techniques.Shake).duration(1200).repeat(0).playOn( binding.SignInBtn);
                 } else if (TextUtils.isEmpty(password)) {
-                    passwordBox.setError("Password cannot be empty!");
-                    passwordBox.requestFocus();
-                    YoYo.with(Techniques.Shake).duration(1200).repeat(0).playOn(signInBtn);
+                    binding.passwordBox.setError("Password cannot be empty!");
+                    binding.passwordBox.requestFocus();
+                    YoYo.with(Techniques.Shake).duration(1200).repeat(0).playOn( binding.SignInBtn);
                 } else if (password.length() < 6) {
-                    passwordBox.setError("Min password length should be 6 characters!");
-                    passwordBox.requestFocus();
-                    YoYo.with(Techniques.Shake).duration(1200).repeat(0).playOn(signInBtn);
+                    binding.passwordBox.setError("Min password length should be 6 characters!");
+                    binding.passwordBox.requestFocus();
+                    YoYo.with(Techniques.Shake).duration(1200).repeat(0).playOn( binding.SignInBtn);
                 } else {
                     dialog.show();
                     auth.signInWithEmailAndPassword(email, password).addOnCompleteListener(new OnCompleteListener<AuthResult>() {
@@ -186,12 +174,12 @@ public class SignInActivity extends AppCompatActivity {
     }
 
     public void ShowHidePass(View view) {
-        if(passwordBox.getTransformationMethod().equals(PasswordTransformationMethod.getInstance())) {
+        if( binding.passwordBox.getTransformationMethod().equals(PasswordTransformationMethod.getInstance())) {
             ((ImageView)(view)).setImageResource(R.drawable.ic_baseline_visibility_off_24);
-            passwordBox.setTransformationMethod(HideReturnsTransformationMethod.getInstance());
+            binding.passwordBox.setTransformationMethod(HideReturnsTransformationMethod.getInstance());
         } else {
             ((ImageView)(view)).setImageResource(R.drawable.ic_baseline_visibility_24);
-            passwordBox.setTransformationMethod(PasswordTransformationMethod.getInstance());
+            binding.passwordBox.setTransformationMethod(PasswordTransformationMethod.getInstance());
         }
     }
 
