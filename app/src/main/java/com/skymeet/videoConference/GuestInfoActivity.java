@@ -18,43 +18,29 @@ import androidx.appcompat.app.AppCompatActivity;
 
 import com.daimajia.androidanimations.library.Techniques;
 import com.daimajia.androidanimations.library.YoYo;
+import com.skymeet.videoConference.databinding.ActivityGuestInfoBinding;
 
 import java.util.Objects;
 
 public class GuestInfoActivity extends AppCompatActivity {
 
-
-    TextView welcomeUser, upiId, shareApp, rateApp;
-    ImageView facebook, instagram,linkedin, github, gpay, copytxt, cup;
-
+    ActivityGuestInfoBinding binding;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_guest_info);
+        binding=ActivityGuestInfoBinding.inflate(getLayoutInflater());
+        setContentView(binding.getRoot());
         Objects.requireNonNull(getSupportActionBar()).hide();
         setRequestedOrientation(SCREEN_ORIENTATION_PORTRAIT);
 
-        welcomeUser = findViewById(R.id.hiUser);
-        facebook = findViewById(R.id.facebook);
-        linkedin = findViewById(R.id.linkedin);
-        instagram = findViewById(R.id.instagram);
-        gpay = findViewById(R.id.gpay);
-        copytxt = findViewById(R.id.copytxt);
-        github = findViewById(R.id.github);
-        upiId = findViewById(R.id.upiID);
-        shareApp = findViewById(R.id.shareApp);
-        rateApp = findViewById(R.id.rateNow);
-        cup = findViewById(R.id.coffeCup);
+        YoYo.with(Techniques.FlipInX).duration(1500).repeat(0).playOn( binding.upiID);
+        YoYo.with(Techniques.FlipInX).duration(1200).repeat(3).playOn( binding.facebook);
+        YoYo.with(Techniques.FlipInX).duration(1200).repeat(3).playOn( binding.linkedin);
+        YoYo.with(Techniques.FlipInX).duration(1200).repeat(3).playOn( binding.instagram);
+        YoYo.with(Techniques.FlipInX).duration(1200).repeat(3).playOn( binding.github);
+        YoYo.with(Techniques.Pulse).duration(1200).repeat(100).playOn( binding.coffeCup);
 
-
-        YoYo.with(Techniques.FlipInX).duration(1500).repeat(0).playOn(upiId);
-        YoYo.with(Techniques.FlipInX).duration(1200).repeat(3).playOn(facebook);
-        YoYo.with(Techniques.FlipInX).duration(1200).repeat(3).playOn(linkedin);
-        YoYo.with(Techniques.FlipInX).duration(1200).repeat(3).playOn(instagram);
-        YoYo.with(Techniques.FlipInX).duration(1200).repeat(3).playOn(github);
-        YoYo.with(Techniques.Pulse).duration(1200).repeat(100).playOn(cup);
-
-        facebook.setOnClickListener(new View.OnClickListener() {
+        binding.facebook.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 view.startAnimation(buttonClick);
@@ -65,7 +51,7 @@ public class GuestInfoActivity extends AppCompatActivity {
             }
         });
 
-        linkedin.setOnClickListener(new View.OnClickListener() {
+        binding.linkedin.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 view.startAnimation(buttonClick);
@@ -76,7 +62,7 @@ public class GuestInfoActivity extends AppCompatActivity {
             }
         });
 
-        instagram.setOnClickListener(new View.OnClickListener() {
+        binding.instagram.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 view.startAnimation(buttonClick);
@@ -87,7 +73,7 @@ public class GuestInfoActivity extends AppCompatActivity {
             }
         });
 
-        github.setOnClickListener(new View.OnClickListener() {
+        binding.github.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 view.startAnimation(buttonClick);
@@ -97,7 +83,7 @@ public class GuestInfoActivity extends AppCompatActivity {
             }
         });
 
-        gpay.setOnClickListener(new View.OnClickListener() {
+        binding.gpay.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 view.startAnimation(buttonClick);
@@ -107,7 +93,7 @@ public class GuestInfoActivity extends AppCompatActivity {
             }
         });
 
-        shareApp.setOnClickListener(new View.OnClickListener() {
+        binding.shareApp.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 view.startAnimation(buttonClick);
@@ -124,7 +110,7 @@ public class GuestInfoActivity extends AppCompatActivity {
             }
         });
 
-        rateApp.setOnClickListener(new View.OnClickListener() {
+        binding.rateNow.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 view.startAnimation(buttonClick);
@@ -138,7 +124,7 @@ public class GuestInfoActivity extends AppCompatActivity {
     public void onCopyClick(View view) {
         view.startAnimation(buttonClick);
         ClipboardManager clipboard = (ClipboardManager) getSystemService(Context.CLIPBOARD_SERVICE);
-        ClipData clip = ClipData.newPlainText("label", upiId.getText().toString().trim());
+        ClipData clip = ClipData.newPlainText("label",  binding.upiID.getText().toString().trim());
         if (clipboard == null || clip == null) return;
         clipboard.setPrimaryClip(clip);
         Toast.makeText(this, "UPI ID copied!", Toast.LENGTH_SHORT).show();

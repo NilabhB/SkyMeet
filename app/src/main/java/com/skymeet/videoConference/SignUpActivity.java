@@ -31,6 +31,7 @@ import com.google.firebase.auth.AuthResult;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.firestore.FirebaseFirestore;
+import com.skymeet.videoConference.databinding.ActivitySignUpBinding;
 
 import java.util.Objects;
 
@@ -38,17 +39,14 @@ public class SignUpActivity extends AppCompatActivity {
 
     FirebaseAuth auth;
     FirebaseFirestore database;
-
-    TextView signInAcTextView, idSkyMeet;
-    EditText emailBox, passwordBox, passwordBox2, userName;
-    Button signUpBtn;
     ProgressDialog dialog;
-    ImageView guestMode, passwordEye, passwordEye2, skymeetLogo;
 
+    ActivitySignUpBinding binding;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_sign_up);
+        binding=ActivitySignUpBinding.inflate(getLayoutInflater());
+        setContentView(binding.getRoot());
         Objects.requireNonNull(getSupportActionBar()).hide();
         setRequestedOrientation(SCREEN_ORIENTATION_PORTRAIT);
 
@@ -58,27 +56,14 @@ public class SignUpActivity extends AppCompatActivity {
         auth= FirebaseAuth.getInstance();
         database = FirebaseFirestore.getInstance();
 
-        signInAcTextView = findViewById(R.id.signInAcTextView);
-        emailBox = findViewById(R.id.emailBox);
-        passwordBox = findViewById(R.id.passwordBox);
-        passwordBox2 = findViewById(R.id.passwordBox2);
-        userName = findViewById(R.id.userName);
-        signUpBtn = findViewById(R.id.SignUpBtn);
-        guestMode = findViewById(R.id.guestMode);
-        passwordEye = findViewById(R.id.passwordEye);
-        passwordEye2 = findViewById(R.id.passwordEye2);
-        skymeetLogo = findViewById(R.id.skymeetLogo);
-        idSkyMeet = findViewById(R.id.idSkyMeet);
+        YoYo.with(Techniques.Shake).duration(1500).repeat(0).playOn( binding.guestMode);
+        YoYo.with(Techniques.FlipInY).duration(1500).repeat(3).playOn( binding.passwordEye);
+        YoYo.with(Techniques.FlipInX).duration(1500).repeat(3).playOn( binding.passwordEye2);
+        YoYo.with(Techniques.RotateInUpLeft).duration(1500).repeat(0).playOn( binding.skymeetLogo);
+        YoYo.with(Techniques.Wobble).duration(1500).repeat(0).playOn( binding.idSkyMeet);
 
 
-        YoYo.with(Techniques.Shake).duration(1500).repeat(0).playOn(guestMode);
-        YoYo.with(Techniques.FlipInY).duration(1500).repeat(3).playOn(passwordEye);
-        YoYo.with(Techniques.FlipInX).duration(1500).repeat(3).playOn(passwordEye2);
-        YoYo.with(Techniques.RotateInUpLeft).duration(1500).repeat(0).playOn(skymeetLogo);
-        YoYo.with(Techniques.Wobble).duration(1500).repeat(0).playOn(idSkyMeet);
-
-
-        guestMode.setOnClickListener(new View.OnClickListener() {
+        binding.guestMode.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 view.startAnimation(buttonClick);
@@ -86,7 +71,7 @@ public class SignUpActivity extends AppCompatActivity {
             }
         });
 
-        signInAcTextView.setOnClickListener(new View.OnClickListener() {
+        binding.signInAcTextView.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 view.startAnimation(buttonClick);
@@ -94,15 +79,15 @@ public class SignUpActivity extends AppCompatActivity {
             }
         });
 
-        signUpBtn.setOnClickListener(new View.OnClickListener() {
+        binding.SignUpBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 view.startAnimation(buttonClick);
                 String email, password, passwordVerify, name;
-                email = emailBox.getText().toString().trim();
-                password = passwordBox.getText().toString().trim();
-                passwordVerify = passwordBox2.getText().toString().trim();
-                name = userName.getText().toString().trim();
+                email =  binding.emailBox.getText().toString().trim();
+                password =  binding.passwordBox.getText().toString().trim();
+                passwordVerify =  binding.passwordBox2.getText().toString().trim();
+                name =  binding.userName.getText().toString().trim();
 
                 User user = new User();
                 user.setEmail(email);
@@ -110,32 +95,32 @@ public class SignUpActivity extends AppCompatActivity {
 
 
                 if (TextUtils.isEmpty(name)) {
-                    userName.setError("Please enter your name!");
-                    userName.requestFocus();
-                    YoYo.with(Techniques.Shake).duration(1200).repeat(0).playOn(signUpBtn);
+                    binding.userName.setError("Please enter your name!");
+                    binding.userName.requestFocus();
+                    YoYo.with(Techniques.Shake).duration(1200).repeat(0).playOn(binding.SignUpBtn);
                 } else if (TextUtils.isEmpty(email)) {
-                    emailBox.setError("Email cannot be empty!");
-                    emailBox.requestFocus();
-                    YoYo.with(Techniques.Shake).duration(1200).repeat(0).playOn(signUpBtn);
+                    binding.emailBox.setError("Email cannot be empty!");
+                    binding.emailBox.requestFocus();
+                    YoYo.with(Techniques.Shake).duration(1200).repeat(0).playOn(binding.SignUpBtn);
                 } else if (!Patterns.EMAIL_ADDRESS.matcher(email).matches()) {
-                    emailBox.setError("Please provide a valid email!");
-                    emailBox.requestFocus();
-                    YoYo.with(Techniques.Shake).duration(1200).repeat(0).playOn(signUpBtn);
+                    binding.emailBox.setError("Please provide a valid email!");
+                    binding.emailBox.requestFocus();
+                    YoYo.with(Techniques.Shake).duration(1200).repeat(0).playOn(binding.SignUpBtn);
                 } else if (TextUtils.isEmpty(password)) {
-                    passwordBox.setError("Password cannot be empty!");
-                    passwordBox.requestFocus();
-                    YoYo.with(Techniques.Shake).duration(1200).repeat(0).playOn(signUpBtn);
+                    binding.passwordBox.setError("Password cannot be empty!");
+                    binding.passwordBox.requestFocus();
+                    YoYo.with(Techniques.Shake).duration(1200).repeat(0).playOn(binding.SignUpBtn);
                 } else if (password.length() < 6) {
-                    passwordBox.setError("Min password length should be 6 characters!");
-                    passwordBox.requestFocus();
-                    YoYo.with(Techniques.Shake).duration(1200).repeat(0).playOn(signUpBtn);
+                    binding.passwordBox.setError("Min password length should be 6 characters!");
+                    binding.passwordBox.requestFocus();
+                    YoYo.with(Techniques.Shake).duration(1200).repeat(0).playOn(binding.SignUpBtn);
                 } else if (!password.equals(passwordVerify)) {
-                    YoYo.with(Techniques.Wobble).duration(1000).repeat(0).playOn(passwordEye);
-                    YoYo.with(Techniques.FlipInY).duration(1500).repeat(2).playOn(passwordEye);
-                    YoYo.with(Techniques.Hinge).duration(1000).repeat(0).playOn(passwordEye2);
-                    passwordBox2.setError("Password didn't match!");
-                    passwordBox2.requestFocus();
-                    YoYo.with(Techniques.Shake).duration(1200).repeat(0).playOn(signUpBtn);
+                    YoYo.with(Techniques.Wobble).duration(1000).repeat(0).playOn(binding.passwordEye);
+                    YoYo.with(Techniques.FlipInY).duration(1500).repeat(2).playOn(binding.passwordEye);
+                    YoYo.with(Techniques.Hinge).duration(1000).repeat(0).playOn(binding.passwordEye2);
+                    binding.passwordBox2.setError("Password didn't match!");
+                    binding.passwordBox2.requestFocus();
+                    YoYo.with(Techniques.Shake).duration(1200).repeat(0).playOn(binding.SignUpBtn);
                 } else {
                     dialog.show();
                     auth.createUserWithEmailAndPassword(email, password).addOnCompleteListener(new OnCompleteListener<AuthResult>() {
@@ -202,11 +187,11 @@ public class SignUpActivity extends AppCompatActivity {
     }
 
     public void ShowHidePass(View view) {
-        togglePasswordVisibility(view, passwordBox);
+        togglePasswordVisibility(view, binding.passwordBox);
     }
 
     public void ShowHidePass2(View view) {
-        togglePasswordVisibility(view, passwordBox2);
+        togglePasswordVisibility(view, binding.passwordBox2);
     }
     
     private final AlphaAnimation buttonClick = new AlphaAnimation(1F, 0.5F);

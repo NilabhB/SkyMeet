@@ -22,40 +22,33 @@ import com.daimajia.androidanimations.library.YoYo;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.FirebaseAuth;
+import com.skymeet.videoConference.databinding.ActivityForgotPasswordBinding;
+import com.skymeet.videoConference.databinding.ActivityMainBinding;
 
 import java.util.Objects;
 
 public class ForgotPasswordActivity extends AppCompatActivity {
-
-    Button resetPasswordBtn;
-    EditText emailBox;
     FirebaseAuth auth;
-    TextView idSkyMeet;
-    ImageView skymeetLogo;
-
+    ActivityForgotPasswordBinding binding;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_forgot_password);
+        binding=ActivityForgotPasswordBinding.inflate(getLayoutInflater());
+        setContentView(binding.getRoot());
         Objects.requireNonNull(getSupportActionBar()).hide();
         setRequestedOrientation(SCREEN_ORIENTATION_PORTRAIT);
 
 
-        skymeetLogo = findViewById(R.id.skymeetLogo);
-        idSkyMeet = findViewById(R.id.idSkyMeet);
+        YoYo.with(Techniques.Swing).duration(1200).repeat(0).playOn(binding.skymeetLogo);
+        YoYo.with(Techniques.Hinge).duration(3000).repeat(0).playOn(binding.idSkyMeet);
 
-        YoYo.with(Techniques.Swing).duration(1200).repeat(0).playOn(skymeetLogo);
-        YoYo.with(Techniques.Hinge).duration(3000).repeat(0).playOn(idSkyMeet);
-
-        resetPasswordBtn = findViewById(R.id.resetPasswordBtn);
-        emailBox = findViewById(R.id.emailBox);
 
         auth = FirebaseAuth.getInstance();
 
 
 
-        resetPasswordBtn.setOnClickListener(new View.OnClickListener() {
+        binding.resetPasswordBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 resetPassword();
@@ -64,16 +57,16 @@ public class ForgotPasswordActivity extends AppCompatActivity {
     }
 
     private void resetPassword() {
-        String email = emailBox.getText().toString().trim();
+        String email = binding.emailBox.getText().toString().trim();
 
         if (email.isEmpty()){
-            emailBox.setError("Email is required");
-            emailBox.requestFocus();
-            YoYo.with(Techniques.Shake).duration(1200).repeat(0).playOn(resetPasswordBtn);
+            binding.emailBox.setError("Email is required");
+            binding.emailBox.requestFocus();
+            YoYo.with(Techniques.Shake).duration(1200).repeat(0).playOn(binding.resetPasswordBtn);
         } else if (!Patterns.EMAIL_ADDRESS.matcher(email).matches()) {
-            emailBox.setError("Please provide a valid email!");
-            emailBox.requestFocus();
-            YoYo.with(Techniques.Shake).duration(1200).repeat(0).playOn(resetPasswordBtn);
+            binding.emailBox.setError("Please provide a valid email!");
+            binding.emailBox.requestFocus();
+            YoYo.with(Techniques.Shake).duration(1200).repeat(0).playOn( binding.resetPasswordBtn);
         } else {
             auth.sendPasswordResetEmail(email).addOnCompleteListener(new OnCompleteListener<Void>() {
                 @Override
