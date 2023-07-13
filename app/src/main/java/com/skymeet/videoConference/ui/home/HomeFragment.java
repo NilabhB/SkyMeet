@@ -18,16 +18,10 @@ import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AlertDialog;
 import androidx.fragment.app.Fragment;
+import androidx.lifecycle.ViewModelProvider;
 
 import com.daimajia.androidanimations.library.Techniques;
 import com.daimajia.androidanimations.library.YoYo;
-import com.google.android.gms.tasks.OnFailureListener;
-import com.google.android.gms.tasks.OnSuccessListener;
-import com.google.firebase.auth.FirebaseAuth;
-import com.google.firebase.auth.FirebaseUser;
-import com.google.firebase.firestore.DocumentReference;
-import com.google.firebase.firestore.DocumentSnapshot;
-import com.google.firebase.firestore.FirebaseFirestore;
 import com.skymeet.videoConference.HomeNavDirections;
 import com.skymeet.videoConference.R;
 import com.skymeet.videoConference.databinding.FragmentHomeBinding;
@@ -40,24 +34,24 @@ import org.jitsi.meet.sdk.JitsiMeetConferenceOptions;
 import java.net.MalformedURLException;
 import java.net.URL;
 
+import dagger.hilt.android.AndroidEntryPoint;
+
+@AndroidEntryPoint
 public class HomeFragment extends Fragment {
-    FirebaseFirestore database;
-    DocumentReference reference;
     FragmentHomeBinding binding;
+    private HomeViewModel mViewModel;
     private final AlphaAnimation buttonClick = new AlphaAnimation(1F, 0.5F);
 
     @Override
     public void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        mViewModel = new ViewModelProvider(this).get(HomeViewModel.class);
         requireActivity().getOnBackPressedDispatcher().addCallback(this, new OnBackPressedCallback(true) {
             @Override
             public void handleOnBackPressed() {
                 UiUtils.showAppExitDialog(requireActivity());
             }
         });
-        database = FirebaseFirestore.getInstance();
-        FirebaseUser firebaseUser = FirebaseAuth.getInstance().getCurrentUser();
-        reference = database.collection("Users").document(firebaseUser.getUid());
     }
 
     @Nullable
@@ -84,25 +78,7 @@ public class HomeFragment extends Fragment {
         YoYo.with(Techniques.Wobble).duration(1200).repeat(0).playOn(binding.shareCode);
         YoYo.with(Techniques.Flash).duration(1200).repeat(0).playOn(binding.logoutText);
 
-
-        reference.get()
-                .addOnSuccessListener(new OnSuccessListener<DocumentSnapshot>() {
-                    @Override
-                    public void onSuccess(DocumentSnapshot documentSnapshot) {
-                        if (documentSnapshot.exists()) {
-                            binding.welcomeUser.setText(documentSnapshot.getString("name"));
-                            YoYo.with(Techniques.FadeInLeft).duration(700).repeat(0).playOn(binding.welcomeUser);
-                        } else {
-                            Toast.makeText(requireContext(), "Data not found", Toast.LENGTH_SHORT).show();
-                        }
-                    }
-                }).addOnFailureListener(new OnFailureListener() {
-                    @Override
-                    public void onFailure(@NonNull Exception e) {
-                        Toast.makeText(requireContext(), "Failed to fetch data", Toast.LENGTH_SHORT).show();
-                    }
-                });
-
+        subscribeToLiveData();
 
         URL serverURL = null;
         try {
@@ -144,8 +120,12 @@ public class HomeFragment extends Fragment {
 
         binding.profileInfo.setOnClickListener(view1 -> {
             view1.startAnimation(buttonClick);
+            String userName = null;
+            if (mViewModel.user.getValue() != null && mViewModel.user.getValue().getData() != null) {
+                userName = mViewModel.user.getValue().getData().getName();
+            }
             getNavController(this).navigate(
-                    HomeFragmentDirections.actionHomeFragmentToProfileFragment()
+                    HomeFragmentDirections.actionHomeFragmentToProfileFragment(userName)
             );
         });
 
@@ -223,7 +203,7 @@ public class HomeFragment extends Fragment {
                         .setPositiveButton("Yes", new DialogInterface.OnClickListener() {
                             @Override
                             public void onClick(DialogInterface dialog, int which) {
-                                FirebaseAuth.getInstance().signOut();
+                                mViewModel.signOut();
                                 getNavController(HomeFragment.this).navigate(
                                         HomeNavDirections.actionGlobalAuthNav()
                                 );
@@ -239,6 +219,27 @@ public class HomeFragment extends Fragment {
 
             }
         });
+    }
 
+    private void subscribeToLiveData() {
+        mViewModel.user.observe(this, result -> {
+            if (result == null)
+                return;
+            switch (result.getState()) {
+
+                case LOADING -> {
+                }
+                case SUCCESS -> {
+                    assert result.getData() != null;
+                    binding.welcomeUser.setText(result.getData().getName());
+                    YoYo.with(Techniques.FadeInLeft).duration(700).repeat(0).playOn(binding.welcomeUser);
+                }
+                case ERROR -> Toast.makeText(
+                        requireContext(),
+                        "Failed to fetch data",
+                        Toast.LENGTH_SHORT
+                ).show();
+            }
+        });
     }
 }

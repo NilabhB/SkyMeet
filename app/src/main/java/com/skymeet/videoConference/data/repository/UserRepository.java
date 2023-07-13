@@ -108,8 +108,29 @@ public class UserRepository {
         return passwordResetEmailSendState;
     }
 
+    public LiveData<NetworkResult<User>> getUser() {
+        var userState = new MutableLiveData<NetworkResult<User>>(NetworkResult.loading());
+        var currentUser = mFirebaseAuth.getCurrentUser();
+        if (currentUser == null)
+            userState.setValue(NetworkResult.error(new IllegalArgumentException("User not authenticated")));
+        else
+            mFirebaseFirestore.collection("Users").document(currentUser.getUid()).get()
+                    .addOnCompleteListener(task -> {
+                        if (task.isComplete()) {
+                            userState.setValue(NetworkResult.success(task.getResult().toObject(User.class)));
+                        } else {
+                            userState.setValue(NetworkResult.error(task.getException()));
+                        }
+                    });
+        return userState;
+    }
+
     public boolean isUserSignedIn() {
         var user = mFirebaseAuth.getCurrentUser();
         return user != null && user.isEmailVerified();
+    }
+
+    public void signOut() {
+        mFirebaseAuth.signOut();
     }
 }

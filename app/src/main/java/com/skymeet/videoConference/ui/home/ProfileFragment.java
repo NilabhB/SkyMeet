@@ -18,29 +18,17 @@ import androidx.fragment.app.Fragment;
 
 import com.daimajia.androidanimations.library.Techniques;
 import com.daimajia.androidanimations.library.YoYo;
-import com.google.android.gms.tasks.OnFailureListener;
-import com.google.android.gms.tasks.OnSuccessListener;
-import com.google.firebase.auth.FirebaseAuth;
-import com.google.firebase.auth.FirebaseUser;
-import com.google.firebase.firestore.DocumentReference;
-import com.google.firebase.firestore.DocumentSnapshot;
-import com.google.firebase.firestore.FirebaseFirestore;
 import com.skymeet.videoConference.databinding.FragmentProfileBinding;
 
 public class ProfileFragment extends Fragment {
-    FirebaseFirestore database;
-    DocumentReference reference;
     FragmentProfileBinding binding;
     private final AlphaAnimation buttonClick = new AlphaAnimation(1F, 0.5F);
+    private ProfileFragmentArgs mArgs;
 
     @Override
     public void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        FirebaseUser firebaseUser = FirebaseAuth.getInstance().getCurrentUser();
-
-        database = FirebaseFirestore.getInstance();
-        assert firebaseUser != null;
-        reference = database.collection("Users").document(firebaseUser.getUid());
+        mArgs = ProfileFragmentArgs.fromBundle(getArguments());
     }
 
     @Nullable
@@ -56,23 +44,12 @@ public class ProfileFragment extends Fragment {
 
     @Override
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
-        reference.get()
-                .addOnSuccessListener(new OnSuccessListener<DocumentSnapshot>() {
-                    @Override
-                    public void onSuccess(DocumentSnapshot documentSnapshot) {
-                        if (documentSnapshot.exists()) {
-                            binding.welcomeUserInfo.setText("Hi " + documentSnapshot.getString("name") + ",");
-                            YoYo.with(Techniques.FlipInX).duration(1000).repeat(0).playOn(binding.welcomeUserInfo);
-                        } else {
-                            Toast.makeText(requireContext(), "Data not found", Toast.LENGTH_SHORT).show();
-                        }
-                    }
-                }).addOnFailureListener(new OnFailureListener() {
-                    @Override
-                    public void onFailure(@NonNull Exception e) {
-                        Toast.makeText(requireContext(), "Failed to fetch data", Toast.LENGTH_SHORT).show();
-                    }
-                });
+        if (mArgs.getUserName() != null) {
+            binding.welcomeUserInfo.setText("Hi " + mArgs.getUserName() + ",");
+            YoYo.with(Techniques.FlipInX).duration(1000).repeat(0).playOn(binding.welcomeUserInfo);
+        } else {
+            Toast.makeText(requireContext(), "Failed to fetch data", Toast.LENGTH_SHORT).show();
+        }
 
         binding.copytxt.setOnClickListener(this::onCopyClick);
 

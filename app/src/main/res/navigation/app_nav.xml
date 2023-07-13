@@ -93,7 +93,12 @@
             android:id="@+id/profileFragment"
             android:name="com.skymeet.videoConference.ui.home.ProfileFragment"
             tools:layout="@layout/fragment_profile"
-            android:label="HomeFragment" />
+            android:label="HomeFragment">
+            <argument
+                android:name="user_name"
+                app:argType="string"
+                app:nullable="true" />
+        </fragment>
         <action
             android:id="@+id/action_global_auth_nav"
             app:destination="@id/auth_nav"
