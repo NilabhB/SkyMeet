@@ -15,17 +15,23 @@ import androidx.fragment.app.Fragment;
 
 import com.daimajia.androidanimations.library.Techniques;
 import com.daimajia.androidanimations.library.YoYo;
-import com.google.firebase.auth.FirebaseAuth;
+import com.skymeet.videoConference.data.repository.UserRepository;
 import com.skymeet.videoConference.databinding.FragmentSplashScreenBinding;
 
+import javax.inject.Inject;
+
+import dagger.hilt.android.AndroidEntryPoint;
+
+@AndroidEntryPoint
 public class SplashScreenFragment extends Fragment {
+
+    @Inject
+    public UserRepository userRepository;
     private FragmentSplashScreenBinding binding;
-    private FirebaseAuth mFirebaseAuth;
 
     @Nullable
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
-        mFirebaseAuth = FirebaseAuth.getInstance();
         binding = FragmentSplashScreenBinding.inflate(
                 inflater,
                 container,
@@ -42,7 +48,7 @@ public class SplashScreenFragment extends Fragment {
 
 
         new Handler(Looper.getMainLooper()).postDelayed(() -> {
-            if (mFirebaseAuth.getCurrentUser() == null) {
+            if (!userRepository.isUserSignedIn()) {
                 getNavController(this).navigate(
                         SplashScreenFragmentDirections.actionSplashScreenFragmentToAuthNav()
                 );

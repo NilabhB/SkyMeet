@@ -3,7 +3,6 @@ package com.skymeet.videoConference.ui.auth;
 import static com.skymeet.videoConference.utils.NavUtils.getNavController;
 
 import android.app.ProgressDialog;
-import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
 import android.text.TextUtils;
@@ -21,30 +20,30 @@ import androidx.activity.OnBackPressedCallback;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
+import androidx.lifecycle.ViewModelProvider;
 
 import com.daimajia.androidanimations.library.Techniques;
 import com.daimajia.androidanimations.library.YoYo;
-import com.google.android.gms.tasks.OnCompleteListener;
-import com.google.android.gms.tasks.Task;
-import com.google.firebase.auth.AuthResult;
-import com.google.firebase.auth.FirebaseAuth;
-import com.google.firebase.auth.FirebaseUser;
 import com.skymeet.videoConference.AuthNavDirections;
 import com.skymeet.videoConference.R;
+import com.skymeet.videoConference.data.model.UserSignInRequest;
+import com.skymeet.videoConference.data.utils.AuthError;
 import com.skymeet.videoConference.databinding.FragmentSignInBinding;
 import com.skymeet.videoConference.utils.UiUtils;
 
-import java.util.Objects;
+import dagger.hilt.android.AndroidEntryPoint;
 
+@AndroidEntryPoint
 public class SignInFragment extends Fragment {
     private FragmentSignInBinding binding;
-    FirebaseAuth auth;
     ProgressDialog dialog;
     private final AlphaAnimation buttonClick = new AlphaAnimation(1F, 0.5F);
+    private AuthViewModel viewModel;
 
     @Override
     public void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        viewModel = new ViewModelProvider(this).get(AuthViewModel.class);
         requireActivity().getOnBackPressedDispatcher().addCallback(this, new OnBackPressedCallback(true) {
             @Override
             public void handleOnBackPressed() {
@@ -70,7 +69,6 @@ public class SignInFragment extends Fragment {
         dialog = new ProgressDialog(requireContext());
         dialog.setMessage("Please wait...");
 
-        auth = FirebaseAuth.getInstance();
         YoYo.with(Techniques.Landing).duration(1200).repeat(0).playOn(binding.guestMode);
         YoYo.with(Techniques.FlipInY).duration(1500).repeat(3).playOn(binding.passwordEye);
         YoYo.with(Techniques.Landing).duration(1200).repeat(0).playOn(binding.skymeetLogo);
@@ -105,75 +103,16 @@ public class SignInFragment extends Fragment {
 
         binding.passwordEye.setOnClickListener(this::showHidePass);
 
+        subscribeToLiveData();
 
-        binding.SignInBtn.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                view.startAnimation(buttonClick);
-
-                String email, password;
-                email = binding.emailBox.getText().toString().trim();
-                password = binding.passwordBox.getText().toString().trim();
-
-                if (TextUtils.isEmpty(email)) {
-                    binding.emailBox.setError("Email cannot be empty");
-                    binding.emailBox.requestFocus();
-                    YoYo.with(Techniques.Shake).duration(1200).repeat(0).playOn(binding.SignInBtn);
-                } else if (!Patterns.EMAIL_ADDRESS.matcher(email).matches()) {
-                    binding.emailBox.setError("Please provide a valid email!");
-                    binding.emailBox.requestFocus();
-                    YoYo.with(Techniques.Shake).duration(1200).repeat(0).playOn(binding.SignInBtn);
-                } else if (TextUtils.isEmpty(password)) {
-                    binding.passwordBox.setError("Password cannot be empty!");
-                    binding.passwordBox.requestFocus();
-                    YoYo.with(Techniques.Shake).duration(1200).repeat(0).playOn( binding.SignInBtn);
-                } else if (password.length() < 6) {
-                    binding.passwordBox.setError("Min password length should be 6 characters!");
-                    binding.passwordBox.requestFocus();
-                    YoYo.with(Techniques.Shake).duration(1200).repeat(0).playOn( binding.SignInBtn);
-                } else {
-                    dialog.show();
-                    auth.signInWithEmailAndPassword(email, password).addOnCompleteListener(new OnCompleteListener<AuthResult>() {
-                        @Override
-                        public void onComplete(@NonNull Task<AuthResult> task) {
-                            dialog.dismiss();
-                            if(task.isSuccessful()) {
-                                FirebaseUser firebaseUser = auth.getCurrentUser();
-                                if (!firebaseUser.isEmailVerified()) {
-                                    firebaseUser.sendEmailVerification();
-                                    new android.app.AlertDialog.Builder(requireContext())
-                                            .setIcon(R.drawable.ic_baseline_email_24)
-                                            .setTitle("Email Verification Needed")
-                                            .setMessage("A link was send to your email previously. Please verify to log in.")
-                                            .setPositiveButton("Verify Now", new DialogInterface.OnClickListener() {
-                                                @Override
-                                                public void onClick(DialogInterface dialog, int which) {
-                                                    Intent intent = requireContext().getPackageManager().
-                                                            getLaunchIntentForPackage("com.google.android.gm");
-                                                    startActivity(intent);
-                                                    Toast.makeText(requireContext(),
-                                                            "Check in Spam Folder if not found", Toast.LENGTH_SHORT).show();
-                                                }
-                                            }).show();
-                                } else {
-                                    getNavController(SignInFragment.this).navigate(
-                                            AuthNavDirections.actionGlobalHomeNav()
-                                    );
-                                    Toast.makeText(requireContext(), "logged in!", Toast.LENGTH_SHORT).show();
-                                }
-                            } else {
-                                Toast.makeText(requireContext(), Objects.requireNonNull(task.getException())
-                                        .getLocalizedMessage(), Toast.LENGTH_LONG).show();
-                            }
-                        }
-                    });
-                }
-
-            }
+        binding.SignInBtn.setOnClickListener(v -> {
+            var request = getUserSignInRequest();
+            if (request != null)
+                viewModel.signIn(request);
         });
     }
 
-    public void showHidePass(View view) {
+    private void showHidePass(View view) {
         if (binding.passwordBox.getTransformationMethod().equals(PasswordTransformationMethod.getInstance())) {
             ((ImageView) (view)).setImageResource(R.drawable.ic_baseline_visibility_off_24);
             binding.passwordBox.setTransformationMethod(HideReturnsTransformationMethod.getInstance());
@@ -181,5 +120,79 @@ public class SignInFragment extends Fragment {
             ((ImageView) (view)).setImageResource(R.drawable.ic_baseline_visibility_24);
             binding.passwordBox.setTransformationMethod(PasswordTransformationMethod.getInstance());
         }
+    }
+
+    private void subscribeToLiveData() {
+        viewModel.userSignInState.observe(getViewLifecycleOwner(), result -> {
+            if (result == null)
+                return;
+            switch (result.getState()) {
+                case LOADING -> dialog.show();
+                case SUCCESS -> {
+                    dialog.dismiss();
+                    Toast.makeText(requireContext(), "logged in!", Toast.LENGTH_SHORT).show();
+                    getNavController(SignInFragment.this).navigate(
+                            AuthNavDirections.actionGlobalHomeNav()
+                    );
+                }
+                case ERROR -> {
+                    dialog.dismiss();
+                    if (result.getError() instanceof AuthError.UserNotVerifiedError) {
+                        viewModel.sendVerificationEmail();
+                        showUserVerificationDialog();
+                    } else {
+                        String msg = "Something went wrong! Please try again";
+                        if (result.getError() != null)
+                            msg = result.getError().getLocalizedMessage();
+                        Toast.makeText(requireContext(), msg, Toast.LENGTH_SHORT).show();
+                    }
+                }
+            }
+        });
+    }
+
+    @Nullable
+    private UserSignInRequest getUserSignInRequest() {
+        var request = new UserSignInRequest(
+                binding.emailBox.getText().toString().trim(),
+                binding.passwordBox.getText().toString().trim()
+        );
+
+        if (TextUtils.isEmpty(request.getEmail())) {
+            binding.emailBox.setError("Email cannot be empty");
+            binding.emailBox.requestFocus();
+            YoYo.with(Techniques.Shake).duration(1200).repeat(0).playOn(binding.SignInBtn);
+            return null;
+        } else if (!Patterns.EMAIL_ADDRESS.matcher(request.getEmail()).matches()) {
+            binding.emailBox.setError("Please provide a valid email!");
+            binding.emailBox.requestFocus();
+            YoYo.with(Techniques.Shake).duration(1200).repeat(0).playOn(binding.SignInBtn);
+            return null;
+        } else if (TextUtils.isEmpty(request.getPassword())) {
+            binding.passwordBox.setError("Password cannot be empty!");
+            binding.passwordBox.requestFocus();
+            YoYo.with(Techniques.Shake).duration(1200).repeat(0).playOn(binding.SignInBtn);
+            return null;
+        } else if (request.getPassword().length() < 6) {
+            binding.passwordBox.setError("Min password length should be 6 characters!");
+            binding.passwordBox.requestFocus();
+            YoYo.with(Techniques.Shake).duration(1200).repeat(0).playOn(binding.SignInBtn);
+            return null;
+        }
+        return request;
+    }
+
+    private void showUserVerificationDialog() {
+        new android.app.AlertDialog.Builder(requireContext())
+                .setIcon(R.drawable.ic_baseline_email_24)
+                .setTitle("Email Verification Needed")
+                .setMessage("A link was send to your email previously. Please verify to log in.")
+                .setPositiveButton("Verify Now", (dialog, which) -> {
+                    Intent intent = requireContext().getPackageManager().
+                            getLaunchIntentForPackage("com.google.android.gm");
+                    startActivity(intent);
+                    Toast.makeText(requireContext(),
+                            "Check in Spam Folder if not found", Toast.LENGTH_SHORT).show();
+                }).show();
     }
 }

@@ -3,7 +3,6 @@ package com.skymeet.videoConference.ui.auth;
 import static com.skymeet.videoConference.utils.NavUtils.getNavController;
 
 import android.app.ProgressDialog;
-import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
 import android.text.TextUtils;
@@ -22,30 +21,24 @@ import androidx.activity.OnBackPressedCallback;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
+import androidx.lifecycle.ViewModelProvider;
 
 import com.daimajia.androidanimations.library.Techniques;
 import com.daimajia.androidanimations.library.YoYo;
-import com.google.android.gms.tasks.OnCompleteListener;
-import com.google.android.gms.tasks.OnSuccessListener;
-import com.google.android.gms.tasks.Task;
-import com.google.firebase.auth.AuthResult;
-import com.google.firebase.auth.FirebaseAuth;
-import com.google.firebase.auth.FirebaseUser;
-import com.google.firebase.firestore.FirebaseFirestore;
 import com.skymeet.videoConference.AuthNavDirections;
 import com.skymeet.videoConference.R;
-import com.skymeet.videoConference.User;
+import com.skymeet.videoConference.data.model.UserSignUpRequest;
 import com.skymeet.videoConference.databinding.FragmentSignUpBinding;
 import com.skymeet.videoConference.utils.UiUtils;
 
-import java.util.Objects;
+import dagger.hilt.android.AndroidEntryPoint;
 
+@AndroidEntryPoint
 public class SignUpFragment extends Fragment {
     private FragmentSignUpBinding binding;
-    FirebaseAuth auth;
-    FirebaseFirestore database;
     ProgressDialog dialog;
     private final AlphaAnimation buttonClick = new AlphaAnimation(1F, 0.5F);
+    private AuthViewModel viewModel;
 
     @Override
     public void onCreate(@Nullable Bundle savedInstanceState) {
@@ -53,8 +46,7 @@ public class SignUpFragment extends Fragment {
         dialog = new ProgressDialog(requireContext());
         dialog.setMessage("Creating account...");
 
-        auth = FirebaseAuth.getInstance();
-        database = FirebaseFirestore.getInstance();
+        viewModel = new ViewModelProvider(this).get(AuthViewModel.class);
         requireActivity().getOnBackPressedDispatcher().addCallback(this, new OnBackPressedCallback(true) {
             @Override
             public void handleOnBackPressed() {
@@ -99,99 +91,16 @@ public class SignUpFragment extends Fragment {
             );
         });
 
-        binding.SignUpBtn.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                view.startAnimation(buttonClick);
-                String email, password, passwordVerify, name;
-                email = binding.emailBox.getText().toString().trim();
-                password = binding.passwordBox.getText().toString().trim();
-                passwordVerify = binding.passwordBox2.getText().toString().trim();
-                name = binding.userName.getText().toString().trim();
-
-                User user = new User();
-                user.setEmail(email);
-                user.setName(name);
-
-
-                if (TextUtils.isEmpty(name)) {
-                    binding.userName.setError("Please enter your name!");
-                    binding.userName.requestFocus();
-                    YoYo.with(Techniques.Shake).duration(1200).repeat(0).playOn(binding.SignUpBtn);
-                } else if (TextUtils.isEmpty(email)) {
-                    binding.emailBox.setError("Email cannot be empty!");
-                    binding.emailBox.requestFocus();
-                    YoYo.with(Techniques.Shake).duration(1200).repeat(0).playOn(binding.SignUpBtn);
-                } else if (!Patterns.EMAIL_ADDRESS.matcher(email).matches()) {
-                    binding.emailBox.setError("Please provide a valid email!");
-                    binding.emailBox.requestFocus();
-                    YoYo.with(Techniques.Shake).duration(1200).repeat(0).playOn(binding.SignUpBtn);
-                } else if (TextUtils.isEmpty(password)) {
-                    binding.passwordBox.setError("Password cannot be empty!");
-                    binding.passwordBox.requestFocus();
-                    YoYo.with(Techniques.Shake).duration(1200).repeat(0).playOn(binding.SignUpBtn);
-                } else if (password.length() < 6) {
-                    binding.passwordBox.setError("Min password length should be 6 characters!");
-                    binding.passwordBox.requestFocus();
-                    YoYo.with(Techniques.Shake).duration(1200).repeat(0).playOn(binding.SignUpBtn);
-                } else if (!password.equals(passwordVerify)) {
-                    YoYo.with(Techniques.Wobble).duration(1000).repeat(0).playOn(binding.passwordEye);
-                    YoYo.with(Techniques.FlipInY).duration(1500).repeat(2).playOn(binding.passwordEye);
-                    YoYo.with(Techniques.Hinge).duration(1000).repeat(0).playOn(binding.passwordEye2);
-                    binding.passwordBox2.setError("Password didn't match!");
-                    binding.passwordBox2.requestFocus();
-                    YoYo.with(Techniques.Shake).duration(1200).repeat(0).playOn(binding.SignUpBtn);
-                } else {
-                    dialog.show();
-                    auth.createUserWithEmailAndPassword(email, password).addOnCompleteListener(new OnCompleteListener<AuthResult>() {
-                        @Override
-                        public void onComplete(@NonNull Task<AuthResult> task) {
-                            dialog.dismiss();
-                            if(task.isSuccessful()) {
-                                final FirebaseUser firebaseUser = auth.getCurrentUser();
-                                firebaseUser.sendEmailVerification();
-                                Toast.makeText(requireContext(), "Email Verification Link Send", Toast.LENGTH_SHORT).show();
-                                String userId = Objects.requireNonNull(FirebaseAuth.getInstance().getCurrentUser()).getUid();
-                                user.setUserId(userId);
-                                database.collection("Users").document(userId).set(user)
-                                        .addOnSuccessListener(new OnSuccessListener<Void>() {
-                                            @Override
-                                            public void onSuccess(Void unused) {
-                                                new android.app.AlertDialog.Builder(requireContext())
-                                                        .setIcon(R.drawable.ic_baseline_email_24)
-                                                        .setTitle("Verify your Email")
-                                                        .setMessage("A link has been sent to your email. Please verify now before logging in")
-                                                        .setNeutralButton("Later", (dialog, which) ->
-                                                                getNavController(SignUpFragment.this).navigate(
-                                                                        SignUpFragmentDirections.actionSignUpFragmentToSignInFragment()
-                                                                )
-                                                        )
-                                                        .setPositiveButton("Verify Now", new DialogInterface.OnClickListener() {
-                                                            @Override
-                                                            public void onClick(DialogInterface dialog, int which) {
-                                                                Intent intent = requireContext().getPackageManager().
-                                                                        getLaunchIntentForPackage("com.google.android.gm");
-                                                                startActivity(intent);
-                                                                Toast.makeText(requireContext(),
-                                                                        "Check in Spam Folder if not found", Toast.LENGTH_SHORT).show();
-                                                            }
-                                                        })
-                                                        .show();
-                                            }
-                                        });
-                                Toast.makeText(requireContext(), "Account Created.",
-                                        Toast.LENGTH_SHORT).show();
-                            } else {
-                                Toast.makeText(requireContext(),
-                                        Objects.requireNonNull(task.getException()).getLocalizedMessage(), Toast.LENGTH_LONG).show();
-                            }
-                        }
-                    });
-                }
-            }
+        binding.SignUpBtn.setOnClickListener(v -> {
+            var userRequest = getUserRequest();
+            if (userRequest != null)
+                viewModel.signUp(userRequest);
         });
+
+        subscribeToLiveData();
     }
-    public void togglePasswordVisibility(View view, EditText passwordBox) {
+
+    public void togglePasswordVisibility(View view, @NonNull EditText passwordBox) {
         if (passwordBox.getTransformationMethod().equals(PasswordTransformationMethod.getInstance())) {
             ((ImageView) (view)).setImageResource(R.drawable.ic_baseline_visibility_off_24);
             passwordBox.setTransformationMethod(HideReturnsTransformationMethod.getInstance());
@@ -201,12 +110,105 @@ public class SignUpFragment extends Fragment {
         }
     }
 
-    public void showHidePass(View view) {
+    private void showHidePass(View view) {
         togglePasswordVisibility(view, binding.passwordBox);
     }
 
-    public void showHidePass2(View view) {
+    private void showHidePass2(View view) {
         togglePasswordVisibility(view, binding.passwordBox2);
+    }
+
+    /**
+     * @return Returns null if user data is invalid else UserSignUpRequest
+     */
+    @Nullable
+    private UserSignUpRequest getUserRequest() {
+        var request = new UserSignUpRequest(
+                binding.userName.getText().toString().trim(),
+                binding.emailBox.getText().toString().trim(),
+                binding.passwordBox.getText().toString().trim()
+        );
+
+        var passwordVerify = binding.passwordBox2.getText().toString().trim();
+
+        if (TextUtils.isEmpty(request.getName())) {
+            binding.userName.setError("Please enter your name!");
+            binding.userName.requestFocus();
+            YoYo.with(Techniques.Shake).duration(1200).repeat(0).playOn(binding.SignUpBtn);
+            return null;
+        } else if (TextUtils.isEmpty(request.getEmail())) {
+            binding.emailBox.setError("Email cannot be empty!");
+            binding.emailBox.requestFocus();
+            YoYo.with(Techniques.Shake).duration(1200).repeat(0).playOn(binding.SignUpBtn);
+            return null;
+        } else if (!Patterns.EMAIL_ADDRESS.matcher(request.getEmail()).matches()) {
+            binding.emailBox.setError("Please provide a valid email!");
+            binding.emailBox.requestFocus();
+            YoYo.with(Techniques.Shake).duration(1200).repeat(0).playOn(binding.SignUpBtn);
+            return null;
+        } else if (TextUtils.isEmpty(request.getPassword())) {
+            binding.passwordBox.setError("Password cannot be empty!");
+            binding.passwordBox.requestFocus();
+            YoYo.with(Techniques.Shake).duration(1200).repeat(0).playOn(binding.SignUpBtn);
+            return null;
+        } else if (request.getPassword().length() < 6) {
+            binding.passwordBox.setError("Min password length should be 6 characters!");
+            binding.passwordBox.requestFocus();
+            YoYo.with(Techniques.Shake).duration(1200).repeat(0).playOn(binding.SignUpBtn);
+            return null;
+        } else if (!request.getPassword().equals(passwordVerify)) {
+            YoYo.with(Techniques.Wobble).duration(1000).repeat(0).playOn(binding.passwordEye);
+            YoYo.with(Techniques.FlipInY).duration(1500).repeat(2).playOn(binding.passwordEye);
+            YoYo.with(Techniques.Hinge).duration(1000).repeat(0).playOn(binding.passwordEye2);
+            binding.passwordBox2.setError("Password didn't match!");
+            binding.passwordBox2.requestFocus();
+            YoYo.with(Techniques.Shake).duration(1200).repeat(0).playOn(binding.SignUpBtn);
+            return null;
+        }
+        return request;
+    }
+
+    private void subscribeToLiveData() {
+        viewModel.userSignUpState.observe(getViewLifecycleOwner(), result -> {
+            if (result == null)
+                return;
+            switch (result.getState()) {
+                case LOADING -> dialog.show();
+                case SUCCESS -> {
+                    dialog.dismiss();
+                    showUserVerificationEmailSentDialog();
+                }
+                case ERROR -> {
+                    dialog.dismiss();
+                    String msg;
+                    if (result.getError() == null)
+                        msg = "Something went wrong, Please try again";
+                    else msg = result.getError().getLocalizedMessage();
+                    Toast.makeText(requireContext(), msg, Toast.LENGTH_LONG).show();
+                }
+            }
+        });
+    }
+
+    private void showUserVerificationEmailSentDialog() {
+        new android.app.AlertDialog.Builder(requireContext())
+                .setIcon(R.drawable.ic_baseline_email_24)
+                .setTitle("Verify your Email")
+                .setMessage("A link has been sent to your email. Please verify now before logging in")
+                .setNeutralButton("Later", (dialog, which) ->
+                        getNavController(SignUpFragment.this).navigate(
+                                SignUpFragmentDirections.actionSignUpFragmentToSignInFragment()
+                        )
+                )
+                .setPositiveButton("Verify Now", (dialog, which) -> {
+                    Intent intent = requireContext().getPackageManager().
+                            getLaunchIntentForPackage("com.google.android.gm");
+                    startActivity(intent);
+                    Toast.makeText(requireContext(),
+                            "Check in Spam Folder if not found", Toast.LENGTH_SHORT).show();
+                })
+                .show();
+        Toast.makeText(requireContext(), "Account Created.", Toast.LENGTH_SHORT).show();
     }
 
 }
