@@ -32,4 +32,6 @@
     <string name="gpay_upi_id">borthakur.nilabh@oksbi</string>
     <string name="connect_with_the_developer">Connect with the developer:</string>
     <string name="confirm_password">Confirm Password</string>
+    <!-- TODO: Remove or change this placeholder text -->
+    <string name="hello_blank_fragment">Hello blank fragment</string>
 </resources>

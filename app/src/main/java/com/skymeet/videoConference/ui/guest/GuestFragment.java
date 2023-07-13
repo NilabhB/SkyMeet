@@ -1,25 +1,26 @@
-package com.skymeet.videoConference;
+package com.skymeet.videoConference.ui.guest;
 
-import static android.content.pm.ActivityInfo.SCREEN_ORIENTATION_PORTRAIT;
+import static com.skymeet.videoConference.utils.NavUtils.getNavController;
 
-import android.content.DialogInterface;
 import android.content.Intent;
 import android.net.Uri;
 import android.os.Bundle;
 import android.text.TextUtils;
+import android.view.LayoutInflater;
 import android.view.View;
+import android.view.ViewGroup;
 import android.view.animation.AlphaAnimation;
-import android.widget.Button;
-import android.widget.EditText;
-import android.widget.ImageView;
-import android.widget.TextView;
 
-import androidx.appcompat.app.AlertDialog;
-import androidx.appcompat.app.AppCompatActivity;
+import androidx.activity.OnBackPressedCallback;
+import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
+import androidx.fragment.app.Fragment;
 
 import com.daimajia.androidanimations.library.Techniques;
 import com.daimajia.androidanimations.library.YoYo;
-import com.skymeet.videoConference.databinding.ActivityGuestBinding;
+import com.skymeet.videoConference.GuestNavDirections;
+import com.skymeet.videoConference.databinding.FragmentGuestBinding;
+import com.skymeet.videoConference.utils.UiUtils;
 
 import org.jitsi.meet.sdk.JitsiMeet;
 import org.jitsi.meet.sdk.JitsiMeetActivity;
@@ -27,31 +28,46 @@ import org.jitsi.meet.sdk.JitsiMeetConferenceOptions;
 
 import java.net.MalformedURLException;
 import java.net.URL;
-import java.util.Objects;
 
-public class GuestActivity extends AppCompatActivity {
+public class GuestFragment extends Fragment {
+    private FragmentGuestBinding binding;
+    private final AlphaAnimation buttonClick = new AlphaAnimation(1F, 0.5F);
 
-
- ActivityGuestBinding binding;
     @Override
-    protected void onCreate(Bundle savedInstanceState) {
+    public void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        binding=ActivityGuestBinding.inflate(getLayoutInflater());
-        setContentView(binding.getRoot());
-        Objects.requireNonNull(getSupportActionBar()).hide();
-        setRequestedOrientation(SCREEN_ORIENTATION_PORTRAIT);
+        requireActivity().getOnBackPressedDispatcher().addCallback(this, new OnBackPressedCallback(true) {
+            @Override
+            public void handleOnBackPressed() {
+                UiUtils.showAppExitDialog(requireActivity());
+            }
+        });
+    }
 
 
-        YoYo.with(Techniques.Landing).duration(1200).repeat(0).playOn( binding.videoCall);
-        YoYo.with(Techniques.Landing).duration(1200).repeat(0).playOn( binding.guestModeBigView);
-        YoYo.with(Techniques.FlipInX).duration(1200).repeat(3).playOn( binding.facebook);
-        YoYo.with(Techniques.FlipInX).duration(1200).repeat(3).playOn( binding.linkedin);
-        YoYo.with(Techniques.FlipInX).duration(1200).repeat(3).playOn( binding.instagram);
-        YoYo.with(Techniques.FlipInX).duration(1200).repeat(3).playOn( binding.guestprofileAppInfo);
-        YoYo.with(Techniques.Pulse).duration(1200).repeat(3).playOn( binding.followtv);
-        YoYo.with(Techniques.Landing).duration(1200).repeat(0).playOn( binding.joinBtn);
-        YoYo.with(Techniques.Wobble).duration(1200).repeat(0).playOn( binding.shareCode);
-        YoYo.with(Techniques.Wobble).duration(1200).repeat(0).playOn( binding.backToSignIn);
+    @Nullable
+    @Override
+    public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
+        binding = FragmentGuestBinding.inflate(
+                inflater,
+                container,
+                false
+        );
+        return binding.getRoot();
+    }
+
+    @Override
+    public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
+        YoYo.with(Techniques.Landing).duration(1200).repeat(0).playOn(binding.videoCall);
+        YoYo.with(Techniques.Landing).duration(1200).repeat(0).playOn(binding.guestModeBigView);
+        YoYo.with(Techniques.FlipInX).duration(1200).repeat(3).playOn(binding.facebook);
+        YoYo.with(Techniques.FlipInX).duration(1200).repeat(3).playOn(binding.linkedin);
+        YoYo.with(Techniques.FlipInX).duration(1200).repeat(3).playOn(binding.instagram);
+        YoYo.with(Techniques.FlipInX).duration(1200).repeat(3).playOn(binding.guestprofileAppInfo);
+        YoYo.with(Techniques.Pulse).duration(1200).repeat(3).playOn(binding.followtv);
+        YoYo.with(Techniques.Landing).duration(1200).repeat(0).playOn(binding.joinBtn);
+        YoYo.with(Techniques.Wobble).duration(1200).repeat(0).playOn(binding.shareCode);
+        YoYo.with(Techniques.Wobble).duration(1200).repeat(0).playOn(binding.backToSignIn);
 
         URL serverURL = null;
         try {
@@ -68,8 +84,6 @@ public class GuestActivity extends AppCompatActivity {
         JitsiMeet.setDefaultConferenceOptions(defaultOptions);
 
 
-
-
         binding.joinBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -82,48 +96,46 @@ public class GuestActivity extends AppCompatActivity {
                 } else {
                     JitsiMeetConferenceOptions options
                             = new JitsiMeetConferenceOptions.Builder()
-                            .setRoom( binding.codeBox.getText().toString().trim())
+                            .setRoom(binding.codeBox.getText().toString().trim())
                             .setFeatureFlag("welcomepage.enabled", false)
-                            .setFeatureFlag("live-streaming.enabled",false)
-                            .setFeatureFlag("invite.enabled",false)
+                            .setFeatureFlag("live-streaming.enabled", false)
+                            .setFeatureFlag("invite.enabled", false)
                             .setFeatureFlag("video-share.enabled", false)
                             .setFeatureFlag("overflow-menu.enabled", true)
                             .setFeatureFlag("fullscreen.enabled", true)
                             .build();
-                    JitsiMeetActivity.launch(GuestActivity.this, options);
+                    JitsiMeetActivity.launch(requireContext(), options);
                 }
             }
         });
 
-        binding.guestprofileAppInfo.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                view.startAnimation(buttonClick);
-                startActivity(new Intent(GuestActivity.this, GuestInfoActivity.class));
-            }
+        binding.guestprofileAppInfo.setOnClickListener(view12 -> {
+            view12.startAnimation(buttonClick);
+            getNavController(GuestFragment.this).navigate(
+                    GuestFragmentDirections.actionGuestFragmentToGuestInfoFragment()
+            );
         });
 
-        binding.backToSignIn.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                view.startAnimation(buttonClick);
-                startActivity(new Intent(GuestActivity.this, SignInActivity.class));
-            }
+        binding.backToSignIn.setOnClickListener(view1 -> {
+            view1.startAnimation(buttonClick);
+            getNavController(this).navigate(
+                    GuestNavDirections.actionGlobalAuthNav2()
+            );
         });
 
         binding.shareCode.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 view.startAnimation(buttonClick);
-                if (TextUtils.isEmpty( binding.codeBox.getText().toString())) {
+                if (TextUtils.isEmpty(binding.codeBox.getText().toString())) {
 //                    codeBox.setError("Enter Meeting Code before sharing!");
 //                    codeBox.requestFocus();
-                    YoYo.with(Techniques.Wave).duration(1200).repeat(0).playOn( binding.shareCode);
+                    YoYo.with(Techniques.Wave).duration(1200).repeat(0).playOn(binding.shareCode);
                 } else {
                     Intent sharingIntent = new Intent(android.content.Intent.ACTION_SEND);
                     sharingIntent.setType("text/plain");
                     String shareBody = "To join the meeting on SkyMeet Conference, please use\n\n"
-                            + "Code: " +  binding.codeBox.getText().toString().trim() + "\n\nDownload SkyMeet:\n\n"
+                            + "Code: " + binding.codeBox.getText().toString().trim() + "\n\nDownload SkyMeet:\n\n"
                             + "Android: https://play.google.com/store/apps/details?id=com.skymeet.videoConference\n\n"
                             + "iOS: An apple a day keeps a doctor away but visiting a lady doctor everyday could be your spouse someday.";
                     sharingIntent.putExtra(android.content.Intent.EXTRA_SUBJECT, "Subject Here");
@@ -174,38 +186,4 @@ public class GuestActivity extends AppCompatActivity {
             }
         });
     }
-
-    private final AlphaAnimation buttonClick = new AlphaAnimation(1F, 0.5F);
-
-    @Override
-    public void onBackPressed() {
-        new AlertDialog.Builder(this)
-                .setIcon(R.drawable.exit_guest)
-                .setTitle("Exit App")
-                .setMessage("Do you want to exit?")
-                .setPositiveButton("Yes", new DialogInterface.OnClickListener() {
-                    @Override
-                    public void onClick(DialogInterface dialog, int which) {
-                        finishAffinity();
-                        finish();
-                    }
-                })
-                .setNegativeButton("No", new DialogInterface.OnClickListener() {
-                    @Override
-                    public void onClick(DialogInterface dialog, int which) {
-                        dialog.dismiss();
-                    }
-                })
-                .setNeutralButton("Rate App", new DialogInterface.OnClickListener() {
-                    @Override
-                    public void onClick(DialogInterface dialog, int which) {
-                        String YourPageURL = "https://play.google.com/store/apps/details?id=com.skymeet.videoConference";
-                        Intent browserIntent = new Intent(Intent.ACTION_VIEW, Uri.parse(YourPageURL));
-                        startActivity(browserIntent);
-                    }
-                })
-                .show();
-
-    }
-
 }
