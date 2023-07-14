@@ -25,9 +25,17 @@ import com.skymeet.videoConference.utils.UiUtils;
 import org.jitsi.meet.sdk.JitsiMeetActivity;
 import org.jitsi.meet.sdk.JitsiMeetConferenceOptions;
 
+import javax.inject.Inject;
+
+import dagger.hilt.android.AndroidEntryPoint;
+
+@AndroidEntryPoint
 public class GuestFragment extends Fragment {
     private FragmentGuestBinding binding;
     private final AlphaAnimation buttonClick = new AlphaAnimation(1F, 0.5F);
+
+    @Inject
+    public JitsiMeetConferenceOptions.Builder jitsiMeetOptionsBuilder;
 
     @Override
     public void onCreate(@Nullable Bundle savedInstanceState) {
@@ -75,15 +83,8 @@ public class GuestFragment extends Fragment {
                     binding.codeBox.requestFocus();
                     YoYo.with(Techniques.Shake).duration(1200).repeat(0).playOn( binding.joinBtn);
                 } else {
-                    JitsiMeetConferenceOptions options
-                            = new JitsiMeetConferenceOptions.Builder()
+                    var options = jitsiMeetOptionsBuilder
                             .setRoom(binding.codeBox.getText().toString().trim())
-                            .setFeatureFlag("welcomepage.enabled", false)
-                            .setFeatureFlag("live-streaming.enabled", false)
-                            .setFeatureFlag("invite.enabled", false)
-                            .setFeatureFlag("video-share.enabled", false)
-                            .setFeatureFlag("overflow-menu.enabled", true)
-                            .setFeatureFlag("fullscreen.enabled", true)
                             .build();
                     JitsiMeetActivity.launch(requireContext(), options);
                 }
