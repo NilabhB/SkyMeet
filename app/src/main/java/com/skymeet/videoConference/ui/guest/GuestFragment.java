@@ -22,12 +22,8 @@ import com.skymeet.videoConference.GuestNavDirections;
 import com.skymeet.videoConference.databinding.FragmentGuestBinding;
 import com.skymeet.videoConference.utils.UiUtils;
 
-import org.jitsi.meet.sdk.JitsiMeet;
 import org.jitsi.meet.sdk.JitsiMeetActivity;
 import org.jitsi.meet.sdk.JitsiMeetConferenceOptions;
-
-import java.net.MalformedURLException;
-import java.net.URL;
 
 public class GuestFragment extends Fragment {
     private FragmentGuestBinding binding;
@@ -68,21 +64,6 @@ public class GuestFragment extends Fragment {
         YoYo.with(Techniques.Landing).duration(1200).repeat(0).playOn(binding.joinBtn);
         YoYo.with(Techniques.Wobble).duration(1200).repeat(0).playOn(binding.shareCode);
         YoYo.with(Techniques.Wobble).duration(1200).repeat(0).playOn(binding.backToSignIn);
-
-        URL serverURL = null;
-        try {
-            serverURL = new URL("https://meet.jit.si");
-        } catch (MalformedURLException e) {
-            e.printStackTrace();
-        }
-
-        JitsiMeetConferenceOptions defaultOptions
-                = new JitsiMeetConferenceOptions.Builder()
-                .setServerURL(serverURL)
-                .build();
-
-        JitsiMeet.setDefaultConferenceOptions(defaultOptions);
-
 
         binding.joinBtn.setOnClickListener(new View.OnClickListener() {
             @Override

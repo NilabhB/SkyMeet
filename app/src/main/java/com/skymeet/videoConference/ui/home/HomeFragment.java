@@ -27,12 +27,8 @@ import com.skymeet.videoConference.R;
 import com.skymeet.videoConference.databinding.FragmentHomeBinding;
 import com.skymeet.videoConference.utils.UiUtils;
 
-import org.jitsi.meet.sdk.JitsiMeet;
 import org.jitsi.meet.sdk.JitsiMeetActivity;
 import org.jitsi.meet.sdk.JitsiMeetConferenceOptions;
-
-import java.net.MalformedURLException;
-import java.net.URL;
 
 import dagger.hilt.android.AndroidEntryPoint;
 
@@ -79,21 +75,6 @@ public class HomeFragment extends Fragment {
         YoYo.with(Techniques.Flash).duration(1200).repeat(0).playOn(binding.logoutText);
 
         subscribeToLiveData();
-
-        URL serverURL = null;
-        try {
-            serverURL = new URL("https://meet.jit.si");
-        } catch (MalformedURLException e) {
-            e.printStackTrace();
-        }
-
-        JitsiMeetConferenceOptions defaultOptions
-                = new JitsiMeetConferenceOptions.Builder()
-                .setServerURL(serverURL)
-                .build();
-
-        JitsiMeet.setDefaultConferenceOptions(defaultOptions);
-
 
         binding.joinBtn.setOnClickListener(new View.OnClickListener() {
             @Override
