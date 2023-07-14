@@ -222,7 +222,7 @@ public class HomeFragment extends Fragment {
     }
 
     private void subscribeToLiveData() {
-        mViewModel.user.observe(this, result -> {
+        mViewModel.user.observe(getViewLifecycleOwner(), result -> {
             if (result == null)
                 return;
             switch (result.getState()) {
