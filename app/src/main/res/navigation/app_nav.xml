@@ -41,9 +41,7 @@
             tools:layout="@layout/fragment_forgot_password" />
         <action
             android:id="@+id/action_global_guest_nav"
-            app:destination="@id/guest_nav"
-            app:popUpTo="@id/auth_nav"
-            app:popUpToInclusive="true" />
+            app:destination="@id/guest_nav" />
         <action
             android:id="@+id/action_global_home_nav"
             app:destination="@id/home_nav"
@@ -69,11 +67,6 @@
             android:name="com.skymeet.videoConference.ui.guest.GuestInfoFragment"
             tools:layout="@layout/fragment_guest_info"
             android:label="GuestInfoFragment" />
-        <action
-            android:id="@+id/action_global_auth_nav2"
-            app:destination="@id/auth_nav"
-            app:popUpTo="@id/guest_nav"
-            app:popUpToInclusive="true" />
 
     </navigation>
 

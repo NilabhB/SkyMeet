@@ -18,7 +18,6 @@ import androidx.fragment.app.Fragment;
 
 import com.daimajia.androidanimations.library.Techniques;
 import com.daimajia.androidanimations.library.YoYo;
-import com.skymeet.videoConference.GuestNavDirections;
 import com.skymeet.videoConference.databinding.FragmentGuestBinding;
 import com.skymeet.videoConference.utils.UiUtils;
 
@@ -100,9 +99,7 @@ public class GuestFragment extends Fragment {
 
         binding.backToSignIn.setOnClickListener(view1 -> {
             view1.startAnimation(buttonClick);
-            getNavController(this).navigate(
-                    GuestNavDirections.actionGlobalAuthNav2()
-            );
+            getNavController(this).navigateUp();
         });
 
         binding.shareCode.setOnClickListener(new View.OnClickListener() {
