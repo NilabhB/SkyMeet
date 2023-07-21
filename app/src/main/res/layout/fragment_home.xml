@@ -4,20 +4,8 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".GuestActivity">
-
-    <TextView
-        android:id="@+id/guestModeBigView"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="@string/guest_mode"
-        android:textColor="#CD69DF"
-        android:textSize="30sp"
-        app:layout_constraintBottom_toTopOf="@+id/videoCall"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.315" />
+    android:paddingStart="4dp"
+    tools:context=".ui.home.HomeFragment">
 
     <ImageView
         android:id="@+id/videoCall"
@@ -29,20 +17,18 @@
         app:layout_constraintHorizontal_bias="0.498"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.75"
-        app:srcCompat="@drawable/video_call2" />
+        app:layout_constraintVertical_bias="0.827"
+        app:srcCompat="@drawable/video_call" />
 
     <TextView
         android:id="@+id/codeEnterGuide"
-        android:layout_width="324dp"
-        android:layout_height="55dp"
+        android:layout_width="301dp"
+        android:layout_height="61dp"
         android:layout_margin="10dp"
-        android:layout_marginBottom="36dp"
         android:gravity="center"
         android:text="@string/create_an_unique_random_code_to_generate_conference_room_and_share_the_code_to_initiate_meeting"
         app:layout_constraintBottom_toTopOf="@+id/codeBox"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.482"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintVertical_bias="1.0" />
@@ -67,14 +53,25 @@
         app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintVertical_bias="0.535" />
 
+    <!--    <com.google.android.material.bottomnavigation.BottomNavigationView-->
+    <!--        android:id="@+id/bottomNavigationView"-->
+    <!--        android:layout_width="match_parent"-->
+    <!--        android:layout_height="wrap_content"-->
+    <!--        app:labelVisibilityMode="labeled"-->
+    <!--        app:layout_constraintBottom_toBottomOf="parent"-->
+    <!--        app:layout_constraintEnd_toEndOf="parent"-->
+    <!--        app:layout_constraintHorizontal_bias="0.0"-->
+    <!--        app:layout_constraintStart_toStartOf="parent"-->
+    <!--        app:layout_constraintTop_toTopOf="parent"-->
+    <!--        app:layout_constraintVertical_bias="1.0"-->
+    <!--        app:menu="@menu/menu" />-->
+
     <Button
         android:id="@+id/joinBtn"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_margin="10dp"
-        android:layout_marginTop="44dp"
         android:layout_weight="1"
-        android:backgroundTint="#CD69DF"
         android:drawableLeft="@drawable/ic_baseline_meeting_24"
         android:padding="15dp"
         android:stateListAnimator="@android:animator/fade_in"
@@ -84,42 +81,70 @@
         app:layout_constraintHorizontal_bias="0.497"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/codeBox"
-        app:layout_constraintVertical_bias="0.196" />
+        app:layout_constraintVertical_bias="0.181" />
+
+    <TextView
+        android:id="@+id/welcomeUser"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="20dp"
+        android:padding="5sp"
+        android:textColor="#00838F"
+        android:textSize="25sp"
+        app:layout_constraintBottom_toTopOf="@+id/videoCall"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.498"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="1.0" />
+
+    <TextView
+        android:id="@+id/logoutText"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:drawableLeft="@drawable/ic_baseline_logout_24"
+        android:drawablePadding="3dp"
+        android:text="Log Out"
+        android:textColor="#E90808"
+        android:textSize="16sp"
+        android:visibility="visible"
+        app:layout_constraintBottom_toTopOf="@+id/followtv"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/joinBtn"
+        app:layout_constraintVertical_bias="0.425" />
+
+    <TextView
+        android:id="@+id/hellotv"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="7dp"
+        android:text="@string/hello"
+        android:textColor="#00838F"
+        android:textSize="30sp"
+        app:layout_constraintBottom_toTopOf="@+id/welcomeUser"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.966" />
 
     <TextView
         android:id="@+id/shareCode"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:drawableLeft="@drawable/ic_baseline_share_guest_24"
+        android:drawableLeft="@drawable/ic_baseline_share_24"
         android:drawablePadding="3dp"
         android:paddingStart="2dp"
         android:paddingEnd="2dp"
         android:text="@string/share_code"
-        android:textColor="#CD69DF"
+        android:textColor="#05B7A5"
         android:textSize="16sp"
         app:layout_constraintBottom_toTopOf="@+id/joinBtn"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.852"
+        app:layout_constraintHorizontal_bias="0.859"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/codeBox"
-        app:layout_constraintVertical_bias="0.25" />
-
-    <TextView
-        android:id="@+id/backToSignIn"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:drawableRight="@drawable/ic_baseline_person_24"
-        android:drawablePadding="4dp"
-        android:text="@string/back_to"
-        android:textAlignment="center"
-        android:textColor="#009688"
-        android:textSize="16sp"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.852"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/shareCode"
-        app:layout_constraintVertical_bias="0.916" />
+        app:layout_constraintVertical_bias="0.285" />
 
     <TextView
         android:id="@+id/followtv"
@@ -131,7 +156,7 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/joinBtn"
-        app:layout_constraintVertical_bias="0.431" />
+        app:layout_constraintVertical_bias="0.597" />
 
     <LinearLayout
         android:id="@+id/linearLayout"
@@ -140,10 +165,9 @@
         android:orientation="horizontal"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.498"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/followtv"
-        app:layout_constraintVertical_bias="0.193">
+        app:layout_constraintVertical_bias="0.315">
 
         <ImageView
             android:id="@+id/facebook"
@@ -165,15 +189,16 @@
     </LinearLayout>
 
     <ImageView
-        android:id="@+id/guestprofileAppInfo"
+        android:id="@+id/profileInfo"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         app:layout_constraintBottom_toTopOf="@+id/codeEnterGuide"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.85"
-        app:layout_constraintStart_toEndOf="@+id/guestModeBigView"
+        app:layout_constraintStart_toEndOf="@+id/hellotv"
         app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintVertical_bias="0.057"
-        app:srcCompat="@drawable/ic_baseline_info_guest_24" />
+        app:srcCompat="@drawable/ic_baseline_info_24" />
+
 
 </androidx.constraintlayout.widget.ConstraintLayout>
