@@ -1,4 +1,4 @@
-package com.skymeet.videoConference;
+package com.skymeet.videoConference.models;
 
 public class User {
     private String name;

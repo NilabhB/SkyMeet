@@ -1,4 +1,4 @@
-package com.skymeet.videoConference;
+package com.skymeet.videoConference.activity;
 
 import static android.content.pm.ActivityInfo.SCREEN_ORIENTATION_PORTRAIT;
 
@@ -14,31 +14,21 @@ import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 
 import com.daimajia.androidanimations.library.Techniques;
 import com.daimajia.androidanimations.library.YoYo;
-import com.google.android.gms.tasks.OnFailureListener;
-import com.google.android.gms.tasks.OnSuccessListener;
-import com.google.firebase.auth.FirebaseAuth;
-import com.google.firebase.auth.FirebaseUser;
-import com.google.firebase.firestore.DocumentReference;
-import com.google.firebase.firestore.DocumentSnapshot;
-import com.google.firebase.firestore.FirebaseFirestore;
-import com.skymeet.videoConference.databinding.ActivityProfileInfoBinding;
+import com.skymeet.videoConference.databinding.ActivityGuestInfoBinding;
 
 import java.util.Objects;
 
-public class ProfileInfoActivity extends AppCompatActivity {
-    FirebaseFirestore database;
-    DocumentReference reference;
+public class GuestInfoActivity extends AppCompatActivity {
 
-    ActivityProfileInfoBinding binding;
+    ActivityGuestInfoBinding binding;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        binding=ActivityProfileInfoBinding.inflate(getLayoutInflater());
+        binding=ActivityGuestInfoBinding.inflate(getLayoutInflater());
         setContentView(binding.getRoot());
         Objects.requireNonNull(getSupportActionBar()).hide();
         setRequestedOrientation(SCREEN_ORIENTATION_PORTRAIT);
@@ -49,29 +39,6 @@ public class ProfileInfoActivity extends AppCompatActivity {
         YoYo.with(Techniques.FlipInX).duration(1200).repeat(3).playOn( binding.instagram);
         YoYo.with(Techniques.FlipInX).duration(1200).repeat(3).playOn( binding.github);
         YoYo.with(Techniques.Pulse).duration(1200).repeat(100).playOn( binding.coffeCup);
-
-        FirebaseUser firebaseUser = FirebaseAuth.getInstance().getCurrentUser();
-
-        database = FirebaseFirestore.getInstance();
-        assert firebaseUser != null;
-        reference = database.collection("Users").document(firebaseUser.getUid());
-        reference.get()
-                .addOnSuccessListener(new OnSuccessListener<DocumentSnapshot>() {
-                    @Override
-                    public void onSuccess(DocumentSnapshot documentSnapshot) {
-                        if (documentSnapshot.exists()) {
-                            binding.welcomeUserInfo.setText("Hi "+ documentSnapshot.getString("name") + ",");
-                            YoYo.with(Techniques.FlipInX).duration(1000).repeat(0).playOn( binding.welcomeUserInfo);
-                        } else {
-                            Toast.makeText(ProfileInfoActivity.this, "Data not found", Toast.LENGTH_SHORT).show();
-                        }
-                    }
-                }).addOnFailureListener(new OnFailureListener() {
-                    @Override
-                    public void onFailure(@NonNull Exception e) {
-                        Toast.makeText(ProfileInfoActivity.this, "Failed to fetch data", Toast.LENGTH_SHORT).show();
-                    }
-                });
 
         binding.facebook.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -130,14 +97,14 @@ public class ProfileInfoActivity extends AppCompatActivity {
             @Override
             public void onClick(View view) {
                 view.startAnimation(buttonClick);
-                    Intent sharingIntent = new Intent(android.content.Intent.ACTION_SEND);
-                    sharingIntent.setType("text/plain");
-                    String shareBody = "Hey,\n" +"I urge you to check this new amazing conferencing app, SkyMeet\n\n"
-                            + "Android: https://play.google.com/store/apps/details?id=com.skymeet.videoConference\n\n"
-                            + "iOS: An apple a day keeps a doctor away but visiting a lady doctor everyday could be your spouse someday.";
-                    sharingIntent.putExtra(android.content.Intent.EXTRA_SUBJECT, "Subject Here");
-                    sharingIntent.putExtra(android.content.Intent.EXTRA_TEXT, shareBody);
-                    startActivity(Intent.createChooser(sharingIntent, "Share App via"));
+                Intent sharingIntent = new Intent(android.content.Intent.ACTION_SEND);
+                sharingIntent.setType("text/plain");
+                String shareBody = "Hey,\n" +"I urge you to check this new amazing conferencing app, SkyMeet\n\n"
+                        + "Android: https://play.google.com/store/apps/details?id=com.skymeet.videoConference\n\n"
+                        + "iOS: An apple a day keeps a doctor away but visiting a lady doctor everyday could be your spouse someday.";
+                sharingIntent.putExtra(android.content.Intent.EXTRA_SUBJECT, "Subject Here");
+                sharingIntent.putExtra(android.content.Intent.EXTRA_TEXT, shareBody);
+                startActivity(Intent.createChooser(sharingIntent, "Share App via"));
 
 
             }

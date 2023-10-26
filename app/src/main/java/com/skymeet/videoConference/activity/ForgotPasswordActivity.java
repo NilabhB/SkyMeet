@@ -1,4 +1,4 @@
-package com.skymeet.videoConference;
+package com.skymeet.videoConference.activity;
 
 import static android.content.pm.ActivityInfo.SCREEN_ORIENTATION_PORTRAIT;
 
@@ -7,10 +7,6 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.util.Patterns;
 import android.view.View;
-import android.widget.Button;
-import android.widget.EditText;
-import android.widget.ImageView;
-import android.widget.TextView;
 import android.widget.Toast;
 
 import androidx.annotation.NonNull;
@@ -22,6 +18,7 @@ import com.daimajia.androidanimations.library.YoYo;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.FirebaseAuth;
+import com.skymeet.videoConference.R;
 import com.skymeet.videoConference.databinding.ActivityForgotPasswordBinding;
 import com.skymeet.videoConference.databinding.ActivityMainBinding;
 
